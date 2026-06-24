@@ -1,7 +1,9 @@
-import { Button } from 'react-bootstrap'
+import AppRoutes from "./routes/AppRoutes";
 
-function App() {
-  return <Button className='m-2 p-3'>online shop</Button>
+export default function App() {
+  return (
+    <>
+      <AppRoutes />
+    </>
+  );
 }
-
-export default App
