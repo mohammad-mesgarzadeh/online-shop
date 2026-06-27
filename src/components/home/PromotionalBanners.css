@@ -1,0 +1,28 @@
+.promo-card {
+  position: relative;
+  min-height: 320px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.promo-card:hover {
+  transform: translateY(-8px);
+}
+
+.promo-men {
+  background: linear-gradient(
+    135deg,
+    #111827,
+    #374151
+  );
+}
+
+.promo-sale {
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #2563eb
+  );
+}
