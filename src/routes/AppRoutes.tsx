@@ -8,8 +8,6 @@ import ProductDetail from "../pages/ProductDetail";
 import Cart from "../pages/Cart";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
-
-// صفحاتی که بعداً می‌سازی
 import Categories from "../pages/Categories";
 import Offers from "../pages/Offers";
 import Blog from "../pages/Blog";
