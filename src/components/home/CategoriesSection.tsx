@@ -1,9 +1,8 @@
 import "./CategoriesSection.css";
-import { Navigation } from "swiper/modules";
+import {  Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
-import "swiper/css/navigation";
 
 export default function CategoriesSection() {
     const categories = [
@@ -93,8 +92,11 @@ export default function CategoriesSection() {
                 </div>
 
                 <Swiper
-                    modules={[Navigation]}
-                    navigation
+                    modules={[ Autoplay]}
+                    autoplay={{
+                        delay: 2000,
+                        disableOnInteraction: false,
+                    }}
                     spaceBetween={20}
                     breakpoints={{
                         320: {
@@ -114,36 +116,36 @@ export default function CategoriesSection() {
                         },
                     }}
                 >
-                  {categories.map((category) => (
-  <SwiperSlide key={category.name}>
-    <div className="card border-0 shadow-sm rounded-4 category-card">
+                    {categories.map((category) => (
+                        <SwiperSlide key={category.name}>
+                            <div className="card border-0 shadow-sm rounded-4 category-card">
 
-      <div className="card-body text-center py-4">
+                                <div className="card-body text-center py-4">
 
-        <div
-          className="rounded-circle overflow-hidden mx-auto mb-3"
-          style={{
-            width: "90px",
-            height: "90px",
-          }}
-        >
-          <img
-            src={category.image}
-            alt={category.name}
-            className="w-100 h-100"
-            style={{ objectFit: "cover" }}
-          />
-        </div>
+                                    <div
+                                        className="rounded-circle overflow-hidden mx-auto mb-3"
+                                        style={{
+                                            width: "90px",
+                                            height: "90px",
+                                        }}
+                                    >
+                                        <img
+                                            src={category.image}
+                                            alt={category.name}
+                                            className="w-100 h-100"
+                                            style={{ objectFit: "cover" }}
+                                        />
+                                    </div>
 
-        <h6 className="mb-0 fw-semibold">
-          {category.name}
-        </h6>
+                                    <h6 className="mb-0 fw-semibold">
+                                        {category.name}
+                                    </h6>
 
-      </div>
+                                </div>
 
-    </div>
-  </SwiperSlide>
-))}
+                            </div>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
 
             </div>
