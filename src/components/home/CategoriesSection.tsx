@@ -1,6 +1,8 @@
 import "./CategoriesSection.css";
-import {  Autoplay } from "swiper/modules";
+import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Link } from "react-router-dom";
+
 
 import "swiper/css";
 
@@ -86,13 +88,13 @@ export default function CategoriesSection() {
                         دسته بندی های محبوب
                     </h4>
 
-                    <button className="btn btn-link text-decoration-none">
+                    <Link to="/categories" className="btn btn-outline-dark rounded-pill px-4">
                         مشاهده همه
-                    </button>
+                    </Link>
                 </div>
 
                 <Swiper
-                    modules={[ Autoplay]}
+                    modules={[Autoplay]}
                     autoplay={{
                         delay: 2000,
                         disableOnInteraction: false,

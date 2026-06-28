@@ -1,19 +1,45 @@
 .swiper {
-  padding: 10px 5px 50px;
+  padding: 20px 10px 50px;
+}
+
+.swiper-slide {
+  height: auto;
 }
 
 .swiper-button-next,
 .swiper-button-prev {
-  width: 45px !important;
-  height: 45px !important;
-  background: #fff;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+  color: #000;
+  transition: all 0.3s ease;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  transform: scale(1.08);
 }
 
 .swiper-button-next::after,
 .swiper-button-prev::after {
-  font-size: 16px !important;
+  font-size: 18px;
   font-weight: 700;
-  color: #6f42c1;
+}
+
+.swiper-button-disabled {
+  opacity: 0.5;
+}
+
+.badge {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none;
+  }
 }

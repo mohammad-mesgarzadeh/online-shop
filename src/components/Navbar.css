@@ -1,0 +1,22 @@
+.navbar .dropdown:hover .dropdown-menu {
+  display: block;
+  animation: fadeDown 0.25s ease;
+}
+
+.dropdown-menu {
+  right: 0;
+  left: 0;
+  top: 100%;
+}
+
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
