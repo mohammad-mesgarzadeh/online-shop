@@ -16,7 +16,7 @@ export default function Footer() {
 
               <li className="d-flex align-items-center gap-2">
                 <i className="bi bi-envelope fs-5 text-secondary"></i>
-                <span>info@shopino.com</span>
+                <span>info@vesta-shop.com</span>
               </li>
 
               <li className="d-flex align-items-center gap-2">
@@ -52,10 +52,10 @@ export default function Footer() {
 
           {/* About */}
           <div className="col-12 col-md-6 col-lg-3">
-            <h5 className="fw-bold mb-4">درباره شاپینو</h5>
+            <h5 className="fw-bold mb-4">درباره وستا</h5>
 
             <p className="text-secondary small lh-lg">
-              شاپینو بزرگترین فروشگاه آنلاین لوازم خانگی و
+              وستا بزرگترین فروشگاه آنلاین لوازم خانگی و
               گجت‌های دیجیتال با بهترین کیفیت و مناسب‌ترین قیمت.
             </p>
 
@@ -102,7 +102,7 @@ export default function Footer() {
       {/* Copyright */}
       <div className="border-top py-3">
         <div className="container text-center text-secondary small">
-          تمامی حقوق این وبسایت متعلق به شاپینو می‌باشد.
+          تمامی حقوق این وبسایت متعلق به وستا می‌باشد.
         </div>
       </div>
     </footer>

@@ -1,9 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import "./Navbar.css";
 
 export default function Navbar() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [scrolled, setScrolled] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,84 +25,78 @@ export default function Navbar() {
     }
   };
 
-  return (
-    <nav className="navbar navbar-expand-xl bg-white border-bottom sticky-top shadow-sm">
-      <div className="container py-1">
+  const navLinkClass = ({ isActive }: { isActive: boolean }) =>
+    `nav-link fw-medium px-3 py-2 rounded-2 ${isActive ? "nav-link-active" : "nav-link-inactive"}`;
 
-        {/* Logo */}
-        <Link to="/" className="navbar-brand d-flex align-items-center gap-2 text-decoration-none">
-          <div
-            className="d-flex align-items-center justify-content-center rounded-3 text-white fs-5"
-            style={{ width: 36, height: 36, background: "linear-gradient(135deg,#6C63FF,#a78bfa)" }}
-          >
-            🛍️
-          </div>
-          <span className="fw-bold fs-5 text-dark">
-            شاپی<span className="text-primary">نو</span>
-          </span>
+  return (
+    <nav
+      className={`navbar navbar-expand-xl bg-white sticky-top${scrolled ? " shadow-sm" : ""}`}
+    >
+      <div className="container">
+        {/* Brand Logo */}
+        <Link
+          to="/"
+          className="navbar-brand d-flex align-items-center gap-2 py-2 text-decoration-none"
+        >
+          <span className="brand-icon" />
+          <span className="brand-text">VESTA</span>
         </Link>
 
         {/* Mobile Toggle */}
         <button
-          className="navbar-toggler d-xl-none border rounded-3"
+          className="navbar-toggler border-0"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#shopinoNav"
-          aria-controls="shopinoNav"
+          data-bs-target="#vestaNav"
+          aria-controls="vestaNav"
           aria-expanded="false"
+          aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
 
-        <div className="collapse navbar-collapse" id="shopinoNav">
-
+        <div className="collapse navbar-collapse" id="vestaNav">
           {/* Nav Links */}
-          <ul className="navbar-nav mx-auto gap-1 my-2 my-xl-0" style={{ direction: "rtl" }}>
+          <ul className="navbar-nav mx-auto gap-1 my-3 my-xl-0">
             <li className="nav-item">
-              <NavLink to="/" end className={({ isActive }) =>
-                `nav-link fw-medium px-3 rounded-2 ${isActive ? "text-primary bg-primary bg-opacity-10" : "text-secondary"}`
-              }>خانه</NavLink>
+              <NavLink to="/" end className={navLinkClass}>
+                خانه
+              </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/products" className={({ isActive }) =>
-                `nav-link fw-medium px-3 rounded-2 ${isActive ? "text-primary bg-primary bg-opacity-10" : "text-secondary"}`
-              }>فروشگاه</NavLink>
+              <NavLink to="/products" className={navLinkClass}>
+                فروشگاه
+              </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/categories" className={({ isActive }) =>
-                `nav-link fw-medium px-3 rounded-2 ${isActive ? "text-primary bg-primary bg-opacity-10" : "text-secondary"}`
-              }>دسته‌بندی‌ها</NavLink>
+              <NavLink to="/categories" className={navLinkClass}>
+                دسته‌بندی‌ها
+              </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/offers" className={({ isActive }) =>
-                `nav-link fw-medium px-3 rounded-2 ${isActive ? "text-primary bg-primary bg-opacity-10" : "text-secondary"}`
-              }>پیشنهاد ویژه</NavLink>
+              <NavLink to="/offers" className={navLinkClass}>
+                پیشنهاد ویژه
+              </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/blog" className={({ isActive }) =>
-                `nav-link fw-medium px-3 rounded-2 ${isActive ? "text-primary bg-primary bg-opacity-10" : "text-secondary"}`
-              }>وبلاگ</NavLink>
+              <NavLink to="/blog" className={navLinkClass}>
+                وبلاگ
+              </NavLink>
             </li>
           </ul>
 
           {/* Search + Actions */}
           <div className="d-flex flex-column flex-xl-row align-items-stretch align-items-xl-center gap-2 mt-2 mt-xl-0">
-
             {/* Search */}
             <form onSubmit={handleSearch}>
-              <div className="input-group" style={{ direction: "rtl" }}>
-                <button
-                  type="submit"
-                  className="input-group-text bg-light border-0 rounded-end-3"
-                  style={{ cursor: "pointer" }}
-                >
-                  <i className="bi bi-search text-secondary"></i>
+              <div className="input-group search-group">
+                <button type="submit" className="search-btn">
+                  <i className="bi bi-search" />
                 </button>
                 <input
                   type="text"
-                  className="form-control bg-light border-0 rounded-start-3"
-                  placeholder="جستجو در محصولات..."
-                  style={{ direction: "rtl", minWidth: 0 }}
+                  className="form-control search-input"
+                  placeholder="جستجوی محصولات..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -102,42 +106,20 @@ export default function Navbar() {
             {/* Login */}
             <Link
               to="/login"
-              className="btn btn-outline-secondary rounded-3 d-flex align-items-center justify-content-center gap-2 fw-medium"
-              style={{ whiteSpace: "nowrap" }}
+              className="btn btn-outline-primary d-flex align-items-center justify-content-center gap-2 fw-medium px-3 action-btn"
             >
-              <i className="bi bi-person"></i>
-              ورود / ثبت‌نام
+              <i className="bi bi-person fs-5" />
+              <span className="d-none d-sm-inline">ورود</span>
             </Link>
 
             {/* Cart */}
             <Link
               to="/cart"
-              className="btn btn-primary rounded-3 d-flex align-items-center justify-content-center gap-2 fw-medium position-relative"
+              className="btn btn-primary d-flex align-items-center justify-content-center gap-2 fw-medium px-3 position-relative action-btn"
             >
-              <i className="bi bi-bag"></i>
-
-              <span className="d-xl-none">سبد خرید</span>
-
-              <span
-                className="
-      position-absolute
-      top-0
-      start-0
-      translate-middle
-      badge
-      bg-danger
-      rounded-circle
-      d-inline-flex
-      align-items-center
-      justify-content-center
-      p-0
-    "
-                style={{
-                  width: "20px",
-                  height: "20px",
-                  fontSize: "11px",
-                }}
-              >
+              <i className="bi bi-bag fs-5" />
+              <span className="d-none d-sm-inline">سبد خرید</span>
+              <span className="cart-badge position-absolute top-0 start-0 translate-middle">
                 0
               </span>
             </Link>

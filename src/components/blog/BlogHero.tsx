@@ -12,7 +12,7 @@ export default function BlogHero() {
         >
 
           <span className="badge bg-primary mb-3">
-            وبلاگ شاپینو
+            وبلاگ وستا
           </span>
 
           <h1 className="fw-bold mb-3">
