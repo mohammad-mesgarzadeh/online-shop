@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function PromotionalBanners() {
   const cards = [
     {
@@ -5,6 +7,7 @@ export default function PromotionalBanners() {
       title: "کالکشن مردانه ۲۰۲۶",
       desc: "جدیدترین هودی‌ها، تیشرت‌ها و لباس‌های استریت استایل",
       cta: "مشاهده محصولات",
+      link: "/products",
       img: "https://images.unsplash.com/photo-1617137968427-85924c800a22?w=600&q=80",
       gradientClass: "promo-men",
     },
@@ -13,6 +16,7 @@ export default function PromotionalBanners() {
       title: "حراج پایان فصل",
       desc: "روی صدها محصول تا ۵۰٪ تخفیف دریافت کنید",
       cta: "خرید با تخفیف",
+      link: "/offers",
       img: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80",
       gradientClass: "promo-sale",
     },
@@ -83,9 +87,9 @@ export default function PromotionalBanners() {
                       {c.desc}
                     </p>
 
-                    <button className="btn btn-light promo-cta px-4 py-2">
+                    <Link to={c.link} className="btn btn-light promo-cta px-4 py-2">
                       {c.cta}
-                    </button>
+                    </Link>
                   </div>
 
                   {/* Image */}

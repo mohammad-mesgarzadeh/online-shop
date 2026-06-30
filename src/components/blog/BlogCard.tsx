@@ -1,17 +1,26 @@
+import { useNavigate } from "react-router-dom";
+
 type Props = {
+  id: string;
   title: string;
   image: string;
   date: string;
 };
 
 export default function BlogCard({
+  id,
   title,
   image,
   date,
 }: Props) {
-  return (
-    <div className="card border-0 shadow-sm rounded-5 h-100">
+  const navigate = useNavigate();
 
+  return (
+    <div
+      className="card border-0 shadow-sm rounded-5 h-100"
+      style={{ cursor: "pointer" }}
+      onClick={() => navigate(`/blog/${id}`)}
+    >
       <img
         src={image}
         alt={title}
@@ -23,7 +32,6 @@ export default function BlogCard({
       />
 
       <div className="card-body">
-
         <small className="text-muted">
           {date}
         </small>
@@ -32,12 +40,16 @@ export default function BlogCard({
           {title}
         </h5>
 
-        <button className="btn btn-link px-0">
+        <button
+          className="btn btn-link px-0"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/blog/${id}`);
+          }}
+        >
           ادامه مطلب
         </button>
-
       </div>
-
     </div>
   );
 }

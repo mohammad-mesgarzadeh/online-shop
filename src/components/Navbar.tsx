@@ -1,6 +1,20 @@
-import { Link, NavLink } from "react-router-dom";
+import { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const trimmed = searchTerm.trim();
+    if (trimmed) {
+      navigate(`/products?search=${encodeURIComponent(trimmed)}`);
+    } else {
+      navigate("/products");
+    }
+  };
+
   return (
     <nav className="navbar navbar-expand-xl bg-white border-bottom sticky-top shadow-sm">
       <div className="container py-1">
@@ -65,17 +79,25 @@ export default function Navbar() {
           <div className="d-flex flex-column flex-xl-row align-items-stretch align-items-xl-center gap-2 mt-2 mt-xl-0">
 
             {/* Search */}
-            <div className="input-group" style={{ direction: "rtl" }}>
-              <span className="input-group-text bg-light border-0 rounded-end-3">
-                <i className="bi bi-search text-secondary"></i>
-              </span>
-              <input
-                type="text"
-                className="form-control bg-light border-0 rounded-start-3"
-                placeholder="جستجو در محصولات..."
-                style={{ direction: "rtl", minWidth: 0 }}
-              />
-            </div>
+            <form onSubmit={handleSearch}>
+              <div className="input-group" style={{ direction: "rtl" }}>
+                <button
+                  type="submit"
+                  className="input-group-text bg-light border-0 rounded-end-3"
+                  style={{ cursor: "pointer" }}
+                >
+                  <i className="bi bi-search text-secondary"></i>
+                </button>
+                <input
+                  type="text"
+                  className="form-control bg-light border-0 rounded-start-3"
+                  placeholder="جستجو در محصولات..."
+                  style={{ direction: "rtl", minWidth: 0 }}
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+              </div>
+            </form>
 
             {/* Login */}
             <Link
@@ -123,8 +145,5 @@ export default function Navbar() {
         </div>
       </div>
     </nav>
-
   );
 }
-
-

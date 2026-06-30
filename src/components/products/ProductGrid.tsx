@@ -1,25 +1,41 @@
 import ProductCard from "../ProductCard";
 
-export default function ProductGrid() {
-  const products = Array(12).fill({
-    title: "هودی مردانه",
-    price: "890,000 تومان",
-    image:
-      "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",
-  });
+export type ProductGridItem = {
+  id: string;
+  title: string;
+  category: string;
+  price: number;
+  image: string;
+  sold: number;
+  createdAt: string;
+  discount?: number;
+};
+
+type ProductGridProps = {
+  products: ProductGridItem[];
+};
+
+export default function ProductGrid({
+  products,
+}: ProductGridProps) {
+  if (products.length === 0) return null;
 
   return (
     <div className="row g-4">
-
-      {products.map((product, index) => (
+      {products.map((product) => (
         <div
-          key={index}
+          key={product.id}
           className="col-md-6 col-xl-4"
         >
-          <ProductCard {...product} />
+          <ProductCard
+            id={product.id}
+            title={product.title}
+            price={`${product.price.toLocaleString()} تومان`}
+            image={product.image}
+            discount={product.discount}
+          />
         </div>
       ))}
-
     </div>
   );
 }

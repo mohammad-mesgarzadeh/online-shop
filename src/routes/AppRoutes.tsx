@@ -9,8 +9,10 @@ import Cart from "../pages/Cart";
 import Login from "../pages/Login";
 import NotFound from "../pages/NotFound";
 import Categories from "../pages/Categories";
+import CategoryProducts from "../pages/CategoryProducts";
 import Offers from "../pages/Offers";
 import Blog from "../pages/Blog";
+import BlogDetail from "../pages/BlogDetail";
 
 export default function AppRoutes() {
   return (
@@ -22,8 +24,11 @@ export default function AppRoutes() {
         <Route path="/products/:id" element={<ProductDetail />} />
 
         <Route path="/categories" element={<Categories />} />
+        <Route path="/categories/:slug" element={<CategoryProducts />} />
+
         <Route path="/offers" element={<Offers />} />
         <Route path="/blog" element={<Blog />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
 
         <Route path="/cart" element={<Cart />} />
       </Route>

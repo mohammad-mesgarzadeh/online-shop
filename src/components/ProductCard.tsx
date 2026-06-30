@@ -1,44 +1,60 @@
-import "./ProductCard.css";
+import { useNavigate } from "react-router-dom";
+
 type ProductCardProps = {
-    title: string;
-    price: string;
-    image: string;
+  id: string;
+  title: string;
+  price: string;
+  image: string;
+  discount?: number;
 };
 
-export default function ProductCard({
-    title,
-    price,
-    image,
-}: ProductCardProps) {
-    return (
-        <div className="card border-0 shadow-sm rounded-4 h-100 product-card">
+export default function ProductCard({ id, title, price, image, discount }: ProductCardProps) {
+  const navigate = useNavigate();
 
-            <img
-                src={image}
-                alt={title}
-                className="card-img-top p-4"
-            />
+  return (
+    <div
+      className="card border-0 shadow-sm rounded-4 h-100 overflow-hidden"
+      style={{ cursor: "pointer" }}
+      onClick={() => navigate(`/products/${id}`)}
+    >
+      <div
+        style={{
+          height: "250px",
+          overflow: "hidden",
+          position: "relative",
+        }}
+      >
+        {discount ? (
+          <span
+            className="badge bg-danger position-absolute top-0 start-0 m-2"
+            style={{ zIndex: 2 }}
+          >
+            {discount}%-
+          </span>
+        ) : null}
+        <img
+          src={image}
+          alt={title}
+          className="w-100 h-100"
+          style={{ objectFit: "cover" }}
+        />
+      </div>
 
-            <div className="card-body">
+      <div className="card-body d-flex flex-column">
+        <h6 className="fw-bold mb-2">{title}</h6>
 
-                <h6 className="card-title">
-                    {title}
-                </h6>
+        <p className="text-primary fw-bold mb-0">{price}</p>
 
-                <div className="text-warning mb-2">
-                    ★★★★★
-                </div>
-
-                <p className="fw-bold text-primary">
-                    {price}
-                </p>
-
-                <button className="btn btn-outline-primary w-100">
-                    <i className="bi bi-cart-plus"></i>
-                </button>
-
-            </div>
-
-        </div>
-    );
+        <button
+          className="btn btn-outline-primary rounded-pill mt-2"
+          onClick={(e) => {
+            e.stopPropagation();
+            navigate(`/products/${id}`);
+          }}
+        >
+          مشاهده محصول
+        </button>
+      </div>
+    </div>
+  );
 }

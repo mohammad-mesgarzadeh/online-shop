@@ -10,7 +10,6 @@ export default function Offers() {
       <Countdown />
       <FlashSale />
       <OfferBanner />
-      <FlashSale />
     </>
   );
 }
