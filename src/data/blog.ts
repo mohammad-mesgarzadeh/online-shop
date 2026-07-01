@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 export interface BlogArticle {
   id: string;
   title: string;
@@ -13,7 +11,7 @@ export interface BlogArticle {
 
 export const blogArticles: BlogArticle[] = [
   {
-    id: uuidv4(),
+    id: "1",
     title: "چگونه لباس مناسب اندام خود انتخاب کنیم؟",
     image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800",
     date: "12 خرداد 1405",
@@ -49,7 +47,7 @@ export const blogArticles: BlogArticle[] = [
     author: "تیم تحریریه وستا",
   },
   {
-    id: uuidv4(),
+    id: "2",
     title: "راهنمای خرید کفش اسپرت",
     image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800",
     date: "10 خرداد 1405",
@@ -84,7 +82,7 @@ export const blogArticles: BlogArticle[] = [
     author: "تیم تحریریه وستا",
   },
   {
-    id: uuidv4(),
+    id: "3",
     title: "اکسسوری‌های ضروری برای استایل مردانه",
     image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=800",
     date: "8 خرداد 1405",
@@ -113,7 +111,7 @@ export const blogArticles: BlogArticle[] = [
     author: "تیم تحریریه وستا",
   },
   {
-    id: uuidv4(),
+    id: "4",
     title: "بهترین رنگ‌های لباس تابستانی",
     image: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=800",
     date: "5 خرداد 1405",
@@ -147,7 +145,7 @@ export const blogArticles: BlogArticle[] = [
     author: "تیم تحریریه وستا",
   },
   {
-    id: uuidv4(),
+    id: "5",
     title: "ترندهای مد و پوشاک ۲۰۲۶",
     image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800",
     date: "1 خرداد 1405",
@@ -174,7 +172,7 @@ export const blogArticles: BlogArticle[] = [
     author: "تیم تحریریه وستا",
   },
   {
-    id: uuidv4(),
+    id: "6",
     title: "راهنمای نگهداری از لباس‌های باکیفیت",
     image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800",
     date: "25 اردیبهشت 1405",
