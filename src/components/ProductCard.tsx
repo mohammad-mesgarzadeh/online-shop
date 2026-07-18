@@ -14,8 +14,16 @@ export default function ProductCard({ id, title, price, image, discount }: Produ
   return (
     <div
       className="card border-0 shadow-sm rounded-4 h-100 overflow-hidden"
+      role="button"
+      tabIndex={0}
       style={{ cursor: "pointer" }}
       onClick={() => navigate(`/products/${id}`)}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          navigate(`/products/${id}`);
+        }
+      }}
     >
       <div
         style={{
@@ -45,7 +53,7 @@ export default function ProductCard({ id, title, price, image, discount }: Produ
 
         <p className="text-primary fw-bold mb-0">{price}</p>
 
-        <button
+        <span
           className="btn btn-outline-primary rounded-pill mt-2"
           onClick={(e) => {
             e.stopPropagation();
@@ -53,7 +61,7 @@ export default function ProductCard({ id, title, price, image, discount }: Produ
           }}
         >
           مشاهده محصول
-        </button>
+        </span>
       </div>
     </div>
   );

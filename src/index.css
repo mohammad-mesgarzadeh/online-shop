@@ -36,3 +36,65 @@ body::before {
   pointer-events: none;
   z-index: -1;
 }
+
+/* ===========================
+   Product Detail Gallery
+   =========================== */
+
+.product-detail-gallery {
+  height: 500px;
+}
+
+@media (max-width: 991.98px) {
+  .product-detail-gallery {
+    height: 400px;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .product-detail-gallery {
+    height: 300px;
+  }
+}
+
+/* ===========================
+   Quantity Selector
+   =========================== */
+
+.quantity-selector {
+  border-color: #e2e8f0;
+}
+
+.quantity-selector .btn {
+  color: #6C63FF;
+  font-weight: 600;
+}
+
+.quantity-selector .btn:hover {
+  background: rgba(108, 99, 255, 0.08);
+}
+
+.quantity-selector .btn:disabled {
+  color: #cbd5e1;
+}
+
+/* ===========================
+   Scrollbar Custom
+   =========================== */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}

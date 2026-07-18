@@ -9,4 +9,14 @@ export const ROUTES = {
   BLOG_DETAIL: "/blog/:id",
   CART: "/cart",
   LOGIN: "/login",
-};
+  REGISTER: "/register",
+  CHECKOUT: "/checkout",
+  ORDER_CONFIRMATION: "/order-confirmation/:id",
+  ACCOUNT: "/account",
+  ACCOUNT_PROFILE: "/account/profile",
+  ACCOUNT_EDIT_PROFILE: "/account/edit-profile",
+  ACCOUNT_ORDERS: "/account/orders",
+  ACCOUNT_ORDER_DETAIL: "/account/orders/:id",
+  ACCOUNT_WISHLIST: "/account/wishlist",
+  ACCOUNT_SETTINGS: "/account/settings",
+} as const;

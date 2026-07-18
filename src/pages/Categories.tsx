@@ -30,9 +30,9 @@ export default function Categories() {
 
                     <div className="card-body text-center">
                       <h5 className="fw-bold text-dark">{cat.label}</h5>
-                      <button className="btn btn-outline-primary rounded-pill">
+                      <span className="btn btn-outline-primary rounded-pill">
                         مشاهده محصولات
-                      </button>
+                      </span>
                     </div>
                   </div>
                 </Link>

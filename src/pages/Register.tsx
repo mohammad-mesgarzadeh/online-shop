@@ -1,23 +1,30 @@
-import { useState, useRef, useEffect, useCallback } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "../context/AuthContext";
 import "./Auth.css";
 
-const loginSchema = z.object({
-  email: z.email("ایمیل معتبر وارد کنید"),
-  password: z.string().min(6, "رمز عبور حداقل ۶ کاراکتر باشد"),
-});
+const registerSchema = z
+  .object({
+    name: z.string().min(3, "نام حداقل ۳ کاراکتر باشد"),
+    email: z.email("ایمیل معتبر وارد کنید"),
+    password: z.string().min(6, "رمز عبور حداقل ۶ کاراکتر باشد"),
+    confirmPassword: z.string(),
+  })
+  .refine((d) => d.password === d.confirmPassword, {
+    message: "رمزهای عبور مطابقت ندارند",
+    path: ["confirmPassword"],
+  });
 
-type LoginForm = z.infer<typeof loginSchema>;
+type RegisterForm = z.infer<typeof registerSchema>;
 
-export default function Login() {
-  const { login, isLoading } = useAuth();
+export default function Register() {
+  const { register: registerUser, isLoading } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirm, setShowConfirm] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const mountedRef = useRef(true);
@@ -26,33 +33,29 @@ export default function Login() {
     return () => { mountedRef.current = false; };
   }, []);
 
-  const from = (location.state as { from?: string })?.from || "/";
-
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LoginForm>({
-    resolver: zodResolver(loginSchema),
-    defaultValues: { email: "", password: "" },
+  } = useForm<RegisterForm>({
+    resolver: zodResolver(registerSchema),
+    defaultValues: { name: "", email: "", password: "", confirmPassword: "" },
   });
 
-  const onSubmit = async (data: LoginForm) => {
+  const onSubmit = async (data: RegisterForm) => {
     setError("");
     setSuccess(false);
-    const ok = await login(data.email, data.password, true);
+    const ok = await registerUser(data.name, data.email, data.password);
     if (!mountedRef.current) return;
     if (ok) {
       setSuccess(true);
       setTimeout(() => {
-        if (mountedRef.current) navigate(from, { replace: true });
+        if (mountedRef.current) navigate("/", { replace: true });
       }, 600);
     } else {
-      setError("ایمیل یا رمز عبور اشتباه است");
+      setError("ایمیل قبلاً ثبت شده است");
     }
   };
-
-  const handleFormSubmit = useCallback(handleSubmit(onSubmit), [handleSubmit, onSubmit]);
 
   return (
     <section className="auth-page" dir="rtl">
@@ -63,8 +66,8 @@ export default function Login() {
               <span className="brand-icon" />
               <span className="brand-text">VESTA</span>
             </Link>
-            <h2 className="auth-title">ورود به حساب کاربری</h2>
-            <p className="auth-subtitle">خوش آمدید! برای ادامه وارد شوید</p>
+            <h2 className="auth-title">ایجاد حساب کاربری</h2>
+            <p className="auth-subtitle">به خانواده VESTA خوش آمدید</p>
           </div>
 
           {error && (
@@ -77,12 +80,26 @@ export default function Login() {
           {success && (
             <div className="auth-alert auth-alert-success">
               <i className="bi bi-check-circle-fill" />
-              <span>ورود موفقیت‌آمیز بود!</span>
+              <span>ثبت نام موفقیت‌آمیز بود!</span>
             </div>
           )}
 
           {/* eslint-disable-next-line react-hooks/refs */}
           <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
+            <div className="auth-field">
+              <label className="auth-label">نام و نام خانوادگی</label>
+              <div className="auth-input-wrapper">
+                <i className="bi bi-person auth-input-icon" />
+                <input
+                  type="text"
+                  className={`auth-input ${errors.name ? "auth-input-error" : ""}`}
+                  placeholder="نام خود را وارد کنید"
+                  {...register("name")}
+                />
+              </div>
+              {errors.name && <span className="auth-error">{errors.name.message}</span>}
+            </div>
+
             <div className="auth-field">
               <label className="auth-label">ایمیل</label>
               <div className="auth-input-wrapper">
@@ -105,7 +122,7 @@ export default function Login() {
                 <input
                   type={showPassword ? "text" : "password"}
                   className={`auth-input ${errors.password ? "auth-input-error" : ""}`}
-                  placeholder="رمز عبور خود را وارد کنید"
+                  placeholder="حداقل ۶ کاراکتر"
                   {...register("password")}
                 />
                 <button
@@ -120,12 +137,37 @@ export default function Login() {
               {errors.password && <span className="auth-error">{errors.password.message}</span>}
             </div>
 
-            <div className="d-flex justify-content-between align-items-center mb-4">
+            <div className="auth-field">
+              <label className="auth-label">تکرار رمز عبور</label>
+              <div className="auth-input-wrapper">
+                <i className="bi bi-lock-fill auth-input-icon" />
+                <input
+                  type={showConfirm ? "text" : "password"}
+                  className={`auth-input ${errors.confirmPassword ? "auth-input-error" : ""}`}
+                  placeholder="رمز عبور را مجدداً وارد کنید"
+                  {...register("confirmPassword")}
+                />
+                <button
+                  type="button"
+                  className="auth-toggle-password"
+                  onClick={() => setShowConfirm(!showConfirm)}
+                  tabIndex={-1}
+                >
+                  <i className={`bi ${showConfirm ? "bi-eye-slash" : "bi-eye"}`} />
+                </button>
+              </div>
+              {errors.confirmPassword && (
+                <span className="auth-error">{errors.confirmPassword.message}</span>
+              )}
+            </div>
+
+            <div className="mb-4">
               <label className="auth-checkbox">
-                <input type="checkbox" defaultChecked />
-                <span>مرا به خاطر بسپار</span>
+                <input type="checkbox" required />
+                <span>
+                  <span className="text-primary text-decoration-underline" style={{ cursor: "pointer" }}>قوانین و مقررات</span> را مطالعه کرده و می‌پذیرم
+                </span>
               </label>
-              <button type="button" className="auth-link-btn">فراموشی رمز عبور</button>
             </div>
 
             <button
@@ -136,21 +178,21 @@ export default function Login() {
               {isLoading ? (
                 <>
                   <span className="spinner-border spinner-border-sm ms-2" />
-                  در حال ورود...
+                  در حال ثبت نام...
                 </>
               ) : (
                 <>
-                  <i className="bi bi-box-arrow-in-left ms-2" />
-                  ورود
+                  <i className="bi bi-person-plus ms-2" />
+                  ثبت نام
                 </>
               )}
             </button>
           </form>
 
           <div className="auth-footer">
-            <span className="text-muted">حساب کاربری ندارید؟</span>
-            <Link to="/register" className="auth-link-btn fw-bold">
-              ثبت نام کنید
+            <span className="text-muted">حساب کاربری دارید؟</span>
+            <Link to="/login" className="auth-link-btn fw-bold">
+              وارد شوید
             </Link>
           </div>
 

@@ -50,7 +50,7 @@ export default function CategoryProducts() {
             style={{ objectFit: "cover" }}
           />
           <div
-            className="position-absolute inset-0 d-flex align-items-center justify-content-center"
+            className="position-absolute d-flex align-items-center justify-content-center"
             style={{
               inset: 0,
               background: "rgba(0,0,0,0.4)",

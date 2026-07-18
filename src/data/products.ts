@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
-
 export interface ProductItem {
   id: string;
   title: string;
@@ -16,7 +14,7 @@ export interface ProductItem {
 
 export const products: ProductItem[] = [
   {
-    id: uuidv4(),
+    id: "prod-001",
     title: "هودی مردانه",
     category: "hoodie",
     categoryLabel: "هودی",
@@ -29,7 +27,7 @@ export const products: ProductItem[] = [
     discount: 25,
   },
   {
-    id: uuidv4(),
+    id: "prod-002",
     title: "تیشرت سفید",
     category: "tshirt",
     categoryLabel: "تیشرت",
@@ -40,7 +38,7 @@ export const products: ProductItem[] = [
     description: "تیشرت سفید ساده و شیک از جنس نخ پنبه، مناسب برای استایل روزمره.",
   },
   {
-    id: uuidv4(),
+    id: "prod-003",
     title: "کت جین",
     category: "jacket",
     categoryLabel: "کاپشن",
@@ -53,7 +51,7 @@ export const products: ProductItem[] = [
     discount: 25,
   },
   {
-    id: uuidv4(),
+    id: "prod-004",
     title: "کفش اسپرت",
     category: "kafsh",
     categoryLabel: "کفش اسپرت",
@@ -66,7 +64,7 @@ export const products: ProductItem[] = [
     discount: 22,
   },
   {
-    id: uuidv4(),
+    id: "prod-005",
     title: "پیراهن مردانه",
     category: "shirt",
     categoryLabel: "پیراهن",
@@ -77,7 +75,7 @@ export const products: ProductItem[] = [
     description: "پیراهن مردانه آستین بلند، مناسب برای محیط کار و مجالس رسمی.",
   },
   {
-    id: uuidv4(),
+    id: "prod-006",
     title: "شلوار جین",
     category: "jeans",
     categoryLabel: "شلوار جین",
@@ -88,7 +86,7 @@ export const products: ProductItem[] = [
     description: "شلوار جین اسلیم فیت با رنگ ثابت و دوخت مقاوم.",
   },
   {
-    id: uuidv4(),
+    id: "prod-007",
     title: "کیف زنانه",
     category: "bag",
     categoryLabel: "کیف",
@@ -101,7 +99,7 @@ export const products: ProductItem[] = [
     discount: 23,
   },
   {
-    id: uuidv4(),
+    id: "prod-008",
     title: "ساعت مچی",
     category: "watch",
     categoryLabel: "ساعت",
@@ -112,7 +110,7 @@ export const products: ProductItem[] = [
     description: "ساعت مچی با طراحی کلاسیک و بند چرمی با کیفیت.",
   },
   {
-    id: uuidv4(),
+    id: "prod-009",
     title: "عینک آفتابی",
     category: "glasses",
     categoryLabel: "عینک",
@@ -123,7 +121,7 @@ export const products: ProductItem[] = [
     description: "عینک آفتابی با فریم فلزی و لنز UV400، محافظ چشم در برابر اشعه مضر خورشید.",
   },
   {
-    id: uuidv4(),
+    id: "prod-010",
     title: "کلاه بیسبالی",
     category: "hat",
     categoryLabel: "کلاه",
@@ -134,7 +132,7 @@ export const products: ProductItem[] = [
     description: "کلاه بیسبالی با قابلیت تنظیم سایز، مناسب برای استفاده روزمره.",
   },
   {
-    id: uuidv4(),
+    id: "prod-011",
     title: "لباس ورزشی زنانه",
     category: "sportswear",
     categoryLabel: "لباس ورزشی",
@@ -147,7 +145,7 @@ export const products: ProductItem[] = [
     discount: 20,
   },
   {
-    id: uuidv4(),
+    id: "prod-012",
     title: "تیشرت اورسایز",
     category: "tshirt",
     categoryLabel: "تیشرت",
