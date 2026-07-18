@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 
 const slides = [
@@ -44,31 +44,29 @@ export default function HeroSection() {
   const [current, setCurrent] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const startAutoPlay = () => {
+  const stopAutoPlay = useCallback(() => {
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, []);
+
+  const startAutoPlay = useCallback(() => {
+    stopAutoPlay();
     timerRef.current = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
     }, 5000);
-  };
+  }, [stopAutoPlay]);
 
-  const stopAutoPlay = () => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
-  };
-
-  const goTo = (index: number) => {
+  const goTo = useCallback((index: number) => {
     setCurrent(index);
-    stopAutoPlay();
     startAutoPlay();
-  };
+  }, [startAutoPlay]);
 
   useEffect(() => {
     startAutoPlay();
-
-    return () => {
-      stopAutoPlay();
-    };
-  }, []);
+    return () => { stopAutoPlay(); };
+  }, [startAutoPlay, stopAutoPlay]);
 
   const slide = slides[current];
 

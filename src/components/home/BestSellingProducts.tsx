@@ -16,6 +16,7 @@ import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 
 import { products } from "../../data/products";
+import { formatPriceNumber } from "../../utils/formatPrice";
 
 export default function BestSellingProducts() {
   const bestSellers = [...products]
@@ -86,7 +87,7 @@ export default function BestSellingProducts() {
                 <ProductCard
                   id={product.id}
                   title={product.title}
-                  price={`${product.price.toLocaleString()} تومان`}
+                  price={`${formatPriceNumber(product.price)} تومان`}
                   image={product.image}
                   discount={product.discount}
                 />

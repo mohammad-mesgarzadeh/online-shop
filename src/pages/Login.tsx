@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -19,12 +19,6 @@ export default function Login() {
   const location = useLocation();
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
-  const mountedRef = useRef(true);
-
-  useEffect(() => {
-    return () => { mountedRef.current = false; };
-  }, []);
 
   const from = (location.state as { from?: string })?.from || "/";
 
@@ -39,20 +33,13 @@ export default function Login() {
 
   const onSubmit = async (data: LoginForm) => {
     setError("");
-    setSuccess(false);
     const ok = await login(data.email, data.password, true);
-    if (!mountedRef.current) return;
     if (ok) {
-      setSuccess(true);
-      setTimeout(() => {
-        if (mountedRef.current) navigate(from, { replace: true });
-      }, 600);
+      navigate(from, { replace: true });
     } else {
       setError("ایمیل یا رمز عبور اشتباه است");
     }
   };
-
-  const handleFormSubmit = useCallback(handleSubmit(onSubmit), [handleSubmit, onSubmit]);
 
   return (
     <section className="auth-page" dir="rtl">
@@ -74,14 +61,6 @@ export default function Login() {
             </div>
           )}
 
-          {success && (
-            <div className="auth-alert auth-alert-success">
-              <i className="bi bi-check-circle-fill" />
-              <span>ورود موفقیت‌آمیز بود!</span>
-            </div>
-          )}
-
-          {/* eslint-disable-next-line react-hooks/refs */}
           <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
             <div className="auth-field">
               <label className="auth-label">ایمیل</label>

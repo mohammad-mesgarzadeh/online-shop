@@ -2,6 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { products } from "../data/products";
 import { categories } from "../data/categories";
 import ProductCard from "../components/ProductCard";
+import { formatPriceNumber } from "../utils/formatPrice";
 
 export default function CategoryProducts() {
   const { slug } = useParams<{ slug: string }>();
@@ -72,7 +73,7 @@ export default function CategoryProducts() {
                 <ProductCard
                   id={p.id}
                   title={p.title}
-                  price={`${p.price.toLocaleString()} تومان`}
+                  price={`${formatPriceNumber(p.price)} تومان`}
                   image={p.image}
                   discount={p.discount}
                 />

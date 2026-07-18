@@ -1,4 +1,5 @@
 import ProductCard from "../ProductCard";
+import { formatPriceNumber } from "../../utils/formatPrice";
 
 export type ProductGridItem = {
   id: string;
@@ -30,7 +31,7 @@ export default function ProductGrid({
           <ProductCard
             id={product.id}
             title={product.title}
-            price={`${product.price.toLocaleString()} تومان`}
+            price={`${formatPriceNumber(product.price)} تومان`}
             image={product.image}
             discount={product.discount}
           />

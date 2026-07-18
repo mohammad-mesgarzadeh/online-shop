@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -26,12 +26,6 @@ export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
-  const mountedRef = useRef(true);
-
-  useEffect(() => {
-    return () => { mountedRef.current = false; };
-  }, []);
 
   const {
     register,
@@ -44,14 +38,9 @@ export default function Register() {
 
   const onSubmit = async (data: RegisterForm) => {
     setError("");
-    setSuccess(false);
     const ok = await registerUser(data.name, data.email, data.password);
-    if (!mountedRef.current) return;
     if (ok) {
-      setSuccess(true);
-      setTimeout(() => {
-        if (mountedRef.current) navigate("/", { replace: true });
-      }, 600);
+      navigate("/", { replace: true });
     } else {
       setError("ایمیل قبلاً ثبت شده است");
     }
@@ -77,14 +66,6 @@ export default function Register() {
             </div>
           )}
 
-          {success && (
-            <div className="auth-alert auth-alert-success">
-              <i className="bi bi-check-circle-fill" />
-              <span>ثبت نام موفقیت‌آمیز بود!</span>
-            </div>
-          )}
-
-          {/* eslint-disable-next-line react-hooks/refs */}
           <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
             <div className="auth-field">
               <label className="auth-label">نام و نام خانوادگی</label>
