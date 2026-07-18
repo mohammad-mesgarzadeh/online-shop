@@ -1,0 +1,1 @@
+var e=e=>e.toLocaleString(`fa-IR`);export{e as t};
