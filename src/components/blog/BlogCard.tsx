@@ -24,11 +24,12 @@ export default function BlogCard({
       <img
         src={image}
         alt={title}
-        className="card-img-top"
+        className="card-img-top blog-card-image"
         style={{
           height: "250px",
           objectFit: "cover",
         }}
+        loading="lazy"
       />
 
       <div className="card-body">
@@ -36,12 +37,12 @@ export default function BlogCard({
           {date}
         </small>
 
-        <h5 className="fw-bold mt-2">
+        <h5 className="fw-bold mt-2 text-truncate-2" style={{ lineHeight: "1.5" }}>
           {title}
         </h5>
 
         <button
-          className="btn btn-link px-0"
+          className="btn btn-link px-0 touch-target"
           onClick={(e) => {
             e.stopPropagation();
             navigate(`/blog/${id}`);

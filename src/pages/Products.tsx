@@ -19,6 +19,7 @@ export default function Products() {
     categoryParam ? [categoryParam] : []
   );
   const [page, setPage] = useState(1);
+  const [filterOpen, setFilterOpen] = useState(false);
   const perPage = 9;
 
   const filteredProducts = useMemo(() => {
@@ -96,14 +97,48 @@ export default function Products() {
           }}
         />
 
+        {/* Mobile Filter Toggle */}
+        <div className="d-lg-none mb-3">
+          <button
+            className="btn btn-outline-primary rounded-pill w-100 touch-target"
+            onClick={() => setFilterOpen(true)}
+          >
+            <i className="bi bi-funnel me-2" />
+            فیلترها
+            {selectedCategories.length > 0 && (
+              <span className="badge bg-primary ms-2">{selectedCategories.length}</span>
+            )}
+          </button>
+        </div>
+
+        {/* Mobile Filter Overlay */}
+        <div
+          className={`products-filter-overlay ${filterOpen ? "active" : ""}`}
+          onClick={() => setFilterOpen(false)}
+        />
+
         <div className="row g-4">
           <div className="col-lg-3">
-            <ProductFilters
-              search={search}
-              onSearchChange={handleSearchChange}
-              selectedCategories={selectedCategories}
-              onCategoryChange={handleCategoryChange}
-            />
+            {/* Mobile Filter Close Header */}
+            {filterOpen && (
+              <div className="d-lg-none d-flex justify-content-between align-items-center mb-3">
+                <h5 className="fw-bold mb-0">فیلترها</h5>
+                <button
+                  className="btn btn-sm touch-target"
+                  onClick={() => setFilterOpen(false)}
+                >
+                  <i className="bi bi-x-lg fs-5" />
+                </button>
+              </div>
+            )}
+            <div className={`products-filter-sidebar ${filterOpen ? "active" : ""}`}>
+              <ProductFilters
+                search={search}
+                onSearchChange={handleSearchChange}
+                selectedCategories={selectedCategories}
+                onCategoryChange={handleCategoryChange}
+              />
+            </div>
           </div>
 
           <div className="col-lg-9">
@@ -120,7 +155,7 @@ export default function Products() {
                   هیچ محصولی با معیارهای جستجوی شما مطابقت ندارد.
                 </p>
                 <button
-                  className="btn btn-outline-primary rounded-pill"
+                  className="btn btn-outline-primary rounded-pill touch-target"
                   onClick={() => {
                     setSearch("");
                     setSelectedCategories([]);

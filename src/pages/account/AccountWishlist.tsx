@@ -35,35 +35,38 @@ export default function AccountWishlist() {
           {items.map((item) => (
             <div key={item.product.id} className="col-12">
               <div className="d-flex gap-3 p-3 bg-light rounded-3">
-                <Link to={`/products/${item.product.id}`}>
+                <Link to={`/products/${item.product.id}`} className="flex-shrink-0">
                   <img
                     src={item.product.image}
                     alt={item.product.title}
                     className="rounded-3"
                     style={{ width: 72, height: 72, objectFit: "cover" }}
+                    loading="lazy"
                   />
                 </Link>
-                <div className="flex-grow-1">
+                <div className="flex-grow-1 min-w-0">
                   <Link
                     to={`/products/${item.product.id}`}
                     className="text-decoration-none"
                   >
-                    <h6 className="fw-bold text-dark mb-1">{item.product.title}</h6>
+                    <h6 className="fw-bold text-dark mb-1 text-truncate-2">{item.product.title}</h6>
                   </Link>
                   <span className="text-primary fw-bold">
                     {formatPriceNumber(item.product.price)} تومان
                   </span>
                 </div>
-                <div className="d-flex flex-column gap-1">
+                <div className="d-flex flex-column gap-1 flex-shrink-0">
                   <button
-                    className="btn btn-sm btn-primary rounded-pill"
+                    className="btn btn-sm btn-primary rounded-pill touch-target"
                     onClick={() => addItem(item.product)}
+                    aria-label="افزودن به سبد"
                   >
                     <i className="bi bi-cart-plus" />
                   </button>
                   <button
-                    className="btn btn-sm btn-outline-danger rounded-pill"
+                    className="btn btn-sm btn-outline-danger rounded-pill touch-target"
                     onClick={() => removeItem(item.product.id)}
+                    aria-label="حذف از علاقه‌مندی‌ها"
                   >
                     <i className="bi bi-trash3" />
                   </button>

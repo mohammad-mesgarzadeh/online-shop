@@ -82,7 +82,7 @@ export default function ProductDetail() {
           </ol>
         </nav>
 
-        <div className="row g-5">
+        <div className="row g-4 g-lg-5">
           <div className="col-lg-6">
             <div className="product-detail-gallery rounded-4 overflow-hidden shadow-sm mb-3">
               <img
@@ -99,9 +99,9 @@ export default function ProductDetail() {
               {product.categoryLabel}
             </span>
 
-            <h1 className="fw-bold mb-3">{product.title}</h1>
+            <h1 className="fw-bold mb-3" style={{ fontSize: "clamp(1.3rem, 3vw, 2rem)" }}>{product.title}</h1>
 
-            <div className="d-flex align-items-center gap-3 mb-3">
+            <div className="d-flex align-items-center gap-3 mb-3 flex-wrap">
               <div className="d-flex align-items-center gap-1">
                 {Array.from({ length: 5 }).map((_, i) => (
                   <i
@@ -115,10 +115,10 @@ export default function ProductDetail() {
 
             <p className="text-muted lh-lg mb-4">{product.description}</p>
 
-            <div className="d-flex align-items-center gap-3 mb-4">
+            <div className="price-section mb-4">
               {product.oldPrice ? (
                 <>
-                  <span className="fw-bold text-primary" style={{ fontSize: "1.8rem" }}>
+                  <span className="fw-bold text-primary price-main" style={{ fontSize: "1.8rem" }}>
                     {formatPriceNumber(product.price)} تومان
                   </span>
                   <span className="text-decoration-line-through text-muted" style={{ fontSize: "1.1rem" }}>
@@ -129,19 +129,20 @@ export default function ProductDetail() {
                   )}
                 </>
               ) : (
-                <span className="fw-bold text-primary" style={{ fontSize: "1.8rem" }}>
+                <span className="fw-bold text-primary price-main" style={{ fontSize: "1.8rem" }}>
                   {formatPriceNumber(product.price)} تومان
                 </span>
               )}
             </div>
 
-            <div className="d-flex align-items-center gap-3 mb-4">
+            <div className="d-flex align-items-center gap-3 mb-4 flex-wrap">
               <span className="fw-medium text-muted">تعداد:</span>
               <div className="quantity-selector d-flex align-items-center border rounded-3 overflow-hidden">
                 <button
-                  className="btn px-3 py-2"
+                  className="btn px-3 py-2 touch-target"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                   disabled={quantity <= 1}
+                  aria-label="کاهش تعداد"
                 >
                   <i className="bi bi-dash" />
                 </button>
@@ -149,13 +150,14 @@ export default function ProductDetail() {
                   {quantity}
                 </span>
                 <button
-                  className="btn px-3 py-2"
+                  className="btn px-3 py-2 touch-target"
                   onClick={() => setQuantity((q) => q + 1)}
+                  aria-label="افزایش تعداد"
                 >
                   <i className="bi bi-plus" />
                 </button>
               </div>
-              <span className="text-muted small">
+              <span className="text-muted small text-nowrap">
                 ({(product.price * quantity).toLocaleString("fa-IR")} تومان)
               </span>
             </div>
@@ -169,7 +171,7 @@ export default function ProductDetail() {
 
             <div className="d-flex gap-3 flex-wrap">
               <button
-                className="btn btn-primary btn-lg rounded-pill px-5"
+                className="btn btn-primary btn-lg rounded-pill px-5 touch-target"
                 onClick={handleAddToCart}
               >
                 <i className="bi bi-cart-plus me-2" />
@@ -177,7 +179,7 @@ export default function ProductDetail() {
               </button>
 
               <button
-                className="btn btn-success btn-lg rounded-pill px-4"
+                className="btn btn-success btn-lg rounded-pill px-4 touch-target"
                 onClick={handleBuyNow}
               >
                 <i className="bi bi-lightning me-2" />
@@ -185,9 +187,10 @@ export default function ProductDetail() {
               </button>
 
               <button
-                className={`btn btn-outline-secondary btn-lg rounded-pill px-4 ${wishlisted ? "active" : ""}`}
+                className={`btn btn-outline-secondary btn-lg rounded-pill px-4 touch-target ${wishlisted ? "active" : ""}`}
                 onClick={handleWishlist}
                 style={wishlisted ? { background: "#fee2e2", borderColor: "#fca5a5", color: "#dc2626" } : {}}
+                aria-label={wishlisted ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها"}
               >
                 <i className={`bi ${wishlisted ? "bi-heart-fill" : "bi-heart"}`} />
               </button>
@@ -200,7 +203,7 @@ export default function ProductDetail() {
             <h3 className="fw-bold mb-4">محصولات مرتبط</h3>
             <div className="row g-4">
               {relatedProducts.map((rp) => (
-                <div key={rp.id} className="col-md-6 col-lg-3">
+                <div key={rp.id} className="col-6 col-md-6 col-lg-3">
                   <ProductCard
                     id={rp.id}
                     title={rp.title}

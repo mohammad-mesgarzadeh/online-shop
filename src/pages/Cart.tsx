@@ -38,10 +38,10 @@ export default function Cart() {
   return (
     <section className="py-5" dir="rtl">
       <div className="container">
-        <div className="d-flex justify-content-between align-items-center mb-4">
+        <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-2">
           <h2 className="fw-bold mb-0">سبد خرید ({itemCount} کالا)</h2>
           <button
-            className="btn btn-outline-danger btn-sm rounded-pill"
+            className="btn btn-outline-danger btn-sm rounded-pill touch-target"
             onClick={clearCart}
           >
             <i className="bi bi-trash3 me-1" />
@@ -50,7 +50,7 @@ export default function Cart() {
         </div>
 
         <div className="row g-4">
-          <div className="col-lg-8">
+          <div className="col-lg-8 order-lg-1 order-2">
             <div className="card border-0 shadow-sm rounded-4">
               <div className="card-body p-0">
                 {items.map((item) => (
@@ -63,18 +63,19 @@ export default function Cart() {
                         src={item.product.image}
                         alt={item.product.title}
                         className="rounded-3"
-                        style={{ width: 90, height: 90, objectFit: "cover" }}
+                        style={{ width: 80, height: 80, objectFit: "cover" }}
+                        loading="lazy"
                       />
                     </Link>
 
-                    <div className="flex-grow-1">
-                      <div className="d-flex justify-content-between align-items-start">
-                        <div>
+                    <div className="flex-grow-1 min-w-0">
+                      <div className="d-flex justify-content-between align-items-start gap-2">
+                        <div className="min-w-0">
                           <Link
                             to={`/products/${item.product.id}`}
                             className="text-decoration-none"
                           >
-                            <h6 className="fw-bold text-dark mb-1">
+                            <h6 className="fw-bold text-dark mb-1 text-truncate-2">
                               {item.product.title}
                             </h6>
                           </Link>
@@ -83,20 +84,21 @@ export default function Cart() {
                           </span>
                         </div>
                         <button
-                          className="btn btn-sm text-muted"
+                          className="btn btn-sm text-muted touch-target flex-shrink-0"
                           onClick={() => removeItem(item.product.id)}
+                          aria-label="حذف از سبد"
                         >
                           <i className="bi bi-x-lg" />
                         </button>
                       </div>
 
-                      <div className="d-flex justify-content-between align-items-center mt-2">
-                        <div className="d-flex align-items-center gap-2">
-                          <div className="d-flex align-items-center border rounded-2 overflow-hidden" style={{ fontSize: "0.85rem" }}>
+                      <div className="d-flex justify-content-between align-items-center mt-2 gap-2">
+                        <div className="d-flex align-items-center">
+                          <div className="cart-quantity-control">
                             <button
-                              className="btn btn-sm px-2 py-1"
                               onClick={() => decreaseQuantity(item.product.id)}
                               disabled={item.quantity <= 1}
+                              aria-label="کاهش تعداد"
                             >
                               <i className="bi bi-dash" />
                             </button>
@@ -109,18 +111,17 @@ export default function Cart() {
                                 const v = parseInt(e.target.value, 10);
                                 if (v > 0) updateQuantity(item.product.id, v);
                               }}
-                              className="form-control form-control-sm text-center border-0"
-                              style={{ width: 45 }}
+                              aria-label="تعداد"
                             />
                             <button
-                              className="btn btn-sm px-2 py-1"
                               onClick={() => increaseQuantity(item.product.id)}
+                              aria-label="افزایش تعداد"
                             >
                               <i className="bi bi-plus" />
                             </button>
                           </div>
                         </div>
-                        <span className="fw-bold text-primary">
+                        <span className="fw-bold text-primary text-nowrap">
                           {formatPriceNumber(item.product.price * item.quantity)} تومان
                         </span>
                       </div>
@@ -131,8 +132,8 @@ export default function Cart() {
             </div>
           </div>
 
-          <div className="col-lg-4">
-            <div className="card border-0 shadow-sm rounded-4 sticky-top" style={{ top: "90px" }}>
+          <div className="col-lg-4 order-lg-2 order-1">
+            <div className="card border-0 shadow-sm rounded-4 sticky-top" style={{ top: "80px" }}>
               <div className="card-body p-4">
                 <h5 className="fw-bold mb-4">خلاصه سفارش</h5>
 
@@ -166,9 +167,9 @@ export default function Cart() {
 
                 <hr />
 
-                <div className="d-flex justify-content-between mb-4">
+                <div className="d-flex justify-content-between mb-4 gap-2">
                   <span className="fw-bold fs-5">مبلغ قابل پرداخت</span>
-                  <span className="fw-bold fs-5 text-primary">
+                  <span className="fw-bold fs-5 text-primary text-nowrap">
                     {formatPriceNumber(grandTotal)} تومان
                   </span>
                 </div>

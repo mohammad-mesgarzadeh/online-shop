@@ -34,7 +34,7 @@ export default function BlogDetail() {
         </nav>
 
         <div
-          className="rounded-4 overflow-hidden mb-5"
+          className="rounded-4 overflow-hidden mb-5 blog-hero-image"
           style={{ height: "450px" }}
         >
           <img
@@ -42,6 +42,7 @@ export default function BlogDetail() {
             alt={article.title}
             className="w-100 h-100"
             style={{ objectFit: "cover" }}
+            loading="lazy"
           />
         </div>
 
@@ -49,7 +50,7 @@ export default function BlogDetail() {
           <div className="col-lg-8">
             <span className="badge bg-primary mb-3">{article.category}</span>
 
-            <h1 className="fw-bold mb-3">{article.title}</h1>
+            <h1 className="fw-bold mb-3" style={{ fontSize: "clamp(1.3rem, 4vw, 2.2rem)" }}>{article.title}</h1>
 
             <div className="d-flex align-items-center gap-3 text-muted mb-5">
               <span>

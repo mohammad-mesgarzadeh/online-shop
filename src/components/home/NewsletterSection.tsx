@@ -50,22 +50,22 @@ export default function NewsletterSection() {
 
             {/* Input */}
             <div className="row justify-content-center mb-4">
-              <div className="col-lg-6 col-md-8">
-                <div className="input-group input-group-lg shadow-sm">
+              <div className="col-12 col-md-8 col-lg-6">
+                <div className="input-group shadow-sm">
                   <input
                     type="email"
-                    className="form-control border-0 px-4"
+                    className="form-control border-0 px-3 px-md-4"
                     placeholder="ایمیل خود را وارد کنید"
-                    style={{ borderRadius: "100px 0 0 100px", background: "#f5f3ff", color: "#1a0f3c", fontSize: 15 }}
+                    style={{ borderRadius: "100px 0 0 100px", background: "#f5f3ff", color: "#1a0f3c", fontSize: "clamp(0.85rem, 2vw, 0.95rem)" }}
                   />
                   <button
-                    className="btn fw-bold px-4 d-flex align-items-center gap-2"
-                    style={{ borderRadius: "0 100px 100px 0", background: "#4f46e5", color: "#fff", fontSize: 15 }}
+                    className="btn fw-bold px-3 px-md-4 d-flex align-items-center gap-2 touch-target flex-shrink-0"
+                    style={{ borderRadius: "0 100px 100px 0", background: "#4f46e5", color: "#fff", fontSize: "clamp(0.85rem, 2vw, 0.95rem)" }}
                     onMouseEnter={e => (e.currentTarget.style.background = "#4338ca")}
                     onMouseLeave={e => (e.currentTarget.style.background = "#4f46e5")}
                   >
                     <i className="bi bi-send" />
-                    عضویت
+                    <span className="d-none d-sm-inline">عضویت</span>
                   </button>
                 </div>
               </div>

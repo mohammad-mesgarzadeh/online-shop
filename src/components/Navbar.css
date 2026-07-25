@@ -51,8 +51,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: 10px;
   border: none;
   background: transparent;
@@ -188,8 +188,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -319,7 +319,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 16px;
+  padding: 12px 16px;
   font-size: 0.875rem;
   font-weight: 500;
   color: #475569;
@@ -330,6 +330,7 @@
   width: 100%;
   text-align: right;
   cursor: pointer;
+  min-height: 44px;
 }
 
 .navbar-dropdown-item:hover {
@@ -401,8 +402,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
   border: none;
   background: #f1f5f9;
   border-radius: 10px;
@@ -425,7 +426,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 14px;
+  padding: 12px 14px;
   font-size: 0.95rem;
   font-weight: 500;
   color: #475569;
@@ -437,6 +438,7 @@
   width: 100%;
   text-align: right;
   cursor: pointer;
+  min-height: 44px;
 }
 
 .mobile-nav-link:hover {

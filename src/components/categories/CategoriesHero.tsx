@@ -3,13 +3,13 @@ export default function CategoriesHero() {
     <section className="py-5">
       <div className="container">
 
-        <div className="bg-dark text-white rounded-5 p-5 text-center">
+        <div className="bg-dark text-white rounded-5 p-4 p-md-5 text-center">
 
           <span className="badge bg-primary mb-3">
             فروشگاه لباس
           </span>
 
-          <h1 className="fw-bold mb-3">
+          <h1 className="fw-bold mb-3" style={{ fontSize: "clamp(1.5rem, 5vw, 2.5rem)" }}>
             دسته بندی محصولات
           </h1>
 

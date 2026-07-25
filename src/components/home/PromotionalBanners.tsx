@@ -64,7 +64,7 @@ export default function PromotionalBanners() {
         <div className="container">
           <div className="row g-4">
             {cards.map((c, i) => (
-              <div key={i} className="col-lg-6">
+              <div key={i} className="col-md-6">
                 <div className={`${c.gradientClass} rounded-4 overflow-hidden position-relative p-4 p-md-5 d-flex align-items-center gap-4`}
                   style={{ minHeight: "300px" }}>
 

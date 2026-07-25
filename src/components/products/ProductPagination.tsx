@@ -10,11 +10,11 @@ export default function ProductPagination({
   onPageChange,
 }: Props) {
   return (
-    <nav className="mt-5">
-      <ul className="pagination justify-content-center">
+    <nav className="mt-5" aria-label="صفحه‌بندی">
+      <ul className="pagination justify-content-center flex-wrap gap-1">
         <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
           <button
-            className="page-link"
+            className="page-link touch-target"
             onClick={() => onPageChange(page - 1)}
           >
             قبلی
@@ -27,7 +27,7 @@ export default function ProductPagination({
             className={`page-item ${p === page ? "active" : ""}`}
           >
             <button
-              className="page-link"
+              className="page-link touch-target"
               onClick={() => onPageChange(p)}
             >
               {p}
@@ -37,7 +37,7 @@ export default function ProductPagination({
 
         <li className={`page-item ${page === totalPages ? "disabled" : ""}`}>
           <button
-            className="page-link"
+            className="page-link touch-target"
             onClick={() => onPageChange(page + 1)}
           >
             بعدی

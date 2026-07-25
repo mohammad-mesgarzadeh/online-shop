@@ -41,7 +41,7 @@ export default function CategoryProducts() {
         </nav>
 
         <div
-          className="rounded-4 overflow-hidden mb-5 position-relative"
+          className="rounded-4 overflow-hidden mb-5 position-relative category-hero-banner"
           style={{ height: "300px" }}
         >
           <img
@@ -49,6 +49,7 @@ export default function CategoryProducts() {
             alt={category.label}
             className="w-100 h-100"
             style={{ objectFit: "cover" }}
+            loading="lazy"
           />
           <div
             className="position-absolute d-flex align-items-center justify-content-center"
@@ -58,8 +59,8 @@ export default function CategoryProducts() {
             }}
           >
             <div className="text-center text-white">
-              <h1 className="fw-bold">{category.label}</h1>
-              <p className="text-white-50">
+              <h1 className="fw-bold" style={{ fontSize: "clamp(1.5rem, 5vw, 2.5rem)" }}>{category.label}</h1>
+              <p className="text-white-50 mb-0">
                 {categoryProducts.length} محصول
               </p>
             </div>

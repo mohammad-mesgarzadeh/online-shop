@@ -35,8 +35,8 @@ export default function AccountOrderDetail() {
   return (
     <div>
       <div className="card border-0 shadow-sm rounded-4 mb-4">
-        <div className="card-body p-4">
-          <div className="d-flex justify-content-between align-items-center mb-4 pb-3 border-bottom">
+        <div className="card-body p-3 p-md-4">
+          <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 pb-3 border-bottom gap-2">
             <div>
               <h5 className="fw-bold mb-1">جزئیات سفارش</h5>
               <span className="text-muted" style={{ direction: "ltr" }}>
@@ -57,26 +57,27 @@ export default function AccountOrderDetail() {
           <h6 className="fw-bold mb-3">اقلام سفارش</h6>
           {order.items.map((item) => (
             <div key={item.product.id} className="d-flex gap-3 mb-3 pb-3 border-bottom">
-              <Link to={`/products/${item.product.id}`}>
+              <Link to={`/products/${item.product.id}`} className="flex-shrink-0">
                 <img
                   src={item.product.image}
                   alt={item.product.title}
                   className="rounded-3"
                   style={{ width: 64, height: 64, objectFit: "cover" }}
+                  loading="lazy"
                 />
               </Link>
-              <div className="flex-grow-1">
+              <div className="flex-grow-1 min-w-0">
                 <Link
                   to={`/products/${item.product.id}`}
                   className="text-decoration-none"
                 >
-                  <h6 className="fw-bold text-dark mb-0">{item.product.title}</h6>
+                  <h6 className="fw-bold text-dark mb-0 text-truncate-2">{item.product.title}</h6>
                 </Link>
                 <span className="text-muted small">
                   {item.quantity} × {formatPriceNumber(item.product.price)} تومان
                 </span>
               </div>
-              <span className="fw-bold">
+              <span className="fw-bold text-nowrap">
                 {formatPriceNumber(item.product.price * item.quantity)} تومان
               </span>
             </div>
@@ -108,22 +109,22 @@ export default function AccountOrderDetail() {
                 <i className="bi bi-receipt text-primary me-2" />
                 خلاصه پرداخت
               </h6>
-              <div className="d-flex justify-content-between mb-1">
+              <div className="d-flex justify-content-between mb-1 gap-2">
                 <span className="text-muted">جمع کل</span>
-                <span>{formatPriceNumber(order.subtotal)} تومان</span>
+                <span className="text-nowrap">{formatPriceNumber(order.subtotal)} تومان</span>
               </div>
-              <div className="d-flex justify-content-between mb-1">
+              <div className="d-flex justify-content-between mb-1 gap-2">
                 <span className="text-muted">ارسال</span>
-                <span>{order.shippingCost === 0 ? "رایگان" : `${formatPriceNumber(order.shippingCost)} تومان`}</span>
+                <span>{order.shippingCost === 0 ? "رایگان" : <span className="text-nowrap">{formatPriceNumber(order.shippingCost)} تومان</span>}</span>
               </div>
-              <div className="d-flex justify-content-between mb-2">
+              <div className="d-flex justify-content-between mb-2 gap-2">
                 <span className="text-muted">مالیات</span>
-                <span>{formatPriceNumber(order.tax)} تومان</span>
+                <span className="text-nowrap">{formatPriceNumber(order.tax)} تومان</span>
               </div>
               <hr />
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between gap-2">
                 <span className="fw-bold">مبلغ پرداختی</span>
-                <span className="fw-bold text-primary">
+                <span className="fw-bold text-primary text-nowrap">
                   {formatPriceNumber(order.total)} تومان
                 </span>
               </div>
@@ -134,7 +135,7 @@ export default function AccountOrderDetail() {
 
       <Link
         to="/account/orders"
-        className="btn btn-outline-secondary rounded-pill px-4 mt-4"
+        className="btn btn-outline-secondary rounded-pill px-4 mt-4 touch-target"
       >
         <i className="bi bi-arrow-right me-2" />
         بازگشت به لیست سفارشات

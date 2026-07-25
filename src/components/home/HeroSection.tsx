@@ -72,7 +72,7 @@ export default function HeroSection() {
 
   return (
     <section
-      className="container my-4 position-relative overflow-hidden"
+      className="container my-4 position-relative overflow-hidden hero-section-container"
       style={{
         background:
           "linear-gradient(135deg, #0f172a 0%, #1e293b 100%)",
@@ -141,7 +141,7 @@ export default function HeroSection() {
           </div>
 
           {/* Stats */}
-          <div className="d-flex gap-4 mt-5 flex-wrap">
+          <div className="d-flex gap-4 mt-5 flex-wrap hero-stats-section">
 
             <div>
               <h4 className="text-white fw-bold mb-0">
@@ -176,7 +176,7 @@ export default function HeroSection() {
 
         {/* Image */}
         <div
-          className="col-lg-7 position-relative"
+          className="col-lg-7 position-relative hero-image-col"
           style={{ height: "550px" }}
         >
 
@@ -199,6 +199,7 @@ export default function HeroSection() {
           />
 
           <div
+            className="d-none d-sm-flex"
             style={{
               position: "absolute",
               bottom: "30px",

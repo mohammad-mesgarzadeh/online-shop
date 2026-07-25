@@ -31,13 +31,14 @@ export default function AccountOrders() {
 
   return (
     <div className="card border-0 shadow-sm rounded-4">
-      <div className="card-body p-4">
+      <div className="card-body p-3 p-md-4">
         <h5 className="fw-bold mb-4">
           <i className="bi bi-box text-primary me-2" />
           سفارشات من ({orders.length})
         </h5>
 
-        <div className="table-responsive">
+        {/* Desktop Table */}
+        <div className="table-responsive d-none d-md-block">
           <table className="table align-middle mb-0">
             <thead>
               <tr className="text-muted small">
@@ -75,7 +76,7 @@ export default function AccountOrders() {
                     <td>
                       <Link
                         to={`/account/orders/${order.id}`}
-                        className="btn btn-sm btn-outline-primary rounded-pill"
+                        className="btn btn-sm btn-outline-primary rounded-pill touch-target"
                       >
                         جزئیات
                       </Link>
@@ -85,6 +86,45 @@ export default function AccountOrders() {
               })}
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile Cards */}
+        <div className="d-md-none">
+          {orders.map((order) => {
+            const st = statusMap[order.status] || statusMap.pending;
+            return (
+              <div key={order.id} className="card border mb-3 rounded-3">
+                <div className="card-body">
+                  <div className="d-flex justify-content-between align-items-start mb-2 gap-2">
+                    <span className="fw-bold" style={{ direction: "ltr" }}>
+                      #{order.id.toUpperCase()}
+                    </span>
+                    <span className={`badge rounded-pill ${st.class}`}>
+                      <i className={`bi ${st.icon} me-1`} />
+                      {st.label}
+                    </span>
+                  </div>
+                  <div className="text-muted small mb-2">
+                    <i className="bi bi-calendar3 me-1" />
+                    {new Date(order.createdAt).toLocaleDateString("fa-IR")}
+                    <span className="mx-2">|</span>
+                    {order.items.length} کالا
+                  </div>
+                  <div className="d-flex justify-content-between align-items-center">
+                    <span className="fw-bold text-primary">
+                      {formatPriceNumber(order.total)} تومان
+                    </span>
+                    <Link
+                      to={`/account/orders/${order.id}`}
+                      className="btn btn-sm btn-outline-primary rounded-pill touch-target"
+                    >
+                      جزئیات
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

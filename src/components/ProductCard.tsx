@@ -26,6 +26,7 @@ export default function ProductCard({ id, title, price, image, discount }: Produ
       }}
     >
       <div
+        className="product-card-image-container"
         style={{
           height: "250px",
           overflow: "hidden",
@@ -45,16 +46,22 @@ export default function ProductCard({ id, title, price, image, discount }: Produ
           alt={title}
           className="w-100 h-100"
           style={{ objectFit: "cover" }}
+          loading="lazy"
         />
       </div>
 
       <div className="card-body d-flex flex-column">
-        <h6 className="fw-bold mb-2">{title}</h6>
+        <h6
+          className="fw-bold mb-2 text-truncate-2"
+          style={{ lineHeight: "1.5" }}
+        >
+          {title}
+        </h6>
 
-        <p className="text-primary fw-bold mb-0">{price}</p>
+        <p className="text-primary fw-bold mb-0 text-truncate">{price}</p>
 
         <span
-          className="btn btn-outline-primary rounded-pill mt-2"
+          className="btn btn-outline-primary rounded-pill mt-2 touch-target"
           onClick={(e) => {
             e.stopPropagation();
             navigate(`/products/${id}`);

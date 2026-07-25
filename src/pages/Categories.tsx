@@ -25,12 +25,13 @@ export default function Categories() {
                         alt={cat.label}
                         className="w-100 h-100"
                         style={{ objectFit: "cover" }}
+                        loading="lazy"
                       />
                     </div>
 
                     <div className="card-body text-center">
-                      <h5 className="fw-bold text-dark">{cat.label}</h5>
-                      <span className="btn btn-outline-primary rounded-pill">
+                      <h5 className="fw-bold text-dark" style={{ fontSize: "clamp(1rem, 2.5vw, 1.25rem)" }}>{cat.label}</h5>
+                      <span className="btn btn-outline-primary rounded-pill touch-target">
                         مشاهده محصولات
                       </span>
                     </div>

@@ -20,30 +20,31 @@ export default function FeaturedPost() {
               <img
                 src={featured.image}
                 alt={featured.title}
-                className="w-100 h-100"
+                className="w-100 h-100 featured-post-image"
                 style={{
                   objectFit: "cover",
-                  minHeight: "350px",
+                  minHeight: "250px",
                 }}
+                loading="lazy"
               />
             </div>
 
             <div className="col-lg-6">
-              <div className="p-5">
+              <div className="p-4 p-md-5">
                 <span className="badge bg-danger mb-3">
                   مقاله ویژه
                 </span>
 
-                <h2 className="fw-bold mb-3">
+                <h2 className="fw-bold mb-3" style={{ fontSize: "clamp(1.2rem, 3vw, 1.75rem)" }}>
                   {featured.title}
                 </h2>
 
-                <p className="text-muted">
+                <p className="text-muted text-truncate-3">
                   {featured.excerpt}
                 </p>
 
                 <button
-                  className="btn btn-primary rounded-pill"
+                  className="btn btn-primary rounded-pill touch-target"
                   onClick={(e) => {
                     e.stopPropagation();
                     navigate(`/blog/${featured.id}`);

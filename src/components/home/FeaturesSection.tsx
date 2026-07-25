@@ -7,19 +7,19 @@ export default function FeaturesSection() {
   ];
 
   return (
-    <section className="py-5 " dir="rtl" style={{ fontFamily: "'Vazirmatn', sans-serif" }}>
+    <section className="py-5" dir="rtl" style={{ fontFamily: "'Vazirmatn', sans-serif" }}>
       <div className="container">
         <div className="row g-3">
           {features.map((item, i) => (
-            <div key={i} className="col-12 col-sm-6 col-lg-3">
+            <div key={i} className="col-6 col-sm-6 col-lg-3">
               <div className="card border h-100 feature-card">
-                <div className="card-body p-4 d-flex flex-column gap-3">
+                <div className="card-body p-3 p-sm-4 d-flex flex-column gap-2 gap-sm-3">
                   <div className="feature-icon-box">
                     <i className={`bi ${item.icon}`}></i>
                   </div>
                   <div>
-                    <p className="feature-title text-body">{item.title}</p>
-                    <p className="feature-desc text-secondary">{item.desc}</p>
+                    <p className="feature-title text-body mb-1">{item.title}</p>
+                    <p className="feature-desc text-secondary mb-0">{item.desc}</p>
                   </div>
                 </div>
               </div>

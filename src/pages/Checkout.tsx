@@ -108,7 +108,7 @@ export default function Checkout() {
 
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="row g-4">
-            <div className="col-lg-7">
+            <div className="col-lg-7 order-lg-1 order-2">
               <div className="card border-0 shadow-sm rounded-4 mb-4">
                 <div className="card-body p-4">
                   <h5 className="fw-bold mb-4">
@@ -202,8 +202,8 @@ export default function Checkout() {
               </div>
             </div>
 
-            <div className="col-lg-5">
-              <div className="card border-0 shadow-sm rounded-4 sticky-top" style={{ top: "90px" }}>
+            <div className="col-lg-5 order-lg-2 order-1">
+              <div className="card border-0 shadow-sm rounded-4 sticky-top" style={{ top: "80px" }}>
                 <div className="card-body p-4">
                   <h5 className="fw-bold mb-4">خلاصه سفارش</h5>
 
@@ -252,16 +252,16 @@ export default function Checkout() {
 
                   <hr />
 
-                  <div className="d-flex justify-content-between mb-4">
+                  <div className="d-flex justify-content-between mb-4 gap-2">
                     <span className="fw-bold fs-5">مبلغ قابل پرداخت</span>
-                    <span className="fw-bold fs-5 text-primary">
+                    <span className="fw-bold fs-5 text-primary text-nowrap">
                       {formatPriceNumber(grandTotal)} تومان
                     </span>
                   </div>
 
                   <button
                     type="submit"
-                    className="btn btn-primary w-100 rounded-pill py-2 fw-bold"
+                    className="btn btn-primary w-100 rounded-pill py-2 fw-bold touch-target"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (

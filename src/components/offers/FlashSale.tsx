@@ -18,7 +18,7 @@ export default function FlashSale() {
             {saleProducts.map((product) => (
               <div
                 key={product.id}
-                className="col-md-6 col-xl-3"
+                className="col-6 col-md-6 col-xl-3"
               >
                 <div className="position-relative">
                   <ProductCard

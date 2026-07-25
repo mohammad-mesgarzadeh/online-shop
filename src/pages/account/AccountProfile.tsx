@@ -52,29 +52,29 @@ export default function AccountProfile() {
       </div>
 
       <div className="row g-3 mb-4">
-        <div className="col-sm-4">
+        <div className="col-4 col-sm-4">
           <div className="card border-0 shadow-sm rounded-4">
-            <div className="card-body p-4 text-center">
+            <div className="card-body p-3 p-sm-4 text-center">
               <i className="bi bi-box text-primary fs-3 mb-2" />
-              <h4 className="fw-bold mb-0">{orders.length}</h4>
+              <h4 className="fw-bold mb-0" style={{ fontSize: "clamp(1rem, 3vw, 1.5rem)" }}>{orders.length}</h4>
               <span className="text-muted small">سفارش</span>
             </div>
           </div>
         </div>
-        <div className="col-sm-4">
+        <div className="col-4 col-sm-4">
           <div className="card border-0 shadow-sm rounded-4">
-            <div className="card-body p-4 text-center">
+            <div className="card-body p-3 p-sm-4 text-center">
               <i className="bi bi-heart text-danger fs-3 mb-2" />
-              <h4 className="fw-bold mb-0">{wishlistCount}</h4>
+              <h4 className="fw-bold mb-0" style={{ fontSize: "clamp(1rem, 3vw, 1.5rem)" }}>{wishlistCount}</h4>
               <span className="text-muted small">علاقه‌مندی</span>
             </div>
           </div>
         </div>
-        <div className="col-sm-4">
+        <div className="col-4 col-sm-4">
           <div className="card border-0 shadow-sm rounded-4">
-            <div className="card-body p-4 text-center">
+            <div className="card-body p-3 p-sm-4 text-center">
               <i className="bi bi-cash-stack text-success fs-3 mb-2" />
-              <h4 className="fw-bold mb-0">{formatPriceNumber(totalSpent)}</h4>
+              <h4 className="fw-bold mb-0 text-truncate" style={{ fontSize: "clamp(0.8rem, 2.5vw, 1.5rem)" }}>{formatPriceNumber(totalSpent)}</h4>
               <span className="text-muted small">تومان خرید</span>
             </div>
           </div>

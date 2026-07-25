@@ -29,15 +29,16 @@ export default function ProductFilters({
         <h6 className="fw-bold mb-3">دسته بندی</h6>
 
         {categories.map((cat) => (
-          <div className="form-check" key={cat.slug}>
+          <div className="form-check py-1" key={cat.slug}>
             <input
               className="form-check-input"
               type="checkbox"
               id={`cat-${cat.slug}`}
               checked={selectedCategories.includes(cat.slug)}
               onChange={() => onCategoryChange(cat.slug)}
+              style={{ cursor: "pointer" }}
             />
-            <label className="form-check-label" htmlFor={`cat-${cat.slug}`}>
+            <label className="form-check-label" htmlFor={`cat-${cat.slug}`} style={{ cursor: "pointer" }}>
               {cat.label}
             </label>
           </div>

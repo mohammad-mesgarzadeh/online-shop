@@ -4,7 +4,7 @@ export default function BlogHero() {
       <div className="container">
 
         <div
-          className="rounded-5 p-5 text-center text-white"
+          className="rounded-5 p-4 p-md-5 text-center text-white"
           style={{
             background:
               "linear-gradient(135deg,#0f172a,#334155)",
@@ -15,7 +15,7 @@ export default function BlogHero() {
             وبلاگ وستا
           </span>
 
-          <h1 className="fw-bold mb-3">
+          <h1 className="fw-bold mb-3" style={{ fontSize: "clamp(1.5rem, 5vw, 2.5rem)" }}>
             مجله مد و استایل
           </h1>
 

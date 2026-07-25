@@ -34,12 +34,12 @@ export default function AccountSettings() {
             تنظیمات حساب کاربری
           </h5>
 
-          <div className="d-flex justify-content-between align-items-center py-3 border-bottom">
-            <div>
+          <div className="d-flex justify-content-between align-items-center py-3 border-bottom gap-2">
+            <div className="min-w-0">
               <h6 className="fw-bold mb-0">اعلان‌های ایمیلی</h6>
               <small className="text-muted">دریافت اعلان سفارشات و پیشنهادات</small>
             </div>
-            <div className="form-check form-switch">
+            <div className="form-check form-switch flex-shrink-0">
               <input
                 className="form-check-input"
                 type="checkbox"
@@ -50,12 +50,12 @@ export default function AccountSettings() {
             </div>
           </div>
 
-          <div className="d-flex justify-content-between align-items-center py-3 border-bottom">
-            <div>
+          <div className="d-flex justify-content-between align-items-center py-3 border-bottom gap-2">
+            <div className="min-w-0">
               <h6 className="fw-bold mb-0">حالت تاریک</h6>
               <small className="text-muted">فعال‌سازی تم تاریک</small>
             </div>
-            <div className="form-check form-switch">
+            <div className="form-check form-switch flex-shrink-0">
               <input
                 className="form-check-input"
                 type="checkbox"
@@ -66,12 +66,12 @@ export default function AccountSettings() {
             </div>
           </div>
 
-          <div className="d-flex justify-content-between align-items-center py-3 border-bottom">
-            <div>
+          <div className="d-flex justify-content-between align-items-center py-3 border-bottom gap-2">
+            <div className="min-w-0">
               <h6 className="fw-bold mb-0">زبان</h6>
               <small className="text-muted">زبان نمایش سایت</small>
             </div>
-            <select className="form-select form-select-sm rounded-3" style={{ width: 150 }}>
+            <select className="form-select form-select-sm rounded-3 flex-shrink-0" style={{ width: 150 }}>
               <option value="fa">فارسی</option>
               <option value="en">English</option>
             </select>

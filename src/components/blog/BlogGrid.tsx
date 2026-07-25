@@ -26,7 +26,7 @@ export default function BlogGrid({ articles }: Props) {
           {articles.map((post) => (
             <div
               key={post.id}
-              className="col-md-6 col-xl-3"
+              className="col-6 col-md-6 col-xl-3"
             >
               <BlogCard
                 id={post.id}
