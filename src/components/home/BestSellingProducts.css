@@ -1,3 +1,4 @@
+/* BestSellingProducts - Swiper Overrides */
 .swiper {
   padding: 20px 10px 50px;
 }
@@ -20,6 +21,7 @@
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
   transform: scale(1.08);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.16);
 }
 
 .swiper-button-next::after,
@@ -30,11 +32,6 @@
 
 .swiper-button-disabled {
   opacity: 0.5;
-}
-
-.swiper-slide .badge {
-  font-size: 0.85rem;
-  font-weight: 500;
 }
 
 @media (max-width: 768px) {

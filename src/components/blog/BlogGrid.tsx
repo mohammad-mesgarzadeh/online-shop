@@ -10,9 +10,12 @@ export default function BlogGrid({ articles }: Props) {
     return (
       <section className="pb-5">
         <div className="container">
-          <div className="text-center py-5 text-muted">
-            <i className="bi bi-inbox" style={{ fontSize: "2.5rem" }}></i>
-            <p className="mt-3 fs-5">هیچ مقاله‌ای در این دسته‌بندی یافت نشد.</p>
+          <div className="empty-state" style={{ padding: "var(--space-12) var(--space-4)" }}>
+            <div className="empty-state-icon" style={{ width: "80px", height: "80px" }}>
+              <i className="bi bi-journal-text" style={{ fontSize: "2rem" }} />
+            </div>
+            <h4 className="empty-state-title">مقاله‌ای یافت نشد</h4>
+            <p className="empty-state-desc">هیچ مقاله‌ای در این دسته‌بندی یافت نشد.</p>
           </div>
         </div>
       </section>
@@ -22,12 +25,9 @@ export default function BlogGrid({ articles }: Props) {
   return (
     <section className="pb-5">
       <div className="container">
-        <div className="row g-4">
+        <div className="product-grid">
           {articles.map((post) => (
-            <div
-              key={post.id}
-              className="col-6 col-md-6 col-xl-3"
-            >
+            <div key={post.id}>
               <BlogCard
                 id={post.id}
                 title={post.title}

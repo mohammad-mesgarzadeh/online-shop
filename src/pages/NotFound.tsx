@@ -2,19 +2,29 @@ import { Link } from "react-router-dom";
 
 export default function NotFound() {
   return (
-    <div className="container mt-5 text-center py-5 px-3" dir="rtl">
-      <i
-        className="bi bi-emoji-frown text-secondary"
-        style={{ fontSize: "clamp(3rem, 10vw, 5rem)" }}
-      ></i>
-      <h1 className="fw-bold mt-4" style={{ fontSize: "clamp(2rem, 8vw, 4rem)" }}>۴۰۴</h1>
-      <h4 className="text-muted mb-4">صفحه مورد نظر یافت نشد</h4>
-      <p className="text-muted mb-4">
-        صفحه‌ای که به دنبال آن هستید وجود ندارد یا حذف شده است.
-      </p>
-      <Link to="/" className="btn btn-primary rounded-pill px-5 touch-target">
-        بازگشت به خانه
-      </Link>
+    <div className="container py-5" dir="rtl">
+      <div className="empty-state" style={{ minHeight: "60vh" }}>
+        <div className="empty-state-icon" style={{ width: "140px", height: "140px" }}>
+          <i className="bi bi-emoji-frown" style={{ fontSize: "4rem" }} />
+        </div>
+        <h1 className="fw-bold" style={{ fontSize: "clamp(3rem, 10vw, 5rem)", color: "var(--c-gray-200)" }}>
+          ۴۰۴
+        </h1>
+        <h3 className="empty-state-title">صفحه مورد نظر یافت نشد</h3>
+        <p className="empty-state-desc">
+          صفحه‌ای که به دنبال آن هستید وجود ندارد یا حذف شده است.
+        </p>
+        <div className="d-flex gap-3">
+          <Link to="/" className="btn btn-vesta-primary rounded-pill px-5 touch-target">
+            <i className="bi bi-house me-2" />
+            بازگشت به خانه
+          </Link>
+          <Link to="/products" className="btn btn-vesta-outline rounded-pill px-5 touch-target">
+            <i className="bi bi-bag me-2" />
+            فروشگاه
+          </Link>
+        </div>
+      </div>
     </div>
   );
 }

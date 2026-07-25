@@ -10,13 +10,17 @@ export default function OrderConfirmation() {
   if (!order) {
     return (
       <section className="py-5" dir="rtl">
-        <div className="container text-center py-5">
-          <i className="bi bi-exclamation-circle text-secondary" style={{ fontSize: "3rem" }} />
-          <h4 className="fw-bold mt-3">سفارش یافت نشد</h4>
-          <p className="text-muted">سفارش مورد نظر وجود ندارد.</p>
-          <Link to="/" className="btn btn-primary rounded-pill px-4">
-            بازگشت به صفحه اصلی
-          </Link>
+        <div className="container">
+          <div className="empty-state">
+            <div className="empty-state-icon">
+              <i className="bi bi-exclamation-circle" />
+            </div>
+            <h3 className="empty-state-title">سفارش یافت نشد</h3>
+            <p className="empty-state-desc">سفارش مورد نظر وجود ندارد.</p>
+            <Link to="/" className="btn btn-vesta-primary rounded-pill px-5">
+              بازگشت به صفحه اصلی
+            </Link>
+          </div>
         </div>
       </section>
     );
@@ -54,13 +58,17 @@ export default function OrderConfirmation() {
             <h6 className="fw-bold mb-3">اقلام سفارش</h6>
             {order.items.map((item) => (
               <div key={item.product.id} className="d-flex gap-3 mb-3 pb-3 border-bottom order-item-row">
-                <img
-                  src={item.product.image}
-                  alt={item.product.title}
-                  className="rounded-3 flex-shrink-0"
-                  style={{ width: 60, height: 60, objectFit: "cover" }}
-                  loading="lazy"
-                />
+                <div
+                  className="rounded-3 flex-shrink-0 overflow-hidden"
+                  style={{ width: 60, height: 60, background: "var(--c-gray-100)" }}
+                >
+                  <img
+                    src={item.product.image}
+                    alt={item.product.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    loading="lazy"
+                  />
+                </div>
                 <div className="flex-grow-1 min-w-0">
                   <h6 className="fw-bold mb-0 text-truncate-2">{item.product.title}</h6>
                   <span className="text-muted small">

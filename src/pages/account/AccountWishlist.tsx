@@ -10,14 +10,18 @@ export default function AccountWishlist() {
   if (items.length === 0) {
     return (
       <div className="card border-0 shadow-sm rounded-4">
-        <div className="card-body p-5 text-center">
-          <i className="bi bi-heart text-secondary" style={{ fontSize: "3rem" }} />
-          <h5 className="fw-bold mt-3">لیست علاقه‌مندی‌ها خالی است</h5>
-          <p className="text-muted">محصولات مورد علاقه خود را اضافه کنید.</p>
-          <Link to="/products" className="btn btn-primary rounded-pill px-4">
-            <i className="bi bi-bag me-2" />
-            مشاهده محصولات
-          </Link>
+        <div className="card-body">
+          <div className="empty-state" style={{ padding: "var(--space-12) var(--space-4)" }}>
+            <div className="empty-state-icon" style={{ width: "80px", height: "80px" }}>
+              <i className="bi bi-heart" style={{ fontSize: "2rem" }} />
+            </div>
+            <h4 className="empty-state-title">لیست علاقه‌مندی‌ها خالی است</h4>
+            <p className="empty-state-desc">محصولات مورد علاقه خود را اضافه کنید.</p>
+            <Link to="/products" className="btn btn-vesta-primary rounded-pill px-5">
+              <i className="bi bi-bag me-2" />
+              مشاهده محصولات
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -36,13 +40,17 @@ export default function AccountWishlist() {
             <div key={item.product.id} className="col-12">
               <div className="d-flex gap-3 p-3 bg-light rounded-3">
                 <Link to={`/products/${item.product.id}`} className="flex-shrink-0">
-                  <img
-                    src={item.product.image}
-                    alt={item.product.title}
-                    className="rounded-3"
-                    style={{ width: 72, height: 72, objectFit: "cover" }}
-                    loading="lazy"
-                  />
+                  <div
+                    className="rounded-3 overflow-hidden"
+                    style={{ width: 72, height: 72, background: "var(--c-gray-200)" }}
+                  >
+                    <img
+                      src={item.product.image}
+                      alt={item.product.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                      loading="lazy"
+                    />
+                  </div>
                 </Link>
                 <div className="flex-grow-1 min-w-0">
                   <Link

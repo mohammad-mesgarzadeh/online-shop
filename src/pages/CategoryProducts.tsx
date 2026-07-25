@@ -2,7 +2,6 @@ import { useParams, Link } from "react-router-dom";
 import { products } from "../data/products";
 import { categories } from "../data/categories";
 import ProductCard from "../components/ProductCard";
-import { formatPriceNumber } from "../utils/formatPrice";
 
 export default function CategoryProducts() {
   const { slug } = useParams<{ slug: string }>();
@@ -10,13 +9,17 @@ export default function CategoryProducts() {
 
   if (!category) {
     return (
-      <div className="container mt-5 text-center py-5">
-        <i className="bi bi-exclamation-circle text-secondary" style={{ fontSize: "3rem" }}></i>
-        <h3 className="fw-bold mt-3">دسته بندی یافت نشد</h3>
-        <p className="text-muted">دسته بندی مورد نظر شما وجود ندارد.</p>
-        <Link to="/categories" className="btn btn-primary rounded-pill">
-          بازگشت به دسته بندی‌ها
-        </Link>
+      <div className="container py-5">
+        <div className="empty-state">
+          <div className="empty-state-icon">
+            <i className="bi bi-exclamation-circle" />
+          </div>
+          <h3 className="empty-state-title">دسته بندی یافت نشد</h3>
+          <p className="empty-state-desc">دسته بندی مورد نظر شما وجود ندارد.</p>
+          <Link to="/categories" className="btn btn-vesta-primary rounded-pill">
+            بازگشت به دسته بندی‌ها
+          </Link>
+        </div>
       </div>
     );
   }
@@ -42,13 +45,12 @@ export default function CategoryProducts() {
 
         <div
           className="rounded-4 overflow-hidden mb-5 position-relative category-hero-banner"
-          style={{ height: "300px" }}
+          style={{ aspectRatio: "21 / 9" }}
         >
           <img
             src={category.image}
             alt={category.label}
-            className="w-100 h-100"
-            style={{ objectFit: "cover" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             loading="lazy"
           />
           <div
@@ -68,24 +70,18 @@ export default function CategoryProducts() {
         </div>
 
         {categoryProducts.length > 0 ? (
-          <div className="row g-4">
+          <div className="product-grid">
             {categoryProducts.map((p) => (
-              <div key={p.id} className="col-md-6 col-lg-4">
-                <ProductCard
-                  id={p.id}
-                  title={p.title}
-                  price={`${formatPriceNumber(p.price)} تومان`}
-                  image={p.image}
-                  discount={p.discount}
-                />
-              </div>
+              <ProductCard key={p.id} product={p} />
             ))}
           </div>
         ) : (
-          <div className="text-center py-5">
-            <i className="bi bi-box text-secondary" style={{ fontSize: "3rem" }}></i>
-            <h5 className="fw-bold mt-3">محصولی یافت نشد</h5>
-            <p className="text-muted">
+          <div className="empty-state">
+            <div className="empty-state-icon">
+              <i className="bi bi-box" />
+            </div>
+            <h3 className="empty-state-title">محصولی یافت نشد</h3>
+            <p className="empty-state-desc">
               هنوز محصولی برای این دسته بندی اضافه نشده است.
             </p>
           </div>

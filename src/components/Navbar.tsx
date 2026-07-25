@@ -2,6 +2,9 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
+import { products } from "../data/products";
+import { formatPriceNumber } from "../utils/formatPrice";
 import "./Navbar.css";
 
 export default function Navbar() {
@@ -9,11 +12,16 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchResults, setSearchResults] = useState<typeof products>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchOverlayRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
   const { itemCount } = useCart();
+  const { itemCount: wishlistCount } = useWishlist();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -32,13 +40,19 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    if (mobileOpen) {
+    if (mobileOpen || searchOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
     }
     return () => { document.body.style.overflow = ""; };
-  }, [mobileOpen]);
+  }, [mobileOpen, searchOpen]);
+
+  useEffect(() => {
+    if (searchOpen && searchInputRef.current) {
+      setTimeout(() => searchInputRef.current?.focus(), 100);
+    }
+  }, [searchOpen]);
 
   const closeMobile = useCallback(() => {
     setMobileOpen(false);
@@ -48,12 +62,31 @@ export default function Navbar() {
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
     const trimmed = searchTerm.trim();
-    closeMobile();
+    setSearchOpen(false);
     if (trimmed) {
       navigate(`/products?search=${encodeURIComponent(trimmed)}`);
     } else {
       navigate("/products");
     }
+  };
+
+  const handleSearchChange = (value: string) => {
+    setSearchTerm(value);
+    if (value.trim().length > 1) {
+      const results = products.filter((p) =>
+        p.title.includes(value.trim()) || p.categoryLabel.includes(value.trim())
+      ).slice(0, 5);
+      setSearchResults(results);
+    } else {
+      setSearchResults([]);
+    }
+  };
+
+  const handleSearchResultClick = (productId: string) => {
+    setSearchOpen(false);
+    setSearchTerm("");
+    setSearchResults([]);
+    navigate(`/products/${productId}`);
   };
 
   const handleLogout = () => {
@@ -68,8 +101,27 @@ export default function Navbar() {
 
   return (
     <>
+      {/* Announcement Bar */}
+      <div
+        className="d-none d-md-flex align-items-center justify-content-center gap-3 py-2"
+        style={{
+          background: "var(--c-gray-900)",
+          color: "#cbd5e1",
+          fontSize: "var(--text-sm)",
+          height: "var(--announcement-height)",
+        }}
+      >
+        <i className="bi bi-truck" style={{ color: "var(--c-primary-lighter)" }} />
+        <span>ارسال رایگان برای سفارش‌های بالای ۲ میلیون تومان</span>
+        <span style={{ color: "#475569" }}>|</span>
+        <i className="bi bi-arrow-return-left" style={{ color: "var(--c-primary-lighter)" }} />
+        <span>۷ روز ضمانت بازگشت</span>
+      </div>
+
+      {/* Navbar */}
       <nav
         className={`navbar navbar-expand-xl bg-white sticky-top navbar-vesta${scrolled ? " shadow-sm" : ""}`}
+        style={{ zIndex: 1030 }}
       >
         <div className="container position-relative">
           {/* Left: Brand Logo */}
@@ -81,9 +133,26 @@ export default function Navbar() {
             <span className="brand-text">VESTA</span>
           </Link>
 
-          {/* Right side: Cart + Profile (visible on all screens below xl) */}
+          {/* Right side: Actions */}
           <div className="navbar-actions d-flex align-items-center gap-1">
-            {/* Cart icon - always visible */}
+            {/* Search Button (Desktop) */}
+            <button
+              className="navbar-icon-btn d-none d-xl-flex"
+              onClick={() => setSearchOpen(true)}
+              aria-label="جستجو"
+            >
+              <i className="bi bi-search" />
+            </button>
+
+            {/* Wishlist */}
+            <Link to="/account/wishlist" className="navbar-icon-btn position-relative d-none d-xl-flex" aria-label="علاقه‌مندی‌ها">
+              <i className="bi bi-heart" />
+              {wishlistCount > 0 && (
+                <span className="cart-badge">{wishlistCount > 99 ? "99+" : wishlistCount}</span>
+              )}
+            </Link>
+
+            {/* Cart icon */}
             <Link to="/cart" className="navbar-icon-btn position-relative" aria-label="سبد خرید">
               <i className="bi bi-bag" />
               {itemCount > 0 && (
@@ -179,6 +248,108 @@ export default function Navbar() {
         </div>
       </nav>
 
+      {/* Search Overlay */}
+      <div
+        ref={searchOverlayRef}
+        className={`navbar-search-overlay ${searchOpen ? "active" : ""}`}
+        onClick={(e) => {
+          if (e.target === searchOverlayRef.current) setSearchOpen(false);
+        }}
+      >
+        <div className="navbar-search-container">
+          <form onSubmit={handleSearch} className="d-flex align-items-center gap-3">
+            <div className="flex-grow-1 d-flex align-items-center gap-3 px-4 py-3 rounded-3" style={{ background: "var(--c-gray-50)" }}>
+              <i className="bi bi-search" style={{ color: "var(--c-gray-400)", fontSize: "1.2rem" }} />
+              <input
+                ref={searchInputRef}
+                type="text"
+                className="form-control border-0 bg-transparent"
+                placeholder="جستجوی محصولات..."
+                value={searchTerm}
+                onChange={(e) => handleSearchChange(e.target.value)}
+                style={{ fontSize: "var(--text-lg)", boxShadow: "none", outline: "none" }}
+              />
+              {searchTerm && (
+                <button
+                  type="button"
+                  className="btn btn-sm p-1"
+                  onClick={() => { setSearchTerm(""); setSearchResults([]); }}
+                  style={{ color: "var(--c-gray-400)" }}
+                >
+                  <i className="bi bi-x-lg" />
+                </button>
+              )}
+            </div>
+            <button
+              type="button"
+              className="btn btn-sm p-2"
+              onClick={() => setSearchOpen(false)}
+              style={{ color: "var(--c-gray-400)" }}
+            >
+              <i className="bi bi-x-lg fs-4" />
+            </button>
+          </form>
+
+          {searchResults.length > 0 && (
+            <div className="mt-2 rounded-3 overflow-hidden" style={{ background: "var(--c-surface)", boxShadow: "var(--shadow-xl)" }}>
+              {searchResults.map((product) => (
+                <button
+                  key={product.id}
+                  className="d-flex align-items-center gap-3 w-100 text-start p-3 border-0 bg-transparent"
+                  style={{ cursor: "pointer", transition: "background 0.15s" }}
+                  onClick={() => handleSearchResultClick(product.id)}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.background = "var(--c-gray-50)"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.background = "transparent"; }}
+                >
+                  <div
+                    className="rounded-2 overflow-hidden flex-shrink-0"
+                    style={{ width: 48, height: 48, background: "var(--c-gray-100)" }}
+                  >
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    />
+                  </div>
+                  <div className="flex-grow-1 min-w-0">
+                    <div className="fw-medium" style={{ fontSize: "var(--text-sm)" }}>{product.title}</div>
+                    <div style={{ color: "var(--c-primary)", fontSize: "var(--text-sm)", fontWeight: "var(--font-bold)" }}>
+                      {formatPriceNumber(product.price)} تومان
+                    </div>
+                  </div>
+                  <i className="bi bi-arrow-left" style={{ color: "var(--c-gray-300)" }} />
+                </button>
+              ))}
+            </div>
+          )}
+
+          {!searchTerm && (
+            <div className="mt-3 px-2">
+              <div className="d-flex flex-wrap gap-2">
+                <span style={{ color: "var(--c-gray-400)", fontSize: "var(--text-sm)" }}>پرجستجو:</span>
+                {["هودی", "تیشرت", "کفش", "ساعت"].map((term) => (
+                  <button
+                    key={term}
+                    className="btn btn-sm rounded-pill"
+                    style={{
+                      background: "var(--c-primary-bg)",
+                      color: "var(--c-primary)",
+                      fontSize: "var(--text-sm)",
+                    }}
+                    onClick={() => {
+                      setSearchTerm(term);
+                      handleSearchChange(term);
+                    }}
+                  >
+                    {term}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
       {/* Mobile Overlay Menu */}
       <div className={`navbar-mobile-overlay ${mobileOpen ? "active" : ""}`} onClick={closeMobile} />
       <div className={`navbar-mobile-menu ${mobileOpen ? "active" : ""}`} ref={mobileMenuRef}>
@@ -227,6 +398,15 @@ export default function Navbar() {
             <i className="bi bi-journal-text" />
             وبلاگ
           </NavLink>
+          <NavLink to="/account/wishlist" className="mobile-nav-link" onClick={closeMobile}>
+            <i className="bi bi-heart" />
+            علاقه‌مندی‌ها
+            {wishlistCount > 0 && (
+              <span className="badge bg-danger rounded-pill ms-auto" style={{ fontSize: "var(--text-xs)" }}>
+                {wishlistCount}
+              </span>
+            )}
+          </NavLink>
         </nav>
 
         <div className="mobile-menu-divider" />
@@ -235,7 +415,9 @@ export default function Navbar() {
         {isAuthenticated && user ? (
           <div>
             <div className="d-flex align-items-center gap-3 mb-3 px-2">
-              <img src={user.avatar} alt={user.name} className="rounded-circle" style={{ width: 44, height: 44, objectFit: "cover" }} />
+              <div className="rounded-circle overflow-hidden flex-shrink-0" style={{ width: 44, height: 44, background: "var(--c-gray-100)" }}>
+                <img src={user.avatar} alt={user.name} style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }} />
+              </div>
               <div className="overflow-hidden">
                 <div className="fw-bold">{user.name}</div>
                 <small className="text-muted" style={{ direction: "ltr" }}>{user.email}</small>

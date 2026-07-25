@@ -16,15 +16,14 @@ export default function Categories() {
                   to={`/categories/${cat.slug}`}
                   className="text-decoration-none"
                 >
-                  <div className="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+                  <div className="card border-0 shadow-sm rounded-4 h-100 overflow-hidden hover-lift">
                     <div
-                      style={{ height: "220px", overflow: "hidden" }}
+                      style={{ aspectRatio: "4 / 3", overflow: "hidden" }}
                     >
                       <img
                         src={cat.image}
                         alt={cat.label}
-                        className="w-100 h-100"
-                        style={{ objectFit: "cover" }}
+                        style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                         loading="lazy"
                       />
                     </div>

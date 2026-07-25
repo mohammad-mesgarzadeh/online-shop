@@ -2,21 +2,15 @@ import "./BestSellingProducts.css";
 import ProductCard from "../ProductCard";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-  Navigation,
-  Autoplay,
-  EffectCoverflow,
-} from "swiper/modules";
+import { Navigation, Autoplay } from "swiper/modules";
 
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import "swiper/css";
 import "swiper/css/navigation";
-import "swiper/css/effect-coverflow";
 
 import { products } from "../../data/products";
-import { formatPriceNumber } from "../../utils/formatPrice";
 
 export default function BestSellingProducts() {
   const bestSellers = [...products]
@@ -24,50 +18,39 @@ export default function BestSellingProducts() {
     .slice(0, 8);
 
   return (
-    <section className="py-5 overflow-hidden">
+    <section className="py-5 py-lg-6 overflow-hidden" dir="rtl">
       <div className="container">
-        <div className="d-flex justify-content-between align-items-center mb-5">
+        <div className="section-header-row">
           <div>
-            <span className="badge bg-primary-subtle text-primary mb-2">
-              محصولات ویژه
+            <span className="section-badge">
+              <i className="bi bi-fire me-1" />
+              پرفروش‌ها
             </span>
-
-            <h2 className="fw-bold mb-0">
-              پرفروش‌ترین محصولات
-            </h2>
+            <h2>پرفروش‌ترین محصولات</h2>
+            <p className="section-subtitle mt-2">
+              محبوب‌ترین محصولات در میان مشتریان ما
+            </p>
           </div>
-
-          <Link to="/products" className="btn btn-outline-dark rounded-pill px-4">
+          <Link to="/products?sort=best-selling" className="btn btn-vesta-outline rounded-pill">
             مشاهده همه
+            <i className="bi bi-arrow-left me-2" />
           </Link>
         </div>
 
         <Swiper
-          modules={[
-            Navigation,
-            Autoplay,
-            EffectCoverflow,
-          ]}
+          modules={[Navigation, Autoplay]}
           navigation
           loop
           grabCursor
           centeredSlides={false}
           speed={800}
           autoplay={{
-            delay: 3000,
+            delay: 4000,
             disableOnInteraction: false,
           }}
-          effect="coverflow"
-          coverflowEffect={{
-            rotate: 0,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: false,
-          }}
-          spaceBetween={24}
+          spaceBetween={20}
           breakpoints={{
-            320: { slidesPerView: 1.2 },
+            320: { slidesPerView: 1.3 },
             576: { slidesPerView: 2 },
             768: { slidesPerView: 3 },
             992: { slidesPerView: 4 },
@@ -79,18 +62,9 @@ export default function BestSellingProducts() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{
-                  duration: 0.5,
-                  delay: index * 0.08,
-                }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
               >
-                <ProductCard
-                  id={product.id}
-                  title={product.title}
-                  price={`${formatPriceNumber(product.price)} تومان`}
-                  image={product.image}
-                  discount={product.discount}
-                />
+                <ProductCard product={product} index={index} />
               </motion.div>
             </SwiperSlide>
           ))}

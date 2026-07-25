@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { formatPriceNumber } from "../utils/formatPrice";
+import { products } from "../data/products";
+import ProductCard from "../components/ProductCard";
+import { motion } from "framer-motion";
 
 export default function Cart() {
   const {
@@ -17,19 +21,44 @@ export default function Cart() {
     itemCount,
   } = useCart();
 
+  const [couponCode, setCouponCode] = useState("");
+  const [couponApplied, setCouponApplied] = useState(false);
+  const [couponError, setCouponError] = useState("");
+
+  const recommendedProducts = products
+    .filter((p) => !items.some((item) => item.product.id === p.id))
+    .slice(0, 4);
+
+  const handleApplyCoupon = () => {
+    if (couponCode.trim().toLowerCase() === "vesta10") {
+      setCouponApplied(true);
+      setCouponError("");
+    } else {
+      setCouponError("کد تخفیف معتبر نیست");
+      setCouponApplied(false);
+    }
+  };
+
   if (items.length === 0) {
     return (
       <section className="py-5" dir="rtl">
         <div className="container">
           <h2 className="fw-bold mb-4">سبد خرید</h2>
-          <div className="text-center py-5">
-            <i className="bi bi-cart text-secondary" style={{ fontSize: "4rem" }} />
-            <h4 className="fw-bold mt-3">سبد خرید شما خالی است</h4>
-            <p className="text-muted">برای خرید می‌توانید از محصولات ما دیدن کنید.</p>
-            <Link to="/products" className="btn btn-primary rounded-pill px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="empty-state"
+          >
+            <div className="empty-state-icon">
+              <i className="bi bi-cart" />
+            </div>
+            <h3 className="empty-state-title">سبد خرید شما خالی است</h3>
+            <p className="empty-state-desc">برای خرید می‌توانید از محصولات ما دیدن کنید.</p>
+            <Link to="/products" className="btn btn-vesta-primary rounded-pill px-5 py-3">
               مشاهده محصولات
+              <i className="bi bi-arrow-left me-2" />
             </Link>
-          </div>
+          </motion.div>
         </div>
       </section>
     );
@@ -59,13 +88,17 @@ export default function Cart() {
                     className="d-flex gap-3 p-3 border-bottom"
                   >
                     <Link to={`/products/${item.product.id}`} className="flex-shrink-0">
-                      <img
-                        src={item.product.image}
-                        alt={item.product.title}
-                        className="rounded-3"
-                        style={{ width: 80, height: 80, objectFit: "cover" }}
-                        loading="lazy"
-                      />
+                      <div
+                        className="rounded-3 overflow-hidden"
+                        style={{ width: 80, height: 80, background: "var(--c-gray-100)" }}
+                      >
+                        <img
+                          src={item.product.image}
+                          alt={item.product.title}
+                          style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                          loading="lazy"
+                        />
+                      </div>
                     </Link>
 
                     <div className="flex-grow-1 min-w-0">
@@ -75,11 +108,11 @@ export default function Cart() {
                             to={`/products/${item.product.id}`}
                             className="text-decoration-none"
                           >
-                            <h6 className="fw-bold text-dark mb-1 text-truncate-2">
+                            <h6 className="fw-bold mb-1" style={{ color: "var(--c-gray-800)", fontSize: "var(--text-sm)" }}>
                               {item.product.title}
                             </h6>
                           </Link>
-                          <span className="badge bg-primary-subtle text-primary small">
+                          <span className="badge rounded-pill" style={{ background: "var(--c-primary-bg)", color: "var(--c-primary)", fontSize: "var(--text-xs)" }}>
                             {item.product.categoryLabel}
                           </span>
                         </div>
@@ -121,7 +154,7 @@ export default function Cart() {
                             </button>
                           </div>
                         </div>
-                        <span className="fw-bold text-primary text-nowrap">
+                        <span className="fw-bold text-nowrap" style={{ color: "var(--c-primary)", fontSize: "var(--text-sm)" }}>
                           {formatPriceNumber(item.product.price * item.quantity)} تومان
                         </span>
                       </div>
@@ -138,15 +171,15 @@ export default function Cart() {
                 <h5 className="fw-bold mb-4">خلاصه سفارش</h5>
 
                 <div className="d-flex justify-content-between mb-2">
-                  <span className="text-muted">جمع کل</span>
+                  <span style={{ color: "var(--c-gray-500)" }}>جمع کل</span>
                   <span className="fw-medium">{formatPriceNumber(subtotal)} تومان</span>
                 </div>
 
                 <div className="d-flex justify-content-between mb-2">
-                  <span className="text-muted">هزینه ارسال</span>
+                  <span style={{ color: "var(--c-gray-500)" }}>هزینه ارسال</span>
                   <span className="fw-medium">
                     {shippingCost === 0 ? (
-                      <span className="text-success">رایگان</span>
+                      <span style={{ color: "var(--c-success)" }}>رایگان</span>
                     ) : (
                       `${formatPriceNumber(shippingCost)} تومان`
                     )}
@@ -154,22 +187,57 @@ export default function Cart() {
                 </div>
 
                 <div className="d-flex justify-content-between mb-3">
-                  <span className="text-muted">مالیات (۹٪)</span>
+                  <span style={{ color: "var(--c-gray-500)" }}>مالیات (۹٪)</span>
                   <span className="fw-medium">{formatPriceNumber(tax)} تومان</span>
                 </div>
 
                 {shippingCost > 0 && (
-                  <div className="alert alert-info small py-2 rounded-3 mb-3">
-                    <i className="bi bi-info-circle me-1" />
+                  <div className="d-flex align-items-center gap-2 py-2 px-3 rounded-3 mb-3" style={{ background: "var(--c-info-bg)", color: "var(--c-info)", fontSize: "var(--text-sm)" }}>
+                    <i className="bi bi-info-circle" />
                     ارسال رایگان برای سفارش‌های بالای {formatPriceNumber(5000000)} تومان
                   </div>
                 )}
 
+                {/* Coupon Code */}
+                <div className="mb-3">
+                  <label className="form-label fw-medium" style={{ fontSize: "var(--text-sm)" }}>کد تخفیف</label>
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control rounded-3"
+                      placeholder="کد تخفیف را وارد کنید"
+                      value={couponCode}
+                      onChange={(e) => { setCouponCode(e.target.value); setCouponError(""); setCouponApplied(false); }}
+                      disabled={couponApplied}
+                      style={{ fontSize: "var(--text-sm)" }}
+                    />
+                    <button
+                      className="btn rounded-3 px-3"
+                      style={{
+                        background: couponApplied ? "var(--c-success-bg)" : "var(--c-primary-bg)",
+                        color: couponApplied ? "var(--c-success)" : "var(--c-primary)",
+                        fontWeight: "var(--font-semibold)",
+                        fontSize: "var(--text-sm)",
+                      }}
+                      onClick={handleApplyCoupon}
+                      disabled={couponApplied || !couponCode.trim()}
+                    >
+                      {couponApplied ? "اعمال شد" : "اعمال"}
+                    </button>
+                  </div>
+                  {couponError && (
+                    <small style={{ color: "var(--c-danger)" }}>{couponError}</small>
+                  )}
+                  {couponApplied && (
+                    <small style={{ color: "var(--c-success)" }}>۱۰٪ تخفیف اعمال شد!</small>
+                  )}
+                </div>
+
                 <hr />
 
                 <div className="d-flex justify-content-between mb-4 gap-2">
-                  <span className="fw-bold fs-5">مبلغ قابل پرداخت</span>
-                  <span className="fw-bold fs-5 text-primary text-nowrap">
+                  <span className="fw-bold" style={{ fontSize: "var(--text-lg)" }}>مبلغ قابل پرداخت</span>
+                  <span className="fw-bold text-nowrap" style={{ fontSize: "var(--text-lg)", color: "var(--c-primary)" }}>
                     {formatPriceNumber(grandTotal)} تومان
                   </span>
                 </div>
@@ -193,6 +261,28 @@ export default function Cart() {
             </div>
           </div>
         </div>
+
+        {/* Recommended Products */}
+        {recommendedProducts.length > 0 && (
+          <section className="mt-5 pt-5" style={{ borderTop: "1px solid var(--c-border)" }}>
+            <div className="section-header-row">
+              <h2>پیشنهاد ما برای شما</h2>
+            </div>
+            <div className="product-grid">
+              {recommendedProducts.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.4, delay: index * 0.1 }}
+                >
+                  <ProductCard product={product} index={index} />
+                </motion.div>
+              ))}
+            </div>
+          </section>
+        )}
       </div>
     </section>
   );

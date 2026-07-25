@@ -46,13 +46,17 @@ export default function Checkout() {
   if (items.length === 0) {
     return (
       <section className="py-5" dir="rtl">
-        <div className="container text-center py-5">
-          <i className="bi bi-cart-x text-secondary" style={{ fontSize: "3rem" }} />
-          <h4 className="fw-bold mt-3">سبد خرید شما خالی است</h4>
-          <p className="text-muted">برای ادامه خرید ابتدا محصولی به سبد اضافه کنید.</p>
-          <Link to="/products" className="btn btn-primary rounded-pill px-4">
-            مشاهده محصولات
-          </Link>
+        <div className="container">
+          <div className="empty-state">
+            <div className="empty-state-icon">
+              <i className="bi bi-cart-x" />
+            </div>
+            <h3 className="empty-state-title">سبد خرید شما خالی است</h3>
+            <p className="empty-state-desc">برای ادامه خرید ابتدا محصولی به سبد اضافه کنید.</p>
+            <Link to="/products" className="btn btn-vesta-primary rounded-pill px-5">
+              مشاهده محصولات
+            </Link>
+          </div>
         </div>
       </section>
     );
@@ -214,7 +218,7 @@ export default function Checkout() {
                           src={item.product.image}
                           alt={item.product.title}
                           className="rounded-3"
-                          style={{ width: 56, height: 56, objectFit: "cover" }}
+                          style={{ width: 56, height: 56, objectFit: "cover", display: "block" }}
                         />
                         <div className="flex-grow-1">
                           <h6 className="fw-bold mb-0" style={{ fontSize: "0.85rem" }}>

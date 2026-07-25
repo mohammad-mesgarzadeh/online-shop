@@ -86,8 +86,16 @@ export default function Products() {
   };
 
   return (
-    <section className="py-5">
+    <section className="py-5" dir="rtl">
       <div className="container">
+        {/* Page Header */}
+        <div className="mb-4">
+          <h1 className="fw-bold" style={{ fontSize: "clamp(1.5rem, 3vw, 2rem)" }}>فروشگاه</h1>
+          <p style={{ color: "var(--c-gray-500)" }}>
+            {sortedProducts.length} محصول
+          </p>
+        </div>
+
         <ProductToolbar
           totalProducts={sortedProducts.length}
           sortBy={sortBy}
@@ -145,23 +153,23 @@ export default function Products() {
             {pagedProducts.length > 0 ? (
               <ProductGrid products={pagedProducts} />
             ) : (
-              <div className="text-center py-5">
-                <i
-                  className="bi bi-search text-secondary"
-                  style={{ fontSize: "3rem" }}
-                ></i>
-                <h5 className="fw-bold mt-3">محصولی یافت نشد</h5>
-                <p className="text-muted">
+              <div className="empty-state">
+                <div className="empty-state-icon">
+                  <i className="bi bi-search" />
+                </div>
+                <h3 className="empty-state-title">محصولی یافت نشد</h3>
+                <p className="empty-state-desc">
                   هیچ محصولی با معیارهای جستجوی شما مطابقت ندارد.
                 </p>
                 <button
-                  className="btn btn-outline-primary rounded-pill touch-target"
+                  className="btn btn-vesta-primary rounded-pill"
                   onClick={() => {
                     setSearch("");
                     setSelectedCategories([]);
                     setSearchParams({});
                   }}
                 >
+                  <i className="bi bi-x-lg me-2" />
                   پاک کردن فیلترها
                 </button>
               </div>

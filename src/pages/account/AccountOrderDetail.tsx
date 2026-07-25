@@ -18,13 +18,17 @@ export default function AccountOrderDetail() {
   if (!order) {
     return (
       <div className="card border-0 shadow-sm rounded-4">
-        <div className="card-body p-5 text-center">
-          <i className="bi bi-exclamation-circle text-secondary" style={{ fontSize: "3rem" }} />
-          <h5 className="fw-bold mt-3">سفارش یافت نشد</h5>
-          <p className="text-muted">سفارش مورد نظر وجود ندارد.</p>
-          <Link to="/account/orders" className="btn btn-primary rounded-pill px-4">
-            بازگشت به سفارشات
-          </Link>
+        <div className="card-body">
+          <div className="empty-state" style={{ padding: "var(--space-12) var(--space-4)" }}>
+            <div className="empty-state-icon" style={{ width: "80px", height: "80px" }}>
+              <i className="bi bi-exclamation-circle" style={{ fontSize: "2rem" }} />
+            </div>
+            <h4 className="empty-state-title">سفارش یافت نشد</h4>
+            <p className="empty-state-desc">سفارش مورد نظر وجود ندارد.</p>
+            <Link to="/account/orders" className="btn btn-vesta-primary rounded-pill px-5">
+              بازگشت به سفارشات
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -58,13 +62,17 @@ export default function AccountOrderDetail() {
           {order.items.map((item) => (
             <div key={item.product.id} className="d-flex gap-3 mb-3 pb-3 border-bottom">
               <Link to={`/products/${item.product.id}`} className="flex-shrink-0">
-                <img
-                  src={item.product.image}
-                  alt={item.product.title}
-                  className="rounded-3"
-                  style={{ width: 64, height: 64, objectFit: "cover" }}
-                  loading="lazy"
-                />
+                <div
+                  className="rounded-3 overflow-hidden"
+                  style={{ width: 64, height: 64, background: "var(--c-gray-100)" }}
+                >
+                  <img
+                    src={item.product.image}
+                    alt={item.product.title}
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                    loading="lazy"
+                  />
+                </div>
               </Link>
               <div className="flex-grow-1 min-w-0">
                 <Link

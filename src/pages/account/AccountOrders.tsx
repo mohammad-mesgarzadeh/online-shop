@@ -16,14 +16,18 @@ export default function AccountOrders() {
   if (orders.length === 0) {
     return (
       <div className="card border-0 shadow-sm rounded-4">
-        <div className="card-body p-5 text-center">
-          <i className="bi bi-box text-secondary" style={{ fontSize: "3rem" }} />
-          <h5 className="fw-bold mt-3">سفارشی ثبت نشده</h5>
-          <p className="text-muted">شما هنوز هیچ سفارشی ثبت نکرده‌اید.</p>
-          <Link to="/products" className="btn btn-primary rounded-pill px-4">
-            <i className="bi bi-bag me-2" />
-            شروع خرید
-          </Link>
+        <div className="card-body">
+          <div className="empty-state" style={{ padding: "var(--space-12) var(--space-4)" }}>
+            <div className="empty-state-icon" style={{ width: "80px", height: "80px" }}>
+              <i className="bi bi-box" style={{ fontSize: "2rem" }} />
+            </div>
+            <h4 className="empty-state-title">سفارشی ثبت نشده</h4>
+            <p className="empty-state-desc">شما هنوز هیچ سفارشی ثبت نکرده‌اید.</p>
+            <Link to="/products" className="btn btn-vesta-primary rounded-pill px-5">
+              <i className="bi bi-bag me-2" />
+              شروع خرید
+            </Link>
+          </div>
         </div>
       </div>
     );

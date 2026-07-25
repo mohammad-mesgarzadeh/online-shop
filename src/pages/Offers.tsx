@@ -5,11 +5,11 @@ import OfferBanner from "../components/offers/OfferBanner";
 
 export default function Offers() {
   return (
-    <>
+    <div>
       <OfferHero />
       <Countdown />
       <FlashSale />
       <OfferBanner />
-    </>
+    </div>
   );
 }

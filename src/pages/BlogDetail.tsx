@@ -7,13 +7,17 @@ export default function BlogDetail() {
 
   if (!article) {
     return (
-      <div className="container mt-5 text-center py-5">
-        <i className="bi bi-exclamation-circle text-secondary" style={{ fontSize: "3rem" }}></i>
-        <h3 className="fw-bold mt-3">مقاله یافت نشد</h3>
-        <p className="text-muted">مقاله مورد نظر شما وجود ندارد.</p>
-        <Link to="/blog" className="btn btn-primary rounded-pill">
-          بازگشت به وبلاگ
-        </Link>
+      <div className="container py-5">
+        <div className="empty-state">
+          <div className="empty-state-icon">
+            <i className="bi bi-exclamation-circle" />
+          </div>
+          <h3 className="empty-state-title">مقاله یافت نشد</h3>
+          <p className="empty-state-desc">مقاله مورد نظر شما وجود ندارد.</p>
+          <Link to="/blog" className="btn btn-vesta-primary rounded-pill">
+            بازگشت به وبلاگ
+          </Link>
+        </div>
       </div>
     );
   }
@@ -35,13 +39,12 @@ export default function BlogDetail() {
 
         <div
           className="rounded-4 overflow-hidden mb-5 blog-hero-image"
-          style={{ height: "450px" }}
+          style={{ aspectRatio: "21 / 9" }}
         >
           <img
             src={article.image}
             alt={article.title}
-            className="w-100 h-100"
-            style={{ objectFit: "cover" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
             loading="lazy"
           />
         </div>
