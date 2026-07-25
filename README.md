@@ -1,73 +1,89 @@
-# React + TypeScript + Vite
+# 🛍️ VESTA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![React](https://img.shields.io/badge/React-19-blue)
+![Vite](https://img.shields.io/badge/Vite-6-purple)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-4-38BDF8)
+![License](https://img.shields.io/badge/License-MIT-green)
 
-Currently, two official plugins are available:
+Modern Fashion E-Commerce Frontend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# 🛍️ VESTA - Online Fashion Store
 
-## React Compiler
+A modern e-commerce frontend built with React, Vite, and Tailwind CSS, designed to provide a fast, responsive, and visually engaging shopping experience.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Features
 
-## Expanding the ESLint configuration
+- Modern and responsive UI
+- Product catalog and product details pages
+- Shopping cart functionality
+- Category-based product browsing
+- Product search and filtering
+- Smooth animations and transitions
+- Mobile-first design
+- Fast performance with Vite
+- Reusable component architecture
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Frontend
+- React
+- Vite
+- TypeScript / JavaScript
+- Tailwind CSS
+- React Router DOM
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Development Tools
+- ESLint
+- Prettier
+- Git & GitHub
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 📂 Project Structure
+
+```bash
+src/
+├── components/      # Reusable UI components
+├── pages/           # Application pages
+├── layouts/         # Layout components
+├── hooks/           # Custom hooks
+├── services/        # API services
+├── assets/          # Images, icons, fonts
+├── utils/           # Helper functions
+└── router/          # Route configuration
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 🌐 Live Demo
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+🔗 https://mohammad-mesgarzadeh.github.io/online-shop/
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 🎯 Project Goals
+
+This project was built to:
+
+- Practice modern React development
+- Improve frontend architecture skills
+- Build a realistic e-commerce interface
+- Learn responsive design principles
+- Explore scalable component-based development
+
+## 🔮 Future Improvements
+
+- User Authentication
+- Wishlist
+- Order Management
+- Payment Gateway Integration
+- Product Reviews & Ratings
+- Admin Dashboard
+- Backend API Integration
+- Inventory Management
+
+## 👨‍💻 Author
+
+**Mohammad Mesgarzadeh**
+
+GitHub:
+https://github.com/mohammad-mesgarzadeh
+
+LinkedIn:
+https://www.linkedin.com/in/mohammad-mesgarzadeh-a5422837a/
+
+---
