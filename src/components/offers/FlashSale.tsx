@@ -1,31 +1,74 @@
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import ProductCard from "../ProductCard";
 import { products } from "../../data/products";
+
+const containerVariants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08 } },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
+};
 
 export default function FlashSale() {
   const saleProducts = products.filter((p) => p.discount).slice(0, 8);
 
   return (
-    <section className="pb-5">
+    <section style={{ paddingBottom: "var(--space-12)" }}>
       <div className="container">
-        <div className="d-flex justify-content-between align-items-center mb-4">
-          <h3 className="fw-bold mb-0" style={{ fontSize: "var(--text-2xl)" }}>
-            <i className="bi bi-lightning-charge text-warning me-2" />
+        <div className="section-header" style={{ textAlign: "center" }}>
+          <span className="section-badge" style={{ background: "rgba(239,68,68,0.08)", color: "var(--c-danger)" }}>
+            <i className="bi bi-lightning-charge-fill" />
+            پیشنهاد ویژه
+          </span>
+          <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.25rem)", fontWeight: "var(--font-extrabold)" }}>
             محصولات تخفیف‌دار
-          </h3>
-          <a href="/products" className="btn btn-sm btn-vesta-outline rounded-pill touch-target">
+          </h2>
+          <p className="section-subtitle" style={{ marginInline: "auto" }}>
+            بهترین پیشنهادات با تخفیف‌های باورنکردنی
+          </p>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "var(--space-6)" }}>
+          <Link
+            to="/offers/all"
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "8px 20px",
+              borderRadius: "var(--radius-full)",
+              border: "1.5px solid var(--c-gray-200)",
+              background: "var(--c-surface)",
+              color: "var(--c-gray-700)",
+              fontSize: "var(--text-sm)",
+              fontWeight: "var(--font-semibold)",
+              textDecoration: "none",
+              transition: "all var(--duration-fast)",
+            }}
+          >
             مشاهده همه
-            <i className="bi bi-arrow-left me-1" />
-          </a>
+            <i className="bi bi-arrow-left" />
+          </Link>
         </div>
 
         {saleProducts.length > 0 ? (
-          <div className="product-grid">
-            {saleProducts.map((product) => (
-              <div key={product.id}>
-                <ProductCard product={product} />
-              </div>
+          <motion.div
+            className="product-grid"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-60px" }}
+          >
+            {saleProducts.map((product, index) => (
+              <motion.div key={product.id} variants={cardVariants}>
+                <ProductCard product={product} index={index} />
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         ) : (
           <div className="empty-state" style={{ padding: "var(--space-12) var(--space-4)" }}>
             <div className="empty-state-icon" style={{ width: "80px", height: "80px" }}>

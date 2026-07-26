@@ -194,6 +194,15 @@ export default function Products() {
     setPage(1);
   }, [mobileFilters]);
 
+  const handleRemoveFilter = useCallback(
+    (partial: Partial<FilterState>) => {
+      setAppliedFilters((prev) => ({ ...prev, ...partial }));
+      setMobileFilters((prev) => ({ ...prev, ...partial }));
+      setPage(1);
+    },
+    []
+  );
+
   const handleResetFilters = useCallback(() => {
     const reset: FilterState = { ...DEFAULT_FILTERS };
     setMobileFilters(reset);
@@ -217,7 +226,7 @@ export default function Products() {
         key: `cat-${cat}`,
         label: `دسته: ${catObj?.label || cat}`,
         onRemove: () =>
-          handleFilterChange({
+          handleRemoveFilter({
             categories: f.categories.filter((c) => c !== cat),
           }),
       });
@@ -228,7 +237,7 @@ export default function Products() {
         key: `brand-${brand}`,
         label: `برند: ${brand}`,
         onRemove: () =>
-          handleFilterChange({
+          handleRemoveFilter({
             brands: f.brands.filter((b) => b !== brand),
           }),
       });
@@ -239,7 +248,7 @@ export default function Products() {
         key: `size-${size}`,
         label: `سایز: ${size}`,
         onRemove: () =>
-          handleFilterChange({
+          handleRemoveFilter({
             sizes: f.sizes.filter((s) => s !== size),
           }),
       });
@@ -250,7 +259,7 @@ export default function Products() {
         key: `color-${color}`,
         label: `رنگ: ${color}`,
         onRemove: () =>
-          handleFilterChange({
+          handleRemoveFilter({
             colors: f.colors.filter((c) => c !== color),
           }),
       });
@@ -261,7 +270,7 @@ export default function Products() {
         key: "price",
         label: `قیمت: ${f.priceRange[0].toLocaleString("fa-IR")} - ${f.priceRange[1].toLocaleString("fa-IR")}`,
         onRemove: () =>
-          handleFilterChange({ priceRange: [PRICE_MIN, PRICE_MAX] }),
+          handleRemoveFilter({ priceRange: [PRICE_MIN, PRICE_MAX] }),
       });
     }
 
@@ -269,7 +278,7 @@ export default function Products() {
       chips.push({
         key: "rating",
         label: `امتیاز: ${f.minRating}+`,
-        onRemove: () => handleFilterChange({ minRating: 0 }),
+        onRemove: () => handleRemoveFilter({ minRating: 0 }),
       });
     }
 
@@ -277,7 +286,7 @@ export default function Products() {
       chips.push({
         key: "stock",
         label: "موجود",
-        onRemove: () => handleFilterChange({ inStockOnly: false }),
+        onRemove: () => handleRemoveFilter({ inStockOnly: false }),
       });
     }
 
@@ -285,7 +294,7 @@ export default function Products() {
       chips.push({
         key: "sale",
         label: "حراجی",
-        onRemove: () => handleFilterChange({ onSaleOnly: false }),
+        onRemove: () => handleRemoveFilter({ onSaleOnly: false }),
       });
     }
 
@@ -293,12 +302,12 @@ export default function Products() {
       chips.push({
         key: "new",
         label: "جدید",
-        onRemove: () => handleFilterChange({ newArrivalsOnly: false }),
+        onRemove: () => handleRemoveFilter({ newArrivalsOnly: false }),
       });
     }
 
     return chips;
-  }, [appliedFilters, handleFilterChange]);
+  }, [appliedFilters, handleRemoveFilter]);
 
   const hasActiveFilters = activeFilterChips.length > 0;
 
@@ -306,12 +315,7 @@ export default function Products() {
     <section className="ps" dir="rtl">
       <div className="container">
         {/* Page Header */}
-        <div className="ps-header">
-          <h1 className="ps-title">فروشگاه</h1>
-          <p className="ps-subtitle">
-            {sortedProducts.length} محصول
-          </p>
-        </div>
+       
 
         <ProductToolbar
           totalProducts={sortedProducts.length}

@@ -2,34 +2,51 @@ export interface Category {
   slug: string;
   label: string;
   image: string;
+  description?: string;
   parent?: string;
+  productCount?: number;
 }
 
 export const categories: Category[] = [
-  { slug: "tshirt", label: "تیشرت", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400" },
-  { slug: "shirt", label: "پیراهن", image: "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=400" },
-  { slug: "hoodie", label: "هودی", image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400" },
-  { slug: "jacket", label: "کاپشن", image: "https://images.unsplash.com/photo-1548883354-94bcfe321cbb?w=400" },
-  { slug: "jeans", label: "شلوار جین", image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400" },
-  { slug: "kafsh", label: "کفش اسپرت", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400" },
-  { slug: "bag", label: "کیف", image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400" },
-  { slug: "watch", label: "ساعت", image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=400" },
-  { slug: "glasses", label: "عینک", image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400" },
-  { slug: "hat", label: "کلاه", image: "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=400" },
-  { slug: "sportswear", label: "لباس ورزشی", image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400" },
+  { slug: "tshirt", label: "تیشرت", image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400", description: "تیشرت‌های مردانه و زنانه با طراحی مدرن", parent: "clothing", productCount: 2 },
+  { slug: "shirt", label: "پیراهن", image: "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=400", description: "پیراهن‌های رسمی و غیررسمی", parent: "clothing", productCount: 1 },
+  { slug: "hoodie", label: "هودی", image: "https://images.unsplash.com/photo-1618354691373-d851c5c3a990?w=400", description: "هودی‌های راحت و شیک", parent: "clothing", productCount: 1 },
+  { slug: "jacket", label: "کاپشن", image: "https://images.unsplash.com/photo-1548883354-94bcfe321cbb?w=400", description: "کاپشن و ژاکت‌های فصلی", parent: "clothing", productCount: 1 },
+  { slug: "jeans", label: "شلوار جین", image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=400", description: "شلوار جین‌های باکیفیت", parent: "clothing", productCount: 1 },
+  { slug: "kafsh", label: "کفش اسپرت", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400", description: "کفش‌های اسپرت و روزمره", parent: "footwear", productCount: 1 },
+  { slug: "bag", label: "کیف", image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400", description: "کیف‌های دستی و دوشی", parent: "accessories", productCount: 1 },
+  { slug: "watch", label: "ساعت", image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=400", description: "ساعت‌های مچی کلاسیک و مدرن", parent: "accessories", productCount: 1 },
+  { slug: "glasses", label: "عینک", image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=400", description: "عینک‌های آفتابی و طبی", parent: "accessories", productCount: 1 },
+  { slug: "hat", label: "کلاه", image: "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=400", description: "کلاه‌های بیسبالی و کپ", parent: "accessories", productCount: 1 },
+  { slug: "sportswear", label: "لباس ورزشی", image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=400", description: "لباس‌های ورزشی و اسپرت", parent: "clothing", productCount: 1 },
 ];
 
 export const categoryGroups = [
   {
     title: "مردانه",
-    slugs: ["tshirt", "hoodie", "shirt", "jeans", "kafsh"],
+    slug: "mens-clothing",
+    description: "مجموعه کامل لباس مردانه",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600",
+    gradient: "linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%)",
+    icon: "bi-person-standing",
+    slugs: ["tshirt", "hoodie", "shirt", "jeans", "jacket"],
   },
   {
     title: "زنانه",
-    slugs: ["bag", "kafsh", "sportswear"],
+    slug: "womens-clothing",
+    description: "مجموعه کامل لباس زنانه",
+    image: "https://images.unsplash.com/photo-1487222477894-8943e31ef7b2?w=600",
+    gradient: "linear-gradient(135deg, #831843 0%, #be185d 100%)",
+    icon: "bi-heart",
+    slugs: ["bag", "sportswear", "kafsh"],
   },
   {
     title: "اکسسوری",
+    slug: "accessories",
+    description: "اکسسوری و لوازم جانبی",
+    image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600",
+    gradient: "linear-gradient(135deg, #78350f 0%, #b45309 100%)",
+    icon: "bi-gem",
     slugs: ["watch", "glasses", "hat", "bag"],
   },
 ];

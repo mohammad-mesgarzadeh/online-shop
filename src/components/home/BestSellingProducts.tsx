@@ -2,7 +2,7 @@ import "./BestSellingProducts.css";
 import ProductCard from "../ProductCard";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Autoplay } from "swiper/modules";
+import {  Autoplay } from "swiper/modules";
 
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -38,8 +38,7 @@ export default function BestSellingProducts() {
         </div>
 
         <Swiper
-          modules={[Navigation, Autoplay]}
-          navigation
+          modules={[ Autoplay]}
           loop
           grabCursor
           centeredSlides={false}

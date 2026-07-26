@@ -16,7 +16,10 @@ const OrderConfirmation = lazy(() => import("../pages/OrderConfirmation"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 const Categories = lazy(() => import("../pages/Categories"));
 const CategoryProducts = lazy(() => import("../pages/CategoryProducts"));
+const MensClothing = lazy(() => import("../pages/MensClothing"));
+const WomensClothing = lazy(() => import("../pages/WomensClothing"));
 const Offers = lazy(() => import("../pages/Offers"));
+const OffersAll = lazy(() => import("../pages/OffersAll"));
 const Blog = lazy(() => import("../pages/Blog"));
 const BlogDetail = lazy(() => import("../pages/BlogDetail"));
 const AccountProfile = lazy(() => import("../pages/account/AccountProfile"));
@@ -77,6 +80,22 @@ export default function AppRoutes() {
           }
         />
         <Route
+          path="/categories/mens-clothing"
+          element={
+            <SuspenseWrapper>
+              <MensClothing />
+            </SuspenseWrapper>
+          }
+        />
+        <Route
+          path="/categories/womens-clothing"
+          element={
+            <SuspenseWrapper>
+              <WomensClothing />
+            </SuspenseWrapper>
+          }
+        />
+        <Route
           path="/categories/:slug"
           element={
             <SuspenseWrapper>
@@ -89,6 +108,14 @@ export default function AppRoutes() {
           element={
             <SuspenseWrapper>
               <Offers />
+            </SuspenseWrapper>
+          }
+        />
+        <Route
+          path="/offers/all"
+          element={
+            <SuspenseWrapper>
+              <OffersAll />
             </SuspenseWrapper>
           }
         />

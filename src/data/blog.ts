@@ -7,6 +7,10 @@ export interface BlogArticle {
   excerpt: string;
   content: string;
   author: string;
+  authorAvatar?: string;
+  authorRole?: string;
+  readingTime: number;
+  tags?: string[];
 }
 
 export const blogArticles: BlogArticle[] = [
@@ -44,7 +48,11 @@ export const blogArticles: BlogArticle[] = [
 - دامن‌های مدادی و شلوارهای فیت
 
 نکته مهم: همیشه لباسی را انتخاب کنید که در آن احساس راحتی کنید. اعتماد به نفس مهم‌ترین عنصر استایل شماست.`,
-    author: "تیم تحریریه وستا",
+    author: "سارا احمدی",
+    authorAvatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100",
+    authorRole: "کارشناس مد و استایل",
+    readingTime: 6,
+    tags: ["استایل", "خرید لباس", "فرم اندام"],
   },
   {
     id: "2",
@@ -79,7 +87,11 @@ export const blogArticles: BlogArticle[] = [
 - کفش را با جوراب مورد نظر خود پرو کنید
 
 برندهای پیشنهادی: نایک، آدیداس، نیوبالانس و اسکچرز از بهترین برندهای کفش اسپرت هستند.`,
-    author: "تیم تحریریه وستا",
+    author: "امیر رضایی",
+    authorAvatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100",
+    authorRole: "متخصص کفش و پاپوش",
+    readingTime: 5,
+    tags: ["کفش", "اسپرت", "خرید"],
   },
   {
     id: "3",
@@ -109,6 +121,10 @@ export const blogArticles: BlogArticle[] = [
 
 نکته مهم: در استفاده از اکسسوری‌ها تعادل را رعایت کنید. استفاده همزمان از چند اکسسوری بزرگ می‌تواند استایل شما را شلوغ نشان دهد.`,
     author: "تیم تحریریه وستا",
+    authorAvatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100",
+    authorRole: "تیم تحریریه",
+    readingTime: 4,
+    tags: ["اکسسوری", "مردانه", "استایل"],
   },
   {
     id: "4",
@@ -142,7 +158,11 @@ export const blogArticles: BlogArticle[] = [
 - از یک رنگ ترند به عنوان اکسنت استفاده کنید
 
 برندهای پیشنهادی: Zara, H&M, Mango و Uniqlo بهترین گزینه‌ها برای خرید لباس‌های ترند تابستانی هستند.`,
-    author: "تیم تحریریه وستا",
+    author: "نیلوفر محمدی",
+    authorAvatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100",
+    authorRole: "کارشناس ترندهای مد",
+    readingTime: 5,
+    tags: ["ترندها", "تابستان", "رنگ لباس"],
   },
   {
     id: "5",
@@ -170,6 +190,10 @@ export const blogArticles: BlogArticle[] = [
 
 برای داشتن استایل‌های ترند، می‌توانید از کالکشن‌های جدید برندهای معروف در فروشگاه وستا دیدن کنید.`,
     author: "تیم تحریریه وستا",
+    authorAvatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100",
+    authorRole: "تیم تحریریه",
+    readingTime: 4,
+    tags: ["ترندها", "مد 2026", "استایل"],
   },
   {
     id: "6",
@@ -204,6 +228,10 @@ export const blogArticles: BlogArticle[] = [
 - بین لباس‌ها فاصله کافی بگذارید
 
 با رعایت این نکات ساده، می‌توانید سال‌ها از لباس‌های مورد علاقه خود استفاده کنید.`,
-    author: "تیم تحریریه وستا",
+    author: "مریم کریمی",
+    authorAvatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100",
+    authorRole: "کارشناس مراقبت از پارچه",
+    readingTime: 5,
+    tags: ["مراقبت لباس", "نگهداری", "شستشو"],
   },
 ];

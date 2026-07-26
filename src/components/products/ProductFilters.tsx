@@ -48,38 +48,42 @@ const COLOR_MAP: Record<string, string> = {
 };
 
 function FilterGroup({
+  id,
   title,
   icon,
   children,
-  defaultOpen = true,
+  isOpen,
+  onToggle,
 }: {
+  id: string;
   title: string;
   icon: string;
   children: React.ReactNode;
-  defaultOpen?: boolean;
+  isOpen: boolean;
+  onToggle: (id: string) => void;
 }) {
-  const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="filter-group">
+    <div className={`filter-group ${isOpen ? "filter-group--open" : ""}`}>
       <button
         className="filter-group-header"
-        onClick={() => setOpen(!open)}
+        onClick={() => onToggle(id)}
         type="button"
+        aria-expanded={isOpen}
+        aria-controls={`filter-body-${id}`}
       >
         <span>
           <i className={`bi ${icon} me-2`} style={{ color: "var(--c-primary)" }} />
           {title}
         </span>
         <i
-          className={`bi bi-chevron-${open ? "up" : "down"}`}
-          style={{
-            fontSize: "12px",
-            color: "var(--c-gray-400)",
-            transition: "transform 0.2s",
-          }}
+          className={`bi bi-chevron-${isOpen ? "up" : "down"} filter-group-chevron`}
         />
       </button>
-      <div className={`filter-group-body ${open ? "filter-group-body--open" : ""}`}>
+      <div
+        className={`filter-group-body ${isOpen ? "filter-group-body--open" : ""}`}
+        id={`filter-body-${id}`}
+        role="region"
+      >
         {children}
       </div>
     </div>
@@ -98,16 +102,13 @@ export default function ProductFilters({
   const sizes = useMemo(() => getUniqueSizes(), []);
   const { min: priceMin, max: priceMax } = useMemo(() => getPriceBounds(), []);
 
-  const [localPriceMin, setLocalPriceMin] = useState(
-    String(filters.priceRange[0])
-  );
-  const [localPriceMax, setLocalPriceMax] = useState(
-    String(filters.priceRange[1])
-  );
+  const [openGroup, setOpenGroup] = useState<string | null>(null);
+  const handleToggleGroup = useCallback((id: string) => {
+    setOpenGroup((prev) => (prev === id ? null : id));
+  }, []);
 
   const handlePriceMinChange = useCallback(
     (val: string) => {
-      setLocalPriceMin(val);
       const num = parseInt(val, 10);
       if (!isNaN(num) && num >= priceMin && num <= filters.priceRange[1]) {
         onFilterChange({ priceRange: [num, filters.priceRange[1]] });
@@ -118,7 +119,6 @@ export default function ProductFilters({
 
   const handlePriceMaxChange = useCallback(
     (val: string) => {
-      setLocalPriceMax(val);
       const num = parseInt(val, 10);
       if (!isNaN(num) && num <= priceMax && num >= filters.priceRange[0]) {
         onFilterChange({ priceRange: [filters.priceRange[0], num] });
@@ -131,7 +131,6 @@ export default function ProductFilters({
     (val: string) => {
       const num = parseInt(val, 10);
       if (num <= filters.priceRange[1]) {
-        setLocalPriceMin(String(num));
         onFilterChange({ priceRange: [num, filters.priceRange[1]] });
       }
     },
@@ -142,7 +141,6 @@ export default function ProductFilters({
     (val: string) => {
       const num = parseInt(val, 10);
       if (num >= filters.priceRange[0]) {
-        setLocalPriceMax(String(num));
         onFilterChange({ priceRange: [filters.priceRange[0], num] });
       }
     },
@@ -198,7 +196,7 @@ export default function ProductFilters({
 
       <div className="pf-body">
         {/* Category */}
-        <FilterGroup title="دسته‌بندی" icon="bi-tag">
+        <FilterGroup id="category" title="دسته‌بندی" icon="bi-tag" isOpen={openGroup === "category"} onToggle={handleToggleGroup}>
           <div className="pf-check-list">
             {categories.map((cat) => {
               const count = products.filter(
@@ -221,14 +219,14 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Price Range */}
-        <FilterGroup title="محدوده قیمت" icon="bi-cash-stack">
+        <FilterGroup id="price" title="محدوده قیمت" icon="bi-cash-stack" isOpen={openGroup === "price"} onToggle={handleToggleGroup}>
           <div className="pf-price-inputs">
             <div className="pf-price-field">
               <label>از</label>
               <input
                 type="number"
                 className="pf-price-input"
-                value={localPriceMin}
+                value={filters.priceRange[0]}
                 onChange={(e) => handlePriceMinChange(e.target.value)}
                 min={priceMin}
                 max={filters.priceRange[1]}
@@ -241,7 +239,7 @@ export default function ProductFilters({
               <input
                 type="number"
                 className="pf-price-input"
-                value={localPriceMax}
+                value={filters.priceRange[1]}
                 onChange={(e) => handlePriceMaxChange(e.target.value)}
                 min={filters.priceRange[0]}
                 max={priceMax}
@@ -262,6 +260,7 @@ export default function ProductFilters({
               step={50000}
               value={filters.priceRange[0]}
               onChange={(e) => handleSliderMin(e.target.value)}
+              aria-label="حداقل قیمت"
             />
             <input
               type="range"
@@ -271,9 +270,11 @@ export default function ProductFilters({
               step={50000}
               value={filters.priceRange[1]}
               onChange={(e) => handleSliderMax(e.target.value)}
+              aria-label="حداکثر قیمت"
             />
             <div
               className="pf-slider-fill"
+              aria-hidden="true"
               style={{
                 left: `${(filters.priceRange[0] / priceMax) * 100}%`,
                 right: `${100 - (filters.priceRange[1] / priceMax) * 100}%`,
@@ -283,7 +284,7 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Brand */}
-        <FilterGroup title="برند" icon="bi-award">
+        <FilterGroup id="brand" title="برند" icon="bi-award" isOpen={openGroup === "brand"} onToggle={handleToggleGroup}>
           <div className="pf-check-list">
             {brands.map((brand) => {
               const count = products.filter((p) => p.brand === brand).length;
@@ -304,7 +305,7 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Size */}
-        <FilterGroup title="سایز" icon="bi-rulers" defaultOpen={false}>
+        <FilterGroup id="size" title="سایز" icon="bi-rulers" isOpen={openGroup === "size"} onToggle={handleToggleGroup}>
           <div className="pf-size-grid">
             {sizes.map((size) => (
               <button
@@ -322,7 +323,7 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Color */}
-        <FilterGroup title="رنگ" icon="bi-palette" defaultOpen={false}>
+        <FilterGroup id="color" title="رنگ" icon="bi-palette" isOpen={openGroup === "color"} onToggle={handleToggleGroup}>
           <div className="pf-color-grid">
             {colors.map((color) => (
               <button
@@ -347,7 +348,7 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Rating */}
-        <FilterGroup title="امتیاز" icon="bi-star-fill" defaultOpen={false}>
+        <FilterGroup id="rating" title="امتیاز" icon="bi-star-fill" isOpen={openGroup === "rating"} onToggle={handleToggleGroup}>
           <div className="pf-rating-list">
             {[4, 3, 2, 1].map((r) => (
               <button
@@ -379,7 +380,7 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Toggles */}
-        <FilterGroup title="ویژگی‌ها" icon="bi-sliders">
+        <FilterGroup id="features" title="ویژگی‌ها" icon="bi-sliders" isOpen={openGroup === "features"} onToggle={handleToggleGroup}>
           <div className="pf-toggle-list">
             <label className="pf-toggle-item">
               <span className="pf-toggle-label">

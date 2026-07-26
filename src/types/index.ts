@@ -3,9 +3,12 @@ import type { ProductItem } from "../data/products";
 export interface User {
   id: string;
   name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   avatar: string;
+  birthDate: string;
   createdAt: string;
 }
 
@@ -23,6 +26,19 @@ export interface CartItem {
 export interface WishlistItem {
   product: ProductItem;
   addedAt: string;
+}
+
+export interface Address {
+  id: string;
+  fullName: string;
+  phone: string;
+  country: string;
+  province: string;
+  city: string;
+  postalCode: string;
+  address: string;
+  label: "home" | "work" | "other";
+  isDefault: boolean;
 }
 
 export interface ShippingInfo {
@@ -44,6 +60,7 @@ export interface Order {
   total: number;
   status: "pending" | "processing" | "shipped" | "delivered" | "cancelled";
   createdAt: string;
+  trackingCode?: string;
 }
 
 export type SortOption =
