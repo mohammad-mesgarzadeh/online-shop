@@ -1,0 +1,38 @@
+.stats-container {
+  flex-wrap: nowrap;
+}
+
+.stat-item {
+  flex-shrink: 1;
+}
+
+
+/* موبایل */
+@media (max-width: 576px) {
+  .stats-container {
+    gap: 1rem !important;
+    justify-content: space-between;
+  }
+
+  .stat-item {
+    gap: 8px !important;
+  }
+
+  .stat-icon {
+    width: 38px !important;
+    height: 38px !important;
+  }
+
+  .stat-icon i {
+    font-size: 0.95rem !important;
+  }
+
+  .stat-number {
+    font-size: 0.9rem !important;
+  }
+
+  .stat-label {
+    font-size: 0.7rem !important;
+    white-space: nowrap;
+  }
+}

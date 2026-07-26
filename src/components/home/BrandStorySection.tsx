@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import "./BrandStorySection.css";
+
 
 export default function BrandStorySection() {
   return (
@@ -29,29 +31,47 @@ export default function BrandStorySection() {
                 با دقت و عشق طراحی شده است.
               </p>
 
-              <div className="d-flex gap-5 flex-wrap">
-                {[
-                  { icon: "bi-award", num: "۵۰+", label: "برند معتبر" },
-                  { icon: "bi-people", num: "۱۰K+", label: "مشتری راضی" },
-                  { icon: "bi-truck", num: "۲۴ ساعت", label: "ارسال سریع" },
-                ].map((item, i) => (
-                  <div key={i} className="d-flex align-items-center gap-3">
-                    <div
-                      className="d-flex align-items-center justify-content-center rounded-3"
-                      style={{
-                        width: 48, height: 48,
-                        background: "var(--c-primary-bg)",
-                      }}
-                    >
-                      <i className={`bi ${item.icon}`} style={{ color: "var(--c-primary)", fontSize: "1.2rem" }} />
-                    </div>
-                    <div>
-                      <div className="fw-bold" style={{ fontSize: "var(--text-xl)" }}>{item.num}</div>
-                      <div style={{ color: "var(--c-gray-400)", fontSize: "var(--text-sm)" }}>{item.label}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <div className="stats-container d-flex gap-5">
+  {[
+    { icon: "bi-award", num: "۵۰+", label: "برند معتبر" },
+    { icon: "bi-people", num: "۱۰K+", label: "مشتری راضی" },
+    { icon: "bi-truck", num: "۲۴ ساعت", label: "ارسال سریع" },
+  ].map((item, i) => (
+    <div key={i} className="d-flex align-items-center gap-3 stat-item">
+      <div
+        className="d-flex align-items-center justify-content-center rounded-3 stat-icon"
+        style={{
+          width: 48,
+          height: 48,
+          background: "var(--c-primary-bg)",
+        }}
+      >
+        <i
+          className={`bi ${item.icon}`}
+          style={{
+            color: "var(--c-primary)",
+            fontSize: "1.2rem",
+          }}
+        />
+      </div>
+
+      <div>
+        <div className="fw-bold stat-number" style={{ fontSize: "var(--text-xl)" }}>
+          {item.num}
+        </div>
+        <div
+          className="stat-label"
+          style={{
+            color: "var(--c-gray-400)",
+            fontSize: "var(--text-sm)",
+          }}
+        >
+          {item.label}
+        </div>
+      </div>
+    </div>
+  ))}
+</div>
             </motion.div>
           </div>
 
