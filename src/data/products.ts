@@ -10,6 +10,13 @@ export interface ProductItem {
   image: string;
   description: string;
   discount?: number;
+  brand: string;
+  sizes: string[];
+  colors: string[];
+  rating: number;
+  reviewCount: number;
+  isNew: boolean;
+  inStock: boolean;
 }
 
 export const products: ProductItem[] = [
@@ -25,6 +32,13 @@ export const products: ProductItem[] = [
     image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600",
     description: "هودی مردانه با کیفیت بالا، مناسب برای استفاده روزمره و مهمانی‌های غیررسمی. دارای کلاه و جیب کانگورویی.",
     discount: 25,
+    brand: "VERSACE",
+    sizes: ["M", "L", "XL", "XXL"],
+    colors: ["مشکی", "سرمه‌ای", "خاکستری"],
+    rating: 4.5,
+    reviewCount: 128,
+    isNew: false,
+    inStock: true,
   },
   {
     id: "prod-002",
@@ -36,6 +50,13 @@ export const products: ProductItem[] = [
     createdAt: "2026-06-25",
     image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600",
     description: "تیشرت سفید ساده و شیک از جنس نخ پنبه، مناسب برای استایل روزمره.",
+    brand: "NIKE",
+    sizes: ["S", "M", "L", "XL"],
+    colors: ["سفید", "مشکی"],
+    rating: 4.2,
+    reviewCount: 64,
+    isNew: true,
+    inStock: true,
   },
   {
     id: "prod-003",
@@ -46,9 +67,16 @@ export const products: ProductItem[] = [
     oldPrice: 2000000,
     sold: 150,
     createdAt: "2026-05-30",
-    image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600",
+    image: "https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600",
     description: "کت جین با طراحی مدرن و دوخت با کیفیت. مناسب برای فصول بهار و پاییز.",
     discount: 25,
+    brand: "LEVIS",
+    sizes: ["M", "L", "XL"],
+    colors: ["آبی", "سرمه‌ای"],
+    rating: 4.7,
+    reviewCount: 92,
+    isNew: false,
+    inStock: true,
   },
   {
     id: "prod-004",
@@ -62,6 +90,13 @@ export const products: ProductItem[] = [
     image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600",
     description: "کفش اسپرت با طراحی ارگونومیک و زیره نرم، مناسب برای پیاده‌روی و دویدن.",
     discount: 22,
+    brand: "ADIDAS",
+    sizes: ["40", "41", "42", "43", "44"],
+    colors: ["قرمز", "مشکی", "سفید"],
+    rating: 4.8,
+    reviewCount: 203,
+    isNew: false,
+    inStock: true,
   },
   {
     id: "prod-005",
@@ -73,6 +108,13 @@ export const products: ProductItem[] = [
     createdAt: "2026-06-15",
     image: "https://images.unsplash.com/photo-1603252109303-2751441dd157?w=600",
     description: "پیراهن مردانه آستین بلند، مناسب برای محیط کار و مجالس رسمی.",
+    brand: "ZARA",
+    sizes: ["M", "L", "XL"],
+    colors: ["سفید", "آبی روشن", "صورتی"],
+    rating: 4.3,
+    reviewCount: 76,
+    isNew: true,
+    inStock: true,
   },
   {
     id: "prod-006",
@@ -84,6 +126,13 @@ export const products: ProductItem[] = [
     createdAt: "2026-06-05",
     image: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=600",
     description: "شلوار جین اسلیم فیت با رنگ ثابت و دوخت مقاوم.",
+    brand: "LEVIS",
+    sizes: ["28", "30", "32", "34", "36"],
+    colors: ["آبی", "مشکی", "آبی تیره"],
+    rating: 4.6,
+    reviewCount: 145,
+    isNew: false,
+    inStock: true,
   },
   {
     id: "prod-007",
@@ -97,6 +146,13 @@ export const products: ProductItem[] = [
     image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600",
     description: "کیف زنانه شیک و اسپرت، مناسب برای استفاده روزمره.",
     discount: 23,
+    brand: "GUCCI",
+    sizes: ["تک سایز"],
+    colors: ["مشکی", "قهوه‌ای", "زرشکی"],
+    rating: 4.4,
+    reviewCount: 89,
+    isNew: false,
+    inStock: true,
   },
   {
     id: "prod-008",
@@ -108,6 +164,13 @@ export const products: ProductItem[] = [
     createdAt: "2026-06-20",
     image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?w=600",
     description: "ساعت مچی با طراحی کلاسیک و بند چرمی با کیفیت.",
+    brand: "CASIO",
+    sizes: ["تک سایز"],
+    colors: ["نقره‌ای", "طلایی"],
+    rating: 4.9,
+    reviewCount: 210,
+    isNew: true,
+    inStock: true,
   },
   {
     id: "prod-009",
@@ -119,6 +182,13 @@ export const products: ProductItem[] = [
     createdAt: "2026-06-08",
     image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600",
     description: "عینک آفتابی با فریم فلزی و لنز UV400، محافظ چشم در برابر اشعه مضر خورشید.",
+    brand: "RAYBAN",
+    sizes: ["تک سایز"],
+    colors: ["مشکی", "طلایی", "نقره‌ای"],
+    rating: 4.7,
+    reviewCount: 178,
+    isNew: false,
+    inStock: true,
   },
   {
     id: "prod-010",
@@ -130,6 +200,13 @@ export const products: ProductItem[] = [
     createdAt: "2026-06-18",
     image: "https://images.unsplash.com/photo-1521369909029-2afed882baee?w=600",
     description: "کلاه بیسبالی با قابلیت تنظیم سایز، مناسب برای استفاده روزمره.",
+    brand: "NEW ERA",
+    sizes: ["تک سایز"],
+    colors: ["مشکی", "سفید", "قرمز"],
+    rating: 4.1,
+    reviewCount: 56,
+    isNew: false,
+    inStock: true,
   },
   {
     id: "prod-011",
@@ -143,6 +220,13 @@ export const products: ProductItem[] = [
     image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=600",
     description: "ست لباس ورزشی زنانه شامل تاپ و لگینگ، مناسب برای باشگاه و پیاده‌روی.",
     discount: 20,
+    brand: "ADIDAS",
+    sizes: ["S", "M", "L"],
+    colors: ["مشکی", "صورتی", "سرمه‌ای"],
+    rating: 4.5,
+    reviewCount: 112,
+    isNew: false,
+    inStock: true,
   },
   {
     id: "prod-012",
@@ -154,5 +238,12 @@ export const products: ProductItem[] = [
     createdAt: "2026-06-28",
     image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600",
     description: "تیشرت اورسایز مدرن با طرح minimalist، مناسب برای استایل کژوال.",
+    brand: "NIKE",
+    sizes: ["M", "L", "XL", "XXL"],
+    colors: ["سفید", "مشکی", "خاکستری"],
+    rating: 4.3,
+    reviewCount: 98,
+    isNew: true,
+    inStock: true,
   },
 ];

@@ -73,8 +73,13 @@ export default function Navbar() {
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
     if (value.trim().length > 1) {
-      const results = products.filter((p) =>
-        p.title.includes(value.trim()) || p.categoryLabel.includes(value.trim())
+      const q = value.trim().toLowerCase();
+      const results = products.filter(
+        (p) =>
+          p.title.toLowerCase().includes(q) ||
+          p.categoryLabel.toLowerCase().includes(q) ||
+          p.brand.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q)
       ).slice(0, 5);
       setSearchResults(results);
     } else {

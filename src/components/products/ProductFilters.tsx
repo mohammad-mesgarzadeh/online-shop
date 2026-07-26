@@ -1,106 +1,451 @@
+import { useState, useMemo, useCallback } from "react";
 import { categories } from "../../data/categories";
+import { products } from "../../data/products";
+import type { FilterState } from "../../types";
 
 type ProductFiltersProps = {
-  search: string;
-  onSearchChange: (value: string) => void;
-  selectedCategories: string[];
-  onCategoryChange: (category: string) => void;
+  filters: FilterState;
+  onFilterChange: (filters: Partial<FilterState>) => void;
+  onReset: () => void;
+  isMobile: boolean;
+  onApply?: () => void;
 };
 
-export default function ProductFilters({
-  search,
-  onSearchChange,
-  selectedCategories,
-  onCategoryChange,
-}: ProductFiltersProps) {
-  return (
-    <div className="card border-0 shadow-sm rounded-4">
-      <div className="card-body" style={{ padding: "var(--space-5)" }}>
-        <h5
-          className="fw-bold mb-4"
-          style={{ fontSize: "var(--text-lg)", color: "var(--c-gray-800)" }}
-        >
-          <i className="bi bi-funnel text-primary me-2" />
-          فیلترها
-        </h5>
+function getUniqueBrands() {
+  const brandSet = new Set(products.map((p) => p.brand));
+  return Array.from(brandSet).sort();
+}
 
-        <div className="mb-4">
-          <div className="position-relative">
-            <i
-              className="bi bi-search position-absolute"
-              style={{
-                top: "50%",
-                right: "var(--space-3)",
-                transform: "translateY(-50%)",
-                color: "var(--c-gray-400)",
-                fontSize: "var(--text-sm)",
-              }}
+function getUniqueColors() {
+  const colorSet = new Set(products.flatMap((p) => p.colors));
+  return Array.from(colorSet).sort();
+}
+
+function getUniqueSizes() {
+  const sizeSet = new Set(products.flatMap((p) => p.sizes));
+  return Array.from(sizeSet).sort();
+}
+
+function getPriceBounds() {
+  const prices = products.map((p) => p.price);
+  return { min: 0, max: Math.ceil(Math.max(...prices) / 100000) * 100000 };
+}
+
+const COLOR_MAP: Record<string, string> = {
+  مشکی: "#1a1a2e",
+  سفید: "#f8f9fa",
+  سرمه‌ای: "#1b2a4a",
+  خاکستری: "#9ca3af",
+  آبی: "#3b82f6",
+  "آبی روشن": "#93c5fd",
+  "آبی تیره": "#1e3a5f",
+  قرمز: "#ef4444",
+  صورتی: "#ec4899",
+  "زرشکی": "#9f1239",
+  "قهوه‌ای": "#92400e",
+  "طلایی": "#d4a843",
+  "نقره‌ای": "#c0c0c0",
+};
+
+function FilterGroup({
+  title,
+  icon,
+  children,
+  defaultOpen = true,
+}: {
+  title: string;
+  icon: string;
+  children: React.ReactNode;
+  defaultOpen?: boolean;
+}) {
+  const [open, setOpen] = useState(defaultOpen);
+  return (
+    <div className="filter-group">
+      <button
+        className="filter-group-header"
+        onClick={() => setOpen(!open)}
+        type="button"
+      >
+        <span>
+          <i className={`bi ${icon} me-2`} style={{ color: "var(--c-primary)" }} />
+          {title}
+        </span>
+        <i
+          className={`bi bi-chevron-${open ? "up" : "down"}`}
+          style={{
+            fontSize: "12px",
+            color: "var(--c-gray-400)",
+            transition: "transform 0.2s",
+          }}
+        />
+      </button>
+      <div className={`filter-group-body ${open ? "filter-group-body--open" : ""}`}>
+        {children}
+      </div>
+    </div>
+  );
+}
+
+export default function ProductFilters({
+  filters,
+  onFilterChange,
+  onReset,
+  isMobile,
+  onApply,
+}: ProductFiltersProps) {
+  const brands = useMemo(() => getUniqueBrands(), []);
+  const colors = useMemo(() => getUniqueColors(), []);
+  const sizes = useMemo(() => getUniqueSizes(), []);
+  const { min: priceMin, max: priceMax } = useMemo(() => getPriceBounds(), []);
+
+  const [localPriceMin, setLocalPriceMin] = useState(
+    String(filters.priceRange[0])
+  );
+  const [localPriceMax, setLocalPriceMax] = useState(
+    String(filters.priceRange[1])
+  );
+
+  const handlePriceMinChange = useCallback(
+    (val: string) => {
+      setLocalPriceMin(val);
+      const num = parseInt(val, 10);
+      if (!isNaN(num) && num >= priceMin && num <= filters.priceRange[1]) {
+        onFilterChange({ priceRange: [num, filters.priceRange[1]] });
+      }
+    },
+    [priceMin, filters.priceRange, onFilterChange]
+  );
+
+  const handlePriceMaxChange = useCallback(
+    (val: string) => {
+      setLocalPriceMax(val);
+      const num = parseInt(val, 10);
+      if (!isNaN(num) && num <= priceMax && num >= filters.priceRange[0]) {
+        onFilterChange({ priceRange: [filters.priceRange[0], num] });
+      }
+    },
+    [priceMax, filters.priceRange, onFilterChange]
+  );
+
+  const handleSliderMin = useCallback(
+    (val: string) => {
+      const num = parseInt(val, 10);
+      if (num <= filters.priceRange[1]) {
+        setLocalPriceMin(String(num));
+        onFilterChange({ priceRange: [num, filters.priceRange[1]] });
+      }
+    },
+    [filters.priceRange, onFilterChange]
+  );
+
+  const handleSliderMax = useCallback(
+    (val: string) => {
+      const num = parseInt(val, 10);
+      if (num >= filters.priceRange[0]) {
+        setLocalPriceMax(String(num));
+        onFilterChange({ priceRange: [filters.priceRange[0], num] });
+      }
+    },
+    [filters.priceRange, onFilterChange]
+  );
+
+  const toggleArrayFilter = useCallback(
+    (field: "categories" | "brands" | "sizes" | "colors", value: string) => {
+      const current = filters[field];
+      const next = current.includes(value)
+        ? current.filter((v) => v !== value)
+        : [...current, value];
+      onFilterChange({ [field]: next });
+    },
+    [filters, onFilterChange]
+  );
+
+  const activeCount = useMemo(() => {
+    let count = 0;
+    if (filters.categories.length) count += filters.categories.length;
+    if (filters.brands.length) count += filters.brands.length;
+    if (filters.sizes.length) count += filters.sizes.length;
+    if (filters.colors.length) count += filters.colors.length;
+    if (filters.priceRange[0] > priceMin || filters.priceRange[1] < priceMax)
+      count++;
+    if (filters.minRating > 0) count++;
+    if (filters.inStockOnly) count++;
+    if (filters.onSaleOnly) count++;
+    if (filters.newArrivalsOnly) count++;
+    return count;
+  }, [filters, priceMin, priceMax]);
+
+  const formatPrice = (val: number) =>
+    val.toLocaleString("fa-IR") + " تومان";
+
+  return (
+    <div className={`pf ${isMobile ? "pf--mobile" : ""}`}>
+      <div className="pf-header">
+        <h5 className="pf-title">
+          <i className="bi bi-funnel me-2" />
+          فیلترها
+          {activeCount > 0 && (
+            <span className="pf-active-badge">{activeCount}</span>
+          )}
+        </h5>
+        {activeCount > 0 && (
+          <button className="pf-reset-btn" onClick={onReset} type="button">
+            <i className="bi bi-x-circle me-1" />
+            پاک کردن همه
+          </button>
+        )}
+      </div>
+
+      <div className="pf-body">
+        {/* Category */}
+        <FilterGroup title="دسته‌بندی" icon="bi-tag">
+          <div className="pf-check-list">
+            {categories.map((cat) => {
+              const count = products.filter(
+                (p) => p.category === cat.slug
+              ).length;
+              return (
+                <label key={cat.slug} className="pf-check-item">
+                  <input
+                    type="checkbox"
+                    className="pf-check-input"
+                    checked={filters.categories.includes(cat.slug)}
+                    onChange={() => toggleArrayFilter("categories", cat.slug)}
+                  />
+                  <span className="pf-check-label">{cat.label}</span>
+                  <span className="pf-check-count">{count}</span>
+                </label>
+              );
+            })}
+          </div>
+        </FilterGroup>
+
+        {/* Price Range */}
+        <FilterGroup title="محدوده قیمت" icon="bi-cash-stack">
+          <div className="pf-price-inputs">
+            <div className="pf-price-field">
+              <label>از</label>
+              <input
+                type="number"
+                className="pf-price-input"
+                value={localPriceMin}
+                onChange={(e) => handlePriceMinChange(e.target.value)}
+                min={priceMin}
+                max={filters.priceRange[1]}
+                placeholder={priceMin.toLocaleString("fa-IR")}
+              />
+            </div>
+            <span className="pf-price-sep">—</span>
+            <div className="pf-price-field">
+              <label>تا</label>
+              <input
+                type="number"
+                className="pf-price-input"
+                value={localPriceMax}
+                onChange={(e) => handlePriceMaxChange(e.target.value)}
+                min={filters.priceRange[0]}
+                max={priceMax}
+                placeholder={priceMax.toLocaleString("fa-IR")}
+              />
+            </div>
+          </div>
+          <div className="pf-price-display">
+            {formatPrice(filters.priceRange[0])} —{" "}
+            {formatPrice(filters.priceRange[1])}
+          </div>
+          <div className="pf-slider-track">
+            <input
+              type="range"
+              className="pf-slider pf-slider--min"
+              min={priceMin}
+              max={priceMax}
+              step={50000}
+              value={filters.priceRange[0]}
+              onChange={(e) => handleSliderMin(e.target.value)}
             />
             <input
-              type="text"
-              className="form-control"
+              type="range"
+              className="pf-slider pf-slider--max"
+              min={priceMin}
+              max={priceMax}
+              step={50000}
+              value={filters.priceRange[1]}
+              onChange={(e) => handleSliderMax(e.target.value)}
+            />
+            <div
+              className="pf-slider-fill"
               style={{
-                paddingLeft: "var(--space-3)",
-                paddingRight: "var(--space-10)",
-                borderRadius: "var(--radius-lg)",
-                border: "1px solid var(--c-gray-200)",
-                fontSize: "var(--text-sm)",
+                left: `${(filters.priceRange[0] / priceMax) * 100}%`,
+                right: `${100 - (filters.priceRange[1] / priceMax) * 100}%`,
               }}
-              placeholder="جستجوی محصول..."
-              value={search}
-              onChange={(e) => onSearchChange(e.target.value)}
             />
           </div>
-        </div>
+        </FilterGroup>
 
-        <h6
-          className="fw-bold mb-3"
-          style={{
-            fontSize: "var(--text-sm)",
-            color: "var(--c-gray-500)",
-            textTransform: "uppercase",
-            letterSpacing: "var(--ls-wide)",
-          }}
-        >
-          دسته‌بندی
-        </h6>
+        {/* Brand */}
+        <FilterGroup title="برند" icon="bi-award">
+          <div className="pf-check-list">
+            {brands.map((brand) => {
+              const count = products.filter((p) => p.brand === brand).length;
+              return (
+                <label key={brand} className="pf-check-item">
+                  <input
+                    type="checkbox"
+                    className="pf-check-input"
+                    checked={filters.brands.includes(brand)}
+                    onChange={() => toggleArrayFilter("brands", brand)}
+                  />
+                  <span className="pf-check-label">{brand}</span>
+                  <span className="pf-check-count">{count}</span>
+                </label>
+              );
+            })}
+          </div>
+        </FilterGroup>
 
-        <div className="d-flex flex-column gap-1">
-          {categories.map((cat) => {
-            const isActive = selectedCategories.includes(cat.slug);
-            return (
-              <label
-                key={cat.slug}
-                className="d-flex align-items-center gap-2 py-2 px-3 rounded-3 touch-target"
-                style={{
-                  cursor: "pointer",
-                  background: isActive ? "rgba(108,99,255,0.06)" : "transparent",
-                  transition: "background var(--duration-fast) var(--easing-default)",
-                }}
-                htmlFor={`cat-${cat.slug}`}
+        {/* Size */}
+        <FilterGroup title="سایز" icon="bi-rulers" defaultOpen={false}>
+          <div className="pf-size-grid">
+            {sizes.map((size) => (
+              <button
+                key={size}
+                className={`pf-size-btn ${
+                  filters.sizes.includes(size) ? "pf-size-btn--active" : ""
+                }`}
+                onClick={() => toggleArrayFilter("sizes", size)}
+                type="button"
               >
-                <input
-                  className="form-check-input"
-                  type="checkbox"
-                  id={`cat-${cat.slug}`}
-                  checked={isActive}
-                  onChange={() => onCategoryChange(cat.slug)}
-                  style={{ cursor: "pointer", marginTop: 0 }}
-                />
+                {size}
+              </button>
+            ))}
+          </div>
+        </FilterGroup>
+
+        {/* Color */}
+        <FilterGroup title="رنگ" icon="bi-palette" defaultOpen={false}>
+          <div className="pf-color-grid">
+            {colors.map((color) => (
+              <button
+                key={color}
+                className={`pf-color-btn ${
+                  filters.colors.includes(color) ? "pf-color-btn--active" : ""
+                }`}
+                onClick={() => toggleArrayFilter("colors", color)}
+                type="button"
+                title={color}
+              >
                 <span
+                  className="pf-color-swatch"
                   style={{
-                    fontSize: "var(--text-sm)",
-                    color: isActive ? "var(--c-primary)" : "var(--c-gray-600)",
-                    fontWeight: isActive ? "var(--fw-medium)" : "var(--fw-normal)",
+                    background: COLOR_MAP[color] || "#9ca3af",
                   }}
-                >
-                  {cat.label}
+                />
+                <span className="pf-color-label">{color}</span>
+              </button>
+            ))}
+          </div>
+        </FilterGroup>
+
+        {/* Rating */}
+        <FilterGroup title="امتیاز" icon="bi-star-fill" defaultOpen={false}>
+          <div className="pf-rating-list">
+            {[4, 3, 2, 1].map((r) => (
+              <button
+                key={r}
+                className={`pf-rating-btn ${
+                  filters.minRating === r ? "pf-rating-btn--active" : ""
+                }`}
+                onClick={() =>
+                  onFilterChange({
+                    minRating: filters.minRating === r ? 0 : r,
+                  })
+                }
+                type="button"
+              >
+                <span className="pf-rating-stars">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <i
+                      key={i}
+                      className={`bi ${
+                        i < r ? "bi-star-fill" : "bi-star"
+                      }`}
+                    />
+                  ))}
                 </span>
-              </label>
-            );
-          })}
-        </div>
+                <span className="pf-rating-text">و بالاتر</span>
+              </button>
+            ))}
+          </div>
+        </FilterGroup>
+
+        {/* Toggles */}
+        <FilterGroup title="ویژگی‌ها" icon="bi-sliders">
+          <div className="pf-toggle-list">
+            <label className="pf-toggle-item">
+              <span className="pf-toggle-label">
+                <i className="bi bi-box-seam me-2" />
+                فقط موجود
+              </span>
+              <div className="pf-toggle-switch">
+                <input
+                  type="checkbox"
+                  checked={filters.inStockOnly}
+                  onChange={(e) =>
+                    onFilterChange({ inStockOnly: e.target.checked })
+                  }
+                />
+                <span className="pf-toggle-slider" />
+              </div>
+            </label>
+            <label className="pf-toggle-item">
+              <span className="pf-toggle-label">
+                <i className="bi bi-tag-fill me-2" style={{ color: "var(--c-danger)" }} />
+                فقط حراجی
+              </span>
+              <div className="pf-toggle-switch">
+                <input
+                  type="checkbox"
+                  checked={filters.onSaleOnly}
+                  onChange={(e) =>
+                    onFilterChange({ onSaleOnly: e.target.checked })
+                  }
+                />
+                <span className="pf-toggle-slider" />
+              </div>
+            </label>
+            <label className="pf-toggle-item">
+              <span className="pf-toggle-label">
+                <i className="bi bi-stars me-2" style={{ color: "var(--c-accent-amber)" }} />
+                جدیدها
+              </span>
+              <div className="pf-toggle-switch">
+                <input
+                  type="checkbox"
+                  checked={filters.newArrivalsOnly}
+                  onChange={(e) =>
+                    onFilterChange({ newArrivalsOnly: e.target.checked })
+                  }
+                />
+                <span className="pf-toggle-slider" />
+              </div>
+            </label>
+          </div>
+        </FilterGroup>
       </div>
+
+      {/* Mobile Sticky Footer */}
+      {isMobile && (
+        <div className="pf-footer">
+          <button className="pf-footer-btn pf-footer-btn--reset" onClick={onReset} type="button">
+            <i className="bi bi-arrow-counterclockwise me-1" />
+            پاک کردن
+          </button>
+          <button className="pf-footer-btn pf-footer-btn--apply" onClick={onApply} type="button">
+            <i className="bi bi-check-lg me-1" />
+            اعمال فیلترها
+          </button>
+        </div>
+      )}
     </div>
   );
 }

@@ -46,4 +46,24 @@ export interface Order {
   createdAt: string;
 }
 
-export type SortOption = "newest" | "best-selling" | "cheapest" | "most-expensive";
+export type SortOption =
+  | "featured"
+  | "newest"
+  | "best-selling"
+  | "cheapest"
+  | "most-expensive"
+  | "highest-rated"
+  | "most-popular";
+
+export interface FilterState {
+  search: string;
+  categories: string[];
+  brands: string[];
+  sizes: string[];
+  colors: string[];
+  priceRange: [number, number];
+  minRating: number;
+  inStockOnly: boolean;
+  onSaleOnly: boolean;
+  newArrivalsOnly: boolean;
+}
