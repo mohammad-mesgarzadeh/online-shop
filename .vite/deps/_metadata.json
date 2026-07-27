@@ -2,14 +2,8 @@
   "hash": "412164c0",
   "configHash": "13069859",
   "lockfileHash": "679f52d1",
-  "browserHash": "2bc8ae76",
+  "browserHash": "a03d8b52",
   "optimized": {
-    "@hookform/resolvers/zod": {
-      "src": "../../node_modules/@hookform/resolvers/zod/dist/zod.mjs",
-      "file": "@hookform_resolvers_zod.js",
-      "fileHash": "11dfcf96",
-      "needsInterop": false
-    },
     "bootstrap/dist/js/bootstrap.bundle.min.js": {
       "src": "../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js",
       "file": "bootstrap_dist_js_bootstrap__bundle__min__js.js",
@@ -27,12 +21,6 @@
       "file": "react-dom_client.js",
       "fileHash": "a1524600",
       "needsInterop": true
-    },
-    "react-hook-form": {
-      "src": "../../node_modules/react-hook-form/dist/index.esm.mjs",
-      "file": "react-hook-form.js",
-      "fileHash": "81e58195",
-      "needsInterop": false
     },
     "react-router-dom": {
       "src": "../../node_modules/react-router-dom/dist/index.mjs",
@@ -63,21 +51,11 @@
       "file": "swiper_react.js",
       "fileHash": "a9751793",
       "needsInterop": false
-    },
-    "zod": {
-      "src": "../../node_modules/zod/index.js",
-      "file": "zod.js",
-      "fileHash": "70c5ce2a",
-      "needsInterop": false
     }
   },
   "chunks": {
     "chunk-B-1-B7_t": {
       "file": "chunk-B-1-B7_t.js",
-      "isDynamicEntry": false
-    },
-    "core-D_QZK_Gx": {
-      "file": "core-D_QZK_Gx.js",
       "isDynamicEntry": false
     },
     "react-dom-Br2l1Z8p": {
