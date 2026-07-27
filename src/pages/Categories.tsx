@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { categories, categoryGroups } from "../data/categories";
 import { products } from "../data/products";
+import { useLanguage } from "../context/LanguageContext";
 import CategoriesHero from "../components/categories/CategoriesHero";
 
 const containerVariants = {
@@ -15,6 +16,7 @@ const cardVariants = {
 };
 
 export default function Categories() {
+  const { t } = useLanguage();
   const getCategoryCount = (slug: string) =>
     products.filter((p) => p.category === slug).length;
 
@@ -22,16 +24,16 @@ export default function Categories() {
     <>
       <CategoriesHero />
 
-      <section dir="rtl" style={{ padding: "var(--space-20) 0" }}>
+      <section style={{ padding: "var(--space-20) 0" }}>
         <div className="container">
           <div className="section-header" style={{ textAlign: "center" }}>
             <span className="section-badge">
               <i className="bi bi-collection" />
-              مجموعه محصولات
+              {t("categories.productCollection")}
             </span>
-            <h2>دسته‌بندی اصلی</h2>
+            <h2>{t("categories.mainCategories")}</h2>
             <p className="section-subtitle" style={{ marginInline: "auto" }}>
-              دسته‌بندی اصلی فروشگاه را مرور کنید
+              {t("categories.browseMain")}
             </p>
           </div>
 
@@ -145,7 +147,7 @@ export default function Categories() {
                               }}
                             >
                               <i className="bi bi-box-seam" />
-                              {count} محصول
+                              {count} {t("categories.products")}
                             </span>
                             <span
                               style={{
@@ -156,7 +158,7 @@ export default function Categories() {
                                 fontWeight: "var(--font-bold)",
                               }}
                             >
-                              مشاهده
+                              {t("categories.view")}
                               <i className="bi bi-arrow-left" style={{ fontSize: 14 }} />
                             </span>
                           </div>
@@ -172,7 +174,6 @@ export default function Categories() {
       </section>
 
       <section
-        dir="rtl"
         style={{
           padding: "var(--space-10) 0",
         }}
@@ -209,10 +210,10 @@ export default function Categories() {
                   marginBottom: "var(--space-3)",
                 }}
               >
-                تا ۳۰٪ تخفیف ویژه
+                {t("categories.specialOffer")}
               </h3>
               <p style={{ color: "rgba(255,255,255,0.85)", marginBottom: 0, fontSize: "var(--text-base)" }}>
-                روی تمامی محصولات فروشگاه تخفیف ویژه اعمال شده است
+                {t("categories.specialOfferDesc")}
               </p>
             </div>
             <Link
@@ -233,23 +234,23 @@ export default function Categories() {
                 transition: "transform var(--duration-normal) var(--ease-default)",
               }}
             >
-              مشاهده تخفیف‌ها
+              {t("categories.viewDiscounts")}
               <i className="bi bi-arrow-left" />
             </Link>
           </div>
         </div>
       </section>
 
-      <section dir="rtl" style={{ paddingBottom: "var(--space-24)" }}>
+      <section style={{ paddingBottom: "var(--space-24)" }}>
         <div className="container">
           <div className="section-header" style={{ textAlign: "center" }}>
             <span className="section-badge">
               <i className="bi bi-grid" />
-              همه دسته‌بندی‌ها
+              {t("categories.browseAll")}
             </span>
-            <h2>تمام دسته‌بندی‌ها</h2>
+            <h2>{t("categories.allCategories")}</h2>
             <p className="section-subtitle" style={{ marginInline: "auto" }}>
-              محصولات را بر اساس دسته‌بندی مورد نظر مشاهده کنید
+              {t("categories.browseByCategory")}
             </p>
           </div>
 
@@ -335,7 +336,7 @@ export default function Categories() {
                               transition: "transform var(--duration-normal) var(--ease-default)",
                             }}
                           >
-                            مشاهده محصولات
+                            {t("categories.viewProducts")}
                           </span>
                         </div>
 
@@ -352,7 +353,7 @@ export default function Categories() {
                           </h5>
                           {count > 0 && (
                             <span style={{ fontSize: "var(--text-xs)", color: "var(--c-gray-400)" }}>
-                              {count} محصول
+                              {count} {t("categories.products")}
                             </span>
                           )}
                         </div>

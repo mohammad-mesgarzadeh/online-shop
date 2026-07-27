@@ -53,7 +53,7 @@
   border-radius: 12px;
   border: none;
   background: transparent;
-  color: #475569;
+  color: var(--c-gray-600);
   font-size: 1.2rem;
   transition: all 0.2s ease;
   position: relative;
@@ -62,7 +62,7 @@
 
 .navbar-icon-btn:hover {
   background: rgba(108, 99, 255, 0.08);
-  color: #6C63FF;
+  color: var(--c-primary);
 }
 
 /* ── Desktop Nav Links ── */
@@ -103,10 +103,10 @@
   }
   .nav-link:hover {
     background-color: transparent;
-    color: #6C63FF !important;
+    color: var(--c-primary) !important;
   }
-  .nav-link-active { color: #6C63FF !important; }
-  .nav-link-inactive { color: #64748b !important; }
+  .nav-link-active { color: var(--c-primary) !important; }
+  .nav-link-inactive { color: var(--c-gray-500) !important; }
 }
 
 /* ── Cart Badge ── */
@@ -137,7 +137,7 @@
   align-items: center;
   justify-content: center;
   padding: 2px;
-  border: 2px solid #e2e8f0;
+  border: 2px solid var(--c-border);
   border-radius: 50%;
   background: none;
   cursor: pointer;
@@ -145,7 +145,7 @@
 }
 
 .navbar-avatar-btn:hover {
-  border-color: #6C63FF;
+  border-color: var(--c-primary);
   box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
 }
 
@@ -181,7 +181,7 @@
   display: block;
   width: 20px;
   height: 2px;
-  background: #475569;
+  background: var(--c-gray-600);
   border-radius: 2px;
   transition: all 0.3s ease;
 }
@@ -196,8 +196,8 @@
 .hamburger-line::before { top: -6px; }
 .hamburger-line::after { top: 6px; }
 .hamburger-line.open { background: transparent; }
-.hamburger-line.open::before { top: 0; transform: rotate(45deg); background: #6C63FF; }
-.hamburger-line.open::after { top: 0; transform: rotate(-45deg); background: #6C63FF; }
+.hamburger-line.open::before { top: 0; transform: rotate(45deg); background: var(--c-primary); }
+.hamburger-line.open::after { top: 0; transform: rotate(-45deg); background: var(--c-primary); }
 
 /* ── Dropdown Menu ── */
 .navbar-dropdown {
@@ -205,8 +205,8 @@
   top: calc(100% + 8px);
   left: 0;
   right: auto;
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: var(--c-surface);
+  border: 1px solid var(--c-border);
   border-radius: 16px;
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
   min-width: 240px;
@@ -238,12 +238,12 @@
 .navbar-dropdown-name {
   font-size: 0.9rem;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--c-gray-800);
 }
 
 .navbar-dropdown-email {
   font-size: 0.78rem;
-  color: #94a3b8;
+  color: var(--c-gray-400);
   direction: ltr;
   text-align: left;
   overflow: hidden;
@@ -254,7 +254,7 @@
 
 .navbar-dropdown-divider {
   height: 1px;
-  background: #f1f5f9;
+  background: var(--c-gray-100);
   margin: 0;
 }
 
@@ -265,7 +265,7 @@
   padding: 12px 16px;
   font-size: 0.875rem;
   font-weight: 500;
-  color: #475569;
+  color: var(--c-gray-600);
   text-decoration: none;
   transition: all 0.15s;
   border: none;
@@ -278,7 +278,7 @@
 
 .navbar-dropdown-item:hover {
   background: rgba(108, 99, 255, 0.06);
-  color: #6C63FF;
+  color: var(--c-primary);
 }
 
 .navbar-dropdown-item i {
@@ -288,8 +288,8 @@
   flex-shrink: 0;
 }
 
-.navbar-dropdown-logout { color: #ef4444; }
-.navbar-dropdown-logout:hover { background: rgba(239, 68, 68, 0.06); color: #ef4444; }
+.navbar-dropdown-logout { color: var(--c-danger); }
+.navbar-dropdown-logout:hover { background: rgba(239, 68, 68, 0.06); color: var(--c-danger); }
 
 /* ── Mobile Overlay ── */
 .navbar-mobile-overlay {
@@ -316,7 +316,7 @@
   width: 300px;
   max-width: 85vw;
   height: 100vh;
-  background: #fff;
+  background: var(--c-surface);
   z-index: 1050;
   transform: translateX(100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -336,17 +336,17 @@
   width: 44px;
   height: 44px;
   border: none;
-  background: #f1f5f9;
+  background: var(--c-gray-100);
   border-radius: 12px;
-  color: #475569;
+  color: var(--c-gray-600);
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s;
 }
 
 .navbar-mobile-close:hover {
-  background: #e2e8f0;
-  color: #1e293b;
+  background: var(--c-gray-200);
+  color: var(--c-gray-800);
 }
 
 /* ── Mobile Nav Links ── */
@@ -357,7 +357,7 @@
   padding: 12px 14px;
   font-size: 0.95rem;
   font-weight: 500;
-  color: #475569;
+  color: var(--c-gray-600);
   text-decoration: none;
   border-radius: 12px;
   transition: all 0.15s;
@@ -371,13 +371,13 @@
 
 .mobile-nav-link:hover {
   background: rgba(108, 99, 255, 0.06);
-  color: #6C63FF;
+  color: var(--c-primary);
 }
 
 .mobile-nav-link-active,
 .mobile-nav-link.active {
   background: linear-gradient(135deg, rgba(108, 99, 255, 0.08), rgba(167, 139, 250, 0.08));
-  color: #6C63FF;
+  color: var(--c-primary);
   font-weight: 600;
 }
 
@@ -388,12 +388,12 @@
   flex-shrink: 0;
 }
 
-.mobile-nav-link-danger { color: #ef4444; }
-.mobile-nav-link-danger:hover { background: rgba(239, 68, 68, 0.06); color: #ef4444; }
+.mobile-nav-link-danger { color: var(--c-danger); }
+.mobile-nav-link-danger:hover { background: rgba(239, 68, 68, 0.06); color: var(--c-danger); }
 
 .mobile-menu-divider {
   height: 1px;
-  background: #f1f5f9;
+  background: var(--c-gray-100);
   margin: 0.75rem 0;
 }
 
@@ -404,15 +404,15 @@
   align-items: center;
   border-radius: 12px;
   overflow: hidden;
-  border: 1.5px solid #e2e8f0;
-  background: #f8fafc;
+  border: 1.5px solid var(--c-border);
+  background: var(--c-gray-50);
   transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .search-group:focus-within {
-  border-color: #6C63FF;
+  border-color: var(--c-primary);
   box-shadow: 0 0 0 4px rgba(108, 99, 255, 0.1);
-  background: #ffffff;
+  background: var(--c-surface);
 }
 
 .search-input {
@@ -421,16 +421,16 @@
   padding: 0.5rem 0.75rem;
   font-size: 0.875rem;
   direction: rtl;
-  color: #1e293b;
+  color: var(--c-gray-800);
 }
 
-.search-input::placeholder { color: #94a3b8; }
+.search-input::placeholder { color: var(--c-gray-400); }
 .search-input:focus { box-shadow: none !important; outline: none !important; }
 
 .search-btn {
   border: none !important;
   background: transparent !important;
-  color: #94a3b8;
+  color: var(--c-gray-400);
   padding: 0.5rem 0.75rem;
   transition: color 0.2s ease;
   cursor: pointer;
@@ -439,7 +439,7 @@
   justify-content: center;
 }
 
-.search-btn:hover { color: #6C63FF; }
+.search-btn:hover { color: var(--c-primary); }
 
 .navbar-toggler { display: none; }
 

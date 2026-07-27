@@ -18,7 +18,7 @@ body {
 }
 
 body::before {
-  display: none;
+  display: block;
 }
 
 ::selection {
@@ -1502,5 +1502,25 @@ body::before {
 @media (min-width: 415px) and (max-width: 767.98px) {
   .product-grid {
     gap: 10px;
+  }
+}
+
+/* Account Layout Mobile */
+@media (max-width: 991.98px) {
+  .account-sidebar-content {
+    flex-direction: column;
+  }
+  .account-sidebar-content .row {
+    flex-direction: column;
+  }
+  .account-sidebar-content .col-lg-4,
+  .account-sidebar-content .col-xl-3 {
+    flex: 0 0 auto;
+    max-width: 100%;
+  }
+  .account-sidebar-content .col-lg-8,
+  .account-sidebar-content .col-xl-9 {
+    flex: 0 0 auto;
+    max-width: 100%;
   }
 }

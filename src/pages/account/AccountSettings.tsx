@@ -102,7 +102,7 @@ export default function AccountSettings() {
                 }`}
                 onClick={() => setLanguage("fa")}
               >
-                فارسی
+                FA
               </button>
               <button
                 className={`btn btn-sm rounded-pill px-3 ${
@@ -110,7 +110,7 @@ export default function AccountSettings() {
                 }`}
                 onClick={() => setLanguage("en")}
               >
-                English
+                EN
               </button>
             </div>
           </div>

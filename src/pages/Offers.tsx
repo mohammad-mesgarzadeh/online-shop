@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import ProductCard from "../components/ProductCard";
 import { products } from "../data/products";
 import Countdown from "../components/offers/Countdown";
+import { useLanguage } from "../context/LanguageContext";
 
 const CAMPAIGN_END = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000 + 14 * 60 * 60 * 1000);
 
@@ -17,6 +18,7 @@ const cardVariants = {
 };
 
 export default function Offers() {
+  const { t } = useLanguage();
   const saleProducts = products.filter((p) => p.discount && p.discount > 0);
   const bestDeals = [...saleProducts].sort((a, b) => (b.discount || 0) - (a.discount || 0)).slice(0, 4);
   const topSelling = [...saleProducts].sort((a, b) => b.sold - a.sold).slice(0, 4);
@@ -67,7 +69,6 @@ export default function Offers() {
 
         <div className="container" style={{ position: "relative", zIndex: 2, padding: "var(--space-20) var(--space-4)" }}>
           <motion.div
-            dir="rtl"
             initial={{ opacity: 0, x: -40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
@@ -92,7 +93,7 @@ export default function Offers() {
               }}
             >
               <i className="bi bi-lightning-charge-fill" />
-              تخفیف ویژه تا ۷۰٪
+              {t("offers.heroBadge")}
             </motion.span>
 
             <h1 style={{
@@ -102,7 +103,7 @@ export default function Offers() {
               lineHeight: "var(--leading-tight)",
               marginBottom: "var(--space-4)",
             }}>
-              حراج بزرگ تابستانه
+              {t("offers.heroTitle")}
             </h1>
 
             <p style={{
@@ -112,7 +113,7 @@ export default function Offers() {
               marginBottom: "var(--space-8)",
               maxWidth: 480,
             }}>
-              تا ۷۰٪ تخفیف روی محصولات منتخب فصل تابستان. فرصت محدود است!
+              {t("offers.heroDesc")}
             </p>
 
             <div style={{ display: "flex", gap: "var(--space-3)", flexWrap: "wrap" }}>
@@ -134,7 +135,7 @@ export default function Offers() {
                 }}
               >
                 <i className="bi bi-bag" />
-                مشاهده همه تخفیف‌ها
+                {t("offers.viewAllOffers")}
               </Link>
               <Link
                 to="/categories/mens-clothing"
@@ -154,7 +155,7 @@ export default function Offers() {
                 }}
               >
                 <i className="bi bi-person-standing" />
-                لباس مردانه
+                {t("offers.mensWear")}
               </Link>
             </div>
           </motion.div>
@@ -173,9 +174,9 @@ export default function Offers() {
             <div className="section-header">
               <span className="section-badge" style={{ background: "rgba(239,68,68,0.08)", color: "var(--c-danger)" }}>
                 <i className="bi bi-fire" />
-                بهترین تخفیف‌ها
+                {t("offers.bestDealsTitle")}
               </span>
-              <h2>بیشترین تخفیف</h2>
+              <h2>{t("offers.bestDealsTitle")}</h2>
             </div>
 
             <motion.div
@@ -233,13 +234,13 @@ export default function Offers() {
                     marginBottom: "var(--space-3)",
                     alignSelf: "flex-start",
                   }}>
-                    تا ۴۰٪ تخفیف
+                    {t("offers.upTo")} 40% {t("offers.discountLabel")}
                   </span>
                   <h3 style={{ color: "white", fontSize: "var(--text-2xl)", fontWeight: "var(--font-extrabold)", marginBottom: "var(--space-2)" }}>
-                    لباس مردانه
+                    {t("offers.mensWear")}
                   </h3>
                   <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "var(--text-sm)", marginBottom: "var(--space-4)" }}>
-                    مجموعه کامل با تخفیف‌های ویژه
+                    {t("offers.fullCollection")}
                   </p>
                   <span style={{
                     display: "inline-flex",
@@ -249,7 +250,7 @@ export default function Offers() {
                     fontSize: "var(--text-sm)",
                     fontWeight: "var(--font-bold)",
                   }}>
-                    مشاهده محصولات
+                    {t("offers.viewProducts")}
                     <i className="bi bi-arrow-left" />
                   </span>
                 </div>
@@ -291,13 +292,13 @@ export default function Offers() {
                     marginBottom: "var(--space-3)",
                     alignSelf: "flex-start",
                   }}>
-                    تا ۶۰٪ تخفیف
+                    {t("offers.upTo")} 60% {t("offers.discountLabel")}
                   </span>
                   <h3 style={{ color: "white", fontSize: "var(--text-2xl)", fontWeight: "var(--font-extrabold)", marginBottom: "var(--space-2)" }}>
-                    لباس زنانه
+                    {t("offers.womensWear")}
                   </h3>
                   <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "var(--text-sm)", marginBottom: "var(--space-4)" }}>
-                    مجموعه متنوع با بهترین قیمت‌ها
+                    {t("offers.diverseCollection")}
                   </p>
                   <span style={{
                     display: "inline-flex",
@@ -307,7 +308,7 @@ export default function Offers() {
                     fontSize: "var(--text-sm)",
                     fontWeight: "var(--font-bold)",
                   }}>
-                    مشاهده محصولات
+                    {t("offers.viewProducts")}
                     <i className="bi bi-arrow-left" />
                   </span>
                 </div>
@@ -324,9 +325,9 @@ export default function Offers() {
             <div className="section-header">
               <span className="section-badge">
                 <i className="bi bi-graph-up-arrow" />
-                پرفروش‌ترین
+                {t("offers.topSellingTitle")}
               </span>
-              <h2>محصولات تخفیف‌دار پرفروش</h2>
+              <h2>{t("offers.topSellingTitle")}</h2>
             </div>
 
             <motion.div
@@ -370,10 +371,10 @@ export default function Offers() {
                 fontWeight: "var(--font-extrabold)",
                 marginBottom: "var(--space-4)",
               }}>
-                تمامی محصولات تخفیف‌دار
+                {t("offers.allDiscounted")}
               </h2>
               <p style={{ color: "var(--c-gray-400)", marginBottom: "var(--space-8)", maxWidth: 480, marginInline: "auto" }}>
-                تمام محصولات دارای تخفیف را با فیلتر و مرتب‌سازی مشاهده کنید
+                {t("offers.allDiscountedDesc")}
               </p>
               <Link
                 to="/offers/all"
@@ -392,7 +393,7 @@ export default function Offers() {
                 }}
               >
                 <i className="bi bi-grid-3x3-gap" />
-                مشاهده همه محصولات تخفیف‌دار
+                {t("offers.browseAll")}
               </Link>
             </div>
           </div>

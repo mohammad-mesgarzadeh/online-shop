@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { products } from "../data/products";
 import { categoryGroups, categories } from "../data/categories";
+import { useLanguage } from "../context/LanguageContext";
 import ProductCard from "../components/ProductCard";
 
 const containerVariants = {
@@ -18,6 +19,7 @@ const cardVariants = {
 const group = categoryGroups.find((g) => g.slug === "mens-clothing")!;
 
 export default function MensClothing() {
+  const { t } = useLanguage();
   const [activeFilter, setActiveFilter] = useState<string>("all");
 
   const subCategories = useMemo(
@@ -92,7 +94,6 @@ export default function MensClothing() {
 
         <div className="container" style={{ position: "relative", zIndex: 2, padding: "var(--space-20) var(--space-4)" }}>
           <motion.div
-            dir="rtl"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -125,7 +126,7 @@ export default function MensClothing() {
                 lineHeight: "var(--leading-tight)",
               }}
             >
-              لباس مردانه
+              {t("mens.title")}
             </h1>
 
             <p
@@ -136,7 +137,7 @@ export default function MensClothing() {
                 marginBottom: "var(--space-6)",
               }}
             >
-              مجموعه کامل لباس مردانه با بهترین کیفیت و برندهای مطرح
+              {t("mens.desc")}
             </p>
 
             <Link
@@ -156,7 +157,7 @@ export default function MensClothing() {
               }}
             >
               <i className="bi bi-arrow-right" />
-              بازگشت به دسته‌بندی‌ها
+              {t("mens.backToCategories")}
             </Link>
           </motion.div>
         </div>
@@ -164,14 +165,14 @@ export default function MensClothing() {
 
       {/* Featured Product */}
       {featured && (
-        <section dir="rtl" style={{ padding: "var(--space-16) 0 var(--space-12)" }}>
+        <section style={{ padding: "var(--space-16) 0 var(--space-12)" }}>
           <div className="container">
             <div className="section-header">
               <span className="section-badge">
                 <i className="bi bi-star-fill" />
-                ویژه
+                {t("mens.featured")}
               </span>
-              <h2>محصول ویژه</h2>
+              <h2>{t("mens.featuredProduct")}</h2>
             </div>
 
             <motion.div
@@ -220,7 +221,7 @@ export default function MensClothing() {
                       }}
                     >
                       <i className="bi bi-star-fill" style={{ fontSize: 10 }} />
-                      بالاترین امتیاز
+                      {t("mens.highestRating")}
                     </span>
 
                     <h3 style={{ fontSize: "var(--text-2xl)", fontWeight: "var(--font-extrabold)", color: "var(--c-gray-900)", marginBottom: "var(--space-3)" }}>
@@ -243,7 +244,7 @@ export default function MensClothing() {
                         {featured.rating}
                       </span>
                       <span style={{ fontSize: "var(--text-xs)", color: "var(--c-gray-400)" }}>
-                        ({featured.reviewCount} نظر)
+                        ({featured.reviewCount} {t("mens.reviews")})
                       </span>
                     </div>
 
@@ -256,7 +257,7 @@ export default function MensClothing() {
                       <span style={{ fontSize: "var(--text-2xl)", fontWeight: "var(--font-extrabold)", color: "var(--c-primary)" }}>
                         {featured.price.toLocaleString("fa-IR")}
                       </span>
-                      <span style={{ fontSize: "var(--text-sm)", color: "var(--c-gray-400)" }}>تومان</span>
+                      <span style={{ fontSize: "var(--text-sm)", color: "var(--c-gray-400)" }}>{t("common.toman")}</span>
                     </div>
                   </div>
                 </div>
@@ -267,14 +268,14 @@ export default function MensClothing() {
       )}
 
       {/* Filter Bar + All Products */}
-      <section dir="rtl" style={{ paddingBottom: "var(--space-16)" }}>
+      <section style={{ paddingBottom: "var(--space-16)" }}>
         <div className="container">
           <div className="section-header">
             <span className="section-badge">
               <i className="bi bi-grid-3x3-gap" />
-              همه محصولات
+              {t("mens.allProducts")}
             </span>
-            <h2>محصولات مردانه</h2>
+            <h2>{t("mens.mensProducts")}</h2>
           </div>
 
           {/* Filter Chips */}
@@ -295,7 +296,7 @@ export default function MensClothing() {
                 fontFamily: "var(--font-primary)",
               }}
             >
-              همه
+              {t("mens.all")}
             </button>
             {subCategories.map((cat) => (
               <button
@@ -340,8 +341,8 @@ export default function MensClothing() {
               <div className="empty-state-icon">
                 <i className="bi bi-inbox" />
               </div>
-              <h4 className="empty-state-title">محصولی یافت نشد</h4>
-              <p className="empty-state-desc">در این دسته‌بندی محصولی موجود نیست</p>
+              <h4 className="empty-state-title">{t("mens.noProducts")}</h4>
+              <p className="empty-state-desc">{t("mens.noProductsDesc")}</p>
             </div>
           )}
         </div>
@@ -349,14 +350,14 @@ export default function MensClothing() {
 
       {/* Best Sellers */}
       {bestSellers.length > 0 && (
-        <section dir="rtl" style={{ paddingBottom: "var(--space-16)" }}>
+        <section style={{ paddingBottom: "var(--space-16)" }}>
           <div className="container">
             <div className="section-header">
               <span className="section-badge">
                 <i className="bi bi-fire" />
-                پرفروش‌ها
+                {t("mens.bestSellers")}
               </span>
-              <h2>پرفروش‌ترین محصولات</h2>
+              <h2>{t("mens.bestSellersTitle")}</h2>
             </div>
 
             <motion.div
@@ -378,14 +379,14 @@ export default function MensClothing() {
 
       {/* New Arrivals */}
       {newArrivals.length > 0 && (
-        <section dir="rtl" style={{ paddingBottom: "var(--space-16)" }}>
+        <section style={{ paddingBottom: "var(--space-16)" }}>
           <div className="container">
             <div className="section-header">
               <span className="section-badge">
                 <i className="bi bi-lightning-fill" />
-                جدید
+                {t("mens.newArrivals")}
               </span>
-              <h2>جدیدترین محصولات</h2>
+              <h2>{t("mens.newArrivalsTitle")}</h2>
             </div>
 
             <motion.div
@@ -406,7 +407,7 @@ export default function MensClothing() {
       )}
 
       {/* Promo CTA */}
-      <section dir="rtl" style={{ paddingBottom: "var(--space-20)" }}>
+      <section style={{ paddingBottom: "var(--space-20)" }}>
         <div className="container">
           <div
             style={{
@@ -435,10 +436,10 @@ export default function MensClothing() {
                   marginBottom: "var(--space-4)",
                 }}
               >
-                از جدیدترین مدها جا نمانید
+                {t("mens.promoTitle")}
               </h2>
               <p style={{ color: "var(--c-gray-400)", marginBottom: "var(--space-8)", maxWidth: 480, marginInline: "auto" }}>
-                هر هفته محصولات جدید به مجموعه اضافه می‌شود. همین الان سر بزنید.
+                {t("mens.promoDesc")}
               </p>
               <div style={{ display: "flex", gap: "var(--space-3)", justifyContent: "center", flexWrap: "wrap" }}>
                 <Link
@@ -447,7 +448,7 @@ export default function MensClothing() {
                   style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8 }}
                 >
                   <i className="bi bi-bag" />
-                  مشاهده همه محصولات
+                  {t("mens.viewAll")}
                 </Link>
                 <Link
                   to="/offers"
@@ -455,7 +456,7 @@ export default function MensClothing() {
                   style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", gap: 8, borderColor: "rgba(255,255,255,0.2)", color: "var(--c-white)" }}
                 >
                   <i className="bi bi-tag" />
-                  پیشنهادات ویژه
+                  {t("mens.specialOffers")}
                 </Link>
               </div>
             </div>

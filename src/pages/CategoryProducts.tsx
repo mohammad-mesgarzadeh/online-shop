@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { products } from "../data/products";
 import { categories } from "../data/categories";
+import { useLanguage } from "../context/LanguageContext";
 import ProductCard from "../components/ProductCard";
 
 const containerVariants = {
@@ -19,6 +20,7 @@ type SortType = "featured" | "newest" | "best-selling" | "cheapest" | "most-expe
 
 export default function CategoryProducts() {
   const { slug } = useParams<{ slug: string }>();
+  const { t } = useLanguage();
   const category = categories.find((c) => c.slug === slug);
 
   const [sortBy, setSortBy] = useState<SortType>("featured");
@@ -65,10 +67,10 @@ export default function CategoryProducts() {
           <div className="empty-state-icon">
             <i className="bi bi-exclamation-circle" />
           </div>
-          <h3 className="empty-state-title">دسته بندی یافت نشد</h3>
-          <p className="empty-state-desc">دسته بندی مورد نظر شما وجود ندارد.</p>
+          <h3 className="empty-state-title">{t("categoryProducts.categoryNotFound")}</h3>
+          <p className="empty-state-desc">{t("categoryProducts.categoryNotFoundDesc")}</p>
           <Link to="/categories" className="btn btn-vesta-primary rounded-pill">
-            بازگشت به دسته بندی‌ها
+            {t("categoryProducts.backToCategories")}
           </Link>
         </div>
       </div>
@@ -106,16 +108,15 @@ export default function CategoryProducts() {
 
         <div className="container" style={{ position: "relative", zIndex: 2, padding: "var(--space-16) var(--space-4)" }}>
           <motion.div
-            dir="rtl"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
             <nav style={{ marginBottom: "var(--space-4)" }}>
               <ol style={{ display: "flex", alignItems: "center", gap: 8, listStyle: "none", padding: 0, margin: 0 }}>
-                <li><Link to="/" style={{ color: "rgba(255,255,255,0.5)", fontSize: "var(--text-sm)", textDecoration: "none" }}>خانه</Link></li>
+                <li><Link to="/" style={{ color: "rgba(255,255,255,0.5)", fontSize: "var(--text-sm)", textDecoration: "none" }}>{t("categoryProducts.home")}</Link></li>
                 <li style={{ color: "rgba(255,255,255,0.3)" }}>/</li>
-                <li><Link to="/categories" style={{ color: "rgba(255,255,255,0.5)", fontSize: "var(--text-sm)", textDecoration: "none" }}>دسته بندی‌ها</Link></li>
+                <li><Link to="/categories" style={{ color: "rgba(255,255,255,0.5)", fontSize: "var(--text-sm)", textDecoration: "none" }}>{t("categoryProducts.categories")}</Link></li>
                 <li style={{ color: "rgba(255,255,255,0.3)" }}>/</li>
                 <li style={{ color: "var(--c-white)", fontSize: "var(--text-sm)", fontWeight: "var(--font-semibold)" }}>{category.label}</li>
               </ol>
@@ -131,20 +132,20 @@ export default function CategoryProducts() {
             </h1>
 
             <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "var(--text-base)", marginBottom: 0 }}>
-              {category.description || `${categoryProducts.length} محصول موجود`}
+              {category.description || `${categoryProducts.length} ${t("categoryProducts.products")}`}
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Sort + Products */}
-      <section dir="rtl" style={{ paddingTop: "var(--space-8)", paddingBottom: "var(--space-16)" }}>
+      <section style={{ paddingTop: "var(--space-8)", paddingBottom: "var(--space-16)" }}>
         <div className="container">
           {/* Toolbar */}
           <div className="pt">
             <div className="pt-info">
               <span className="pt-count">
-                <strong>{sortedProducts.length}</strong> محصول
+                <strong>{sortedProducts.length}</strong> {t("categoryProducts.products")}
               </span>
             </div>
             <div className="pt-sort">
@@ -154,12 +155,12 @@ export default function CategoryProducts() {
                 value={sortBy}
                 onChange={(e) => handleSortChange(e.target.value)}
               >
-                <option value="featured">پیشنهادی</option>
-                <option value="newest">جدیدترین</option>
-                <option value="best-selling">پرفروش‌ترین</option>
-                <option value="cheapest">ارزان‌ترین</option>
-                <option value="most-expensive">گران‌ترین</option>
-                <option value="highest-rated">بالاترین امتیاز</option>
+                <option value="featured">{t("categoryProducts.featured")}</option>
+                <option value="newest">{t("categoryProducts.newest")}</option>
+                <option value="best-selling">{t("categoryProducts.bestSelling")}</option>
+                <option value="cheapest">{t("categoryProducts.cheapest")}</option>
+                <option value="most-expensive">{t("categoryProducts.mostExpensive")}</option>
+                <option value="highest-rated">{t("categoryProducts.highestRated")}</option>
               </select>
             </div>
           </div>
@@ -185,8 +186,8 @@ export default function CategoryProducts() {
               <div className="empty-state-icon">
                 <i className="bi bi-box" />
               </div>
-              <h3 className="empty-state-title">محصولی یافت نشد</h3>
-              <p className="empty-state-desc">هنوز محصولی برای این دسته بندی اضافه نشده است.</p>
+              <h3 className="empty-state-title">{t("categoryProducts.noProducts")}</h3>
+              <p className="empty-state-desc">{t("categoryProducts.noProductsDesc")}</p>
             </div>
           )}
         </div>
@@ -199,9 +200,9 @@ export default function CategoryProducts() {
             <div className="section-header">
               <span className="section-badge">
                 <i className="bi bi-fire" />
-                پرفروش‌ها
+                {t("categoryProducts.bestSellers")}
               </span>
-              <h2>پرفروش‌ترین {category.label}</h2>
+              <h2>{t("categoryProducts.bestSellers")} {category.label}</h2>
             </div>
             <motion.div
               className="product-grid"
@@ -227,9 +228,9 @@ export default function CategoryProducts() {
             <div className="section-header">
               <span className="section-badge">
                 <i className="bi bi-lightning-fill" />
-                جدید
+                {t("categoryProducts.newArrivals")}
               </span>
-              <h2>جدیدترین {category.label}</h2>
+              <h2>{t("categoryProducts.newArrivals")} {category.label}</h2>
             </div>
             <motion.div
               className="product-grid"
@@ -267,10 +268,10 @@ export default function CategoryProducts() {
             }} />
             <div style={{ position: "relative", zIndex: 1 }}>
               <h2 style={{ color: "var(--c-white)", fontSize: "var(--text-2xl)", fontWeight: "var(--font-extrabold)", marginBottom: "var(--space-3)" }}>
-                پیشنهادات ویژه {category.label}
+                {t("categoryProducts.specialOffers")} {category.label}
               </h2>
               <p style={{ color: "var(--c-gray-400)", marginBottom: "var(--space-6)", maxWidth: 400, marginInline: "auto" }}>
-                محصولات تخفیف‌دار این دسته را از دست ندهید
+                {t("categoryProducts.dontMissOffers")}
               </p>
               <Link
                 to="/offers"
@@ -288,7 +289,7 @@ export default function CategoryProducts() {
                 }}
               >
                 <i className="bi bi-tag" />
-                مشاهده تخفیف‌ها
+                {t("categoryProducts.viewDiscounts")}
               </Link>
             </div>
           </div>

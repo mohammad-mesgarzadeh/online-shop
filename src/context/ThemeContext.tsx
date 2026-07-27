@@ -15,7 +15,7 @@ const THEME_KEY = "vesta_theme";
 function getInitialTheme(): Theme {
   const stored = localStorage.getItem(THEME_KEY);
   if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  return "light";
 }
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
@@ -26,16 +26,7 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     localStorage.setItem(THEME_KEY, theme);
   }, [theme]);
 
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem(THEME_KEY)) {
-        setThemeState(e.matches ? "dark" : "light");
-      }
-    };
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+
 
   const toggleTheme = useCallback(() => {
     setThemeState((prev) => (prev === "light" ? "dark" : "light"));

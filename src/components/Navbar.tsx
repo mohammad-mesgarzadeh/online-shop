@@ -121,10 +121,10 @@ export default function Navbar() {
         }}
       >
         <i className="bi bi-truck" style={{ color: "var(--c-primary-lighter)" }} />
-        <span>ارسال رایگان برای سفارش‌های بالای ۲ میلیون تومان</span>
+        <span>{t("nav.announcement")}</span>
         <span style={{ color: "#475569" }}>|</span>
         <i className="bi bi-arrow-return-left" style={{ color: "var(--c-primary-lighter)" }} />
-        <span>۷ روز ضمانت بازگشت</span>
+        <span>{t("nav.returnGuarantee")}</span>
       </div>
 
       {/* Navbar */}
@@ -148,7 +148,7 @@ export default function Navbar() {
             <button
               className="navbar-icon-btn d-none d-xl-flex"
               onClick={() => setSearchOpen(true)}
-              aria-label="جستجو"
+              aria-label={t("common.search")}
             >
               <i className="bi bi-search" />
             </button>
@@ -157,23 +157,23 @@ export default function Navbar() {
             <button
               className="navbar-icon-btn d-none d-xl-flex"
               onClick={() => setLanguage(language === "fa" ? "en" : "fa")}
-              aria-label="تغییر زبان"
+              aria-label={t("nav.changeLanguage")}
               style={{ fontSize: "var(--text-sm)", fontWeight: 600 }}
             >
-              {language === "fa" ? "EN" : "فارسی"}
+              {language === "fa" ? "EN" : "FA"}
             </button>
 
             {/* Theme Toggle (Desktop) */}
             <button
               className="navbar-icon-btn d-none d-xl-flex"
               onClick={toggleTheme}
-              aria-label="تغییر تم"
+              aria-label={t("nav.changeTheme")}
             >
               <i className={`bi ${theme === "dark" ? "bi-sun" : "bi-moon"}`} />
             </button>
 
             {/* Wishlist */}
-            <Link to="/account/wishlist" className="navbar-icon-btn position-relative d-none d-xl-flex" aria-label="علاقه‌مندی‌ها">
+            <Link to="/account/wishlist" className="navbar-icon-btn position-relative d-none d-xl-flex" aria-label={t("nav.wishlist")}>
               <i className="bi bi-heart" />
               {wishlistCount > 0 && (
                 <span className="cart-badge">{wishlistCount > 99 ? "99+" : wishlistCount}</span>
@@ -181,7 +181,7 @@ export default function Navbar() {
             </Link>
 
             {/* Cart icon */}
-            <Link to="/cart" className="navbar-icon-btn position-relative" aria-label="سبد خرید">
+            <Link to="/cart" className="navbar-icon-btn position-relative" aria-label={t("nav.cart")}>
               <i className="bi bi-bag" />
               {itemCount > 0 && (
                 <span className="cart-badge">{itemCount > 99 ? "99+" : itemCount}</span>
@@ -194,7 +194,7 @@ export default function Navbar() {
                 <button
                   className="navbar-avatar-btn"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
-                  aria-label="منوی کاربری"
+                  aria-label={t("nav.userMenu")}
                   aria-expanded={dropdownOpen}
                 >
                   <img src={user.avatar} alt={user.name} className="navbar-avatar" />
@@ -238,7 +238,7 @@ export default function Navbar() {
               <Link
                 to="/login"
                 className="navbar-icon-btn"
-                aria-label="ورود"
+                aria-label={t("nav.login")}
               >
                 <i className="bi bi-person" />
               </Link>
@@ -248,7 +248,7 @@ export default function Navbar() {
             <button
               className="navbar-hamburger d-xl-none"
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="منوی ناوبری"
+              aria-label={t("nav.mobileMenu")}
               aria-expanded={mobileOpen}
             >
               <span className={`hamburger-line ${mobileOpen ? "open" : ""}`} />
@@ -342,7 +342,7 @@ export default function Navbar() {
                   <div className="flex-grow-1 min-w-0">
                     <div className="fw-medium" style={{ fontSize: "var(--text-sm)" }}>{product.title}</div>
                     <div style={{ color: "var(--c-primary)", fontSize: "var(--text-sm)", fontWeight: "var(--font-bold)" }}>
-                      {formatPriceNumber(product.price)} تومان
+                      {formatPriceNumber(product.price)} {t("common.toman")}
                     </div>
                   </div>
                   <i className="bi bi-arrow-left" style={{ color: "var(--c-gray-300)" }} />
@@ -354,8 +354,8 @@ export default function Navbar() {
           {!searchTerm && (
             <div className="mt-3 px-2">
               <div className="d-flex flex-wrap gap-2">
-                <span style={{ color: "var(--c-gray-400)", fontSize: "var(--text-sm)" }}>پرجستجو:</span>
-                {["هودی", "تیشرت", "کفش", "ساعت"].map((term) => (
+                <span style={{ color: "var(--c-gray-400)", fontSize: "var(--text-sm)" }}>{t("nav.searchPopular")}:</span>
+                {[t("nav.searchHoodie"), t("nav.searchTshirt"), t("nav.searchShoes"), t("nav.searchWatch")].map((term) => (
                   <button
                     key={term}
                     className="btn btn-sm rounded-pill"
@@ -382,8 +382,8 @@ export default function Navbar() {
       <div className={`navbar-mobile-overlay ${mobileOpen ? "active" : ""}`} onClick={closeMobile} />
       <div className={`navbar-mobile-menu ${mobileOpen ? "active" : ""}`} ref={mobileMenuRef}>
         <div className="mobile-menu-header d-flex align-items-center justify-content-between mb-3">
-          <span className="fw-bold fs-5">منو</span>
-          <button className="navbar-mobile-close" onClick={closeMobile} aria-label="بستن منو">
+          <span className="fw-bold fs-5">{t("nav.menu")}</span>
+          <button className="navbar-mobile-close" onClick={closeMobile} aria-label={t("nav.closeMenu")}>
             <i className="bi bi-x-lg" />
           </button>
         </div>
@@ -447,7 +447,7 @@ export default function Navbar() {
             onClick={() => setLanguage(language === "fa" ? "en" : "fa")}
           >
             <i className="bi bi-translate me-1" />
-            {language === "fa" ? "EN" : "فارسی"}
+            {language === "fa" ? "EN" : "FA"}
           </button>
           <button
             className="btn btn-sm rounded-pill flex-grow-1 py-2 fw-medium"

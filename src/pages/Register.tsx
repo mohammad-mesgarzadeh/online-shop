@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
 import "./Auth.css";
 
 const registerSchema = z
@@ -22,6 +23,7 @@ type RegisterForm = z.infer<typeof registerSchema>;
 
 export default function Register() {
   const { register: registerUser, isLoading } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
@@ -42,12 +44,12 @@ export default function Register() {
     if (ok) {
       navigate("/", { replace: true });
     } else {
-      setError("ایمیل قبلاً ثبت شده است");
+      setError(t("auth.emailTaken"));
     }
   };
 
   return (
-    <section className="auth-page" dir="rtl">
+    <section className="auth-page">
       <div className="auth-container">
         <div className="auth-card">
           <div className="auth-header">
@@ -55,8 +57,8 @@ export default function Register() {
               <span className="brand-icon" />
               <span className="brand-text">VESTA</span>
             </Link>
-            <h2 className="auth-title">ایجاد حساب کاربری</h2>
-            <p className="auth-subtitle">به خانواده VESTA خوش آمدید</p>
+            <h2 className="auth-title">{t("auth.registerTitle")}</h2>
+            <p className="auth-subtitle">{t("auth.registerSubtitle")}</p>
           </div>
 
           {error && (
@@ -68,13 +70,13 @@ export default function Register() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
             <div className="auth-field">
-              <label className="auth-label">نام و نام خانوادگی</label>
+              <label className="auth-label">{t("auth.fullName")}</label>
               <div className="auth-input-wrapper">
                 <i className="bi bi-person auth-input-icon" />
                 <input
                   type="text"
                   className={`auth-input ${errors.name ? "auth-input-error" : ""}`}
-                  placeholder="نام خود را وارد کنید"
+                  placeholder={t("auth.namePlaceholder")}
                   {...register("name")}
                 />
               </div>
@@ -82,7 +84,7 @@ export default function Register() {
             </div>
 
             <div className="auth-field">
-              <label className="auth-label">ایمیل</label>
+              <label className="auth-label">{t("auth.email")}</label>
               <div className="auth-input-wrapper">
                 <i className="bi bi-envelope auth-input-icon" />
                 <input
@@ -97,13 +99,13 @@ export default function Register() {
             </div>
 
             <div className="auth-field">
-              <label className="auth-label">رمز عبور</label>
+              <label className="auth-label">{t("auth.password")}</label>
               <div className="auth-input-wrapper">
                 <i className="bi bi-lock auth-input-icon" />
                 <input
                   type={showPassword ? "text" : "password"}
                   className={`auth-input ${errors.password ? "auth-input-error" : ""}`}
-                  placeholder="حداقل ۶ کاراکتر"
+                  placeholder={t("auth.minChars")}
                   {...register("password")}
                 />
                 <button
@@ -119,13 +121,13 @@ export default function Register() {
             </div>
 
             <div className="auth-field">
-              <label className="auth-label">تکرار رمز عبور</label>
+              <label className="auth-label">{t("auth.confirmPassword")}</label>
               <div className="auth-input-wrapper">
                 <i className="bi bi-lock-fill auth-input-icon" />
                 <input
                   type={showConfirm ? "text" : "password"}
                   className={`auth-input ${errors.confirmPassword ? "auth-input-error" : ""}`}
-                  placeholder="رمز عبور را مجدداً وارد کنید"
+                  placeholder={t("auth.confirmPasswordPlaceholder")}
                   {...register("confirmPassword")}
                 />
                 <button
@@ -146,7 +148,7 @@ export default function Register() {
               <label className="auth-checkbox">
                 <input type="checkbox" required />
                 <span>
-                  <span className="text-primary text-decoration-underline" style={{ cursor: "pointer" }}>قوانین و مقررات</span> را مطالعه کرده و می‌پذیرم
+                  <span className="text-primary text-decoration-underline" style={{ cursor: "pointer" }}>{t("auth.termsLink")}</span> {t("auth.termsPrefix")}
                 </span>
               </label>
             </div>
@@ -159,31 +161,31 @@ export default function Register() {
               {isLoading ? (
                 <>
                   <span className="spinner-border spinner-border-sm ms-2" />
-                  در حال ثبت نام...
+                  {t("auth.registering")}
                 </>
               ) : (
                 <>
                   <i className="bi bi-person-plus ms-2" />
-                  ثبت نام
+                  {t("auth.registerBtn")}
                 </>
               )}
             </button>
           </form>
 
           <div className="auth-footer">
-            <span className="text-muted">حساب کاربری دارید؟</span>
+            <span className="text-muted">{t("auth.hasAccountQuestion")}</span>
             <Link to="/login" className="auth-link-btn fw-bold">
-              وارد شوید
+              {t("auth.loginLink")}
             </Link>
           </div>
 
           <div className="auth-divider">
-            <span>یا</span>
+            <span>{t("auth.or")}</span>
           </div>
 
           <Link to="/" className="auth-back-home">
             <i className="bi bi-house" />
-            بازگشت به صفحه اصلی
+            {t("auth.backToHome")}
           </Link>
         </div>
       </div>

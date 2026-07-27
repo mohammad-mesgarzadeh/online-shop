@@ -6,7 +6,6 @@ import { ThemeProvider } from "./context/ThemeContext";
 import { LanguageProvider } from "./context/LanguageContext";
 import { AddressProvider } from "./context/AddressContext";
 import ScrollToTop from "./components/ScrollToTop";
-import FashionCanvas from "./components/background/FashionCanvas";
 import AppRoutes from "./routes/AppRoutes";
 
 export default function App() {
@@ -19,7 +18,6 @@ export default function App() {
               <OrderProvider>
                 <AddressProvider>
                   <ScrollToTop />
-                  <FashionCanvas />
                   <AppRoutes />
                 </AddressProvider>
               </OrderProvider>

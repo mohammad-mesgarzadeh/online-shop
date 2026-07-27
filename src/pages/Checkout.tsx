@@ -84,7 +84,7 @@ export default function Checkout() {
 
   if (items.length === 0) {
     return (
-      <section className="py-5" dir="rtl">
+      <section className="py-5">
         <div className="container">
           <div className="empty-state">
             <div className="empty-state-icon">
@@ -181,7 +181,7 @@ export default function Checkout() {
     `form-control rounded-3 ${error ? "is-invalid" : ""}`;
 
   return (
-    <section className="py-5" dir="rtl">
+    <section className="py-5">
       <div className="container">
         <nav className="mb-4">
           <ol className="breadcrumb">

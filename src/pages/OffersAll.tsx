@@ -7,6 +7,7 @@ import ProductFilters from "../components/products/ProductFilters";
 import ProductPagination from "../components/products/ProductPagination";
 import { products } from "../data/products";
 import { categories } from "../data/categories";
+import { useLanguage } from "../context/LanguageContext";
 import type { FilterState } from "../types";
 
 const PRICE_MIN = 0;
@@ -36,6 +37,7 @@ const cardVariants = {
 };
 
 export default function OffersAll() {
+  const { t } = useLanguage();
   const [sortBy, setSortBy] = useState("featured");
   const [page, setPage] = useState(1);
   const [filterOpen, setFilterOpen] = useState(false);
@@ -171,19 +173,19 @@ export default function OffersAll() {
     const f = appliedFilters;
     f.categories.forEach((cat) => {
       const catObj = categories.find((c) => c.slug === cat);
-      chips.push({ key: `cat-${cat}`, label: `دسته: ${catObj?.label || cat}`, onRemove: () => handleRemoveFilter({ categories: f.categories.filter((c) => c !== cat) }) });
+      chips.push({ key: `cat-${cat}`, label: `${t("filter.category")}: ${catObj?.label || cat}`, onRemove: () => handleRemoveFilter({ categories: f.categories.filter((c) => c !== cat) }) });
     });
     f.brands.forEach((brand) => {
-      chips.push({ key: `brand-${brand}`, label: `برند: ${brand}`, onRemove: () => handleRemoveFilter({ brands: f.brands.filter((b) => b !== brand) }) });
+      chips.push({ key: `brand-${brand}`, label: `${t("filter.brand")}: ${brand}`, onRemove: () => handleRemoveFilter({ brands: f.brands.filter((b) => b !== brand) }) });
     });
     if (f.priceRange[0] > PRICE_MIN || f.priceRange[1] < PRICE_MAX) {
-      chips.push({ key: "price", label: `قیمت: ${f.priceRange[0].toLocaleString("fa-IR")} - ${f.priceRange[1].toLocaleString("fa-IR")}`, onRemove: () => handleRemoveFilter({ priceRange: [PRICE_MIN, PRICE_MAX] }) });
+      chips.push({ key: "price", label: `${t("filter.price")}: ${f.priceRange[0].toLocaleString("fa-IR")} - ${f.priceRange[1].toLocaleString("fa-IR")}`, onRemove: () => handleRemoveFilter({ priceRange: [PRICE_MIN, PRICE_MAX] }) });
     }
     if (f.minRating > 0) {
-      chips.push({ key: "rating", label: `امتیاز: ${f.minRating}+`, onRemove: () => handleRemoveFilter({ minRating: 0 }) });
+      chips.push({ key: "rating", label: `${t("filter.rating")}: ${f.minRating}+`, onRemove: () => handleRemoveFilter({ minRating: 0 }) });
     }
     return chips;
-  }, [appliedFilters, handleRemoveFilter]);
+  }, [appliedFilters, handleRemoveFilter, t]);
 
   const hasActiveFilters = activeFilterChips.length > 0;
 
@@ -196,17 +198,16 @@ export default function OffersAll() {
       }}>
         <div className="container">
           <motion.div
-            dir="rtl"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
           >
             <nav style={{ marginBottom: "var(--space-4)" }}>
               <ol style={{ display: "flex", alignItems: "center", gap: 8, listStyle: "none", padding: 0, margin: 0 }}>
-                <li><Link to="/" style={{ color: "rgba(255,255,255,0.5)", fontSize: "var(--text-sm)", textDecoration: "none" }}>خانه</Link></li>
+                <li><Link to="/" style={{ color: "rgba(255,255,255,0.5)", fontSize: "var(--text-sm)", textDecoration: "none" }}>{t("offersAll.home")}</Link></li>
                 <li style={{ color: "rgba(255,255,255,0.3)" }}>/</li>
-                <li><Link to="/offers" style={{ color: "rgba(255,255,255,0.5)", fontSize: "var(--text-sm)", textDecoration: "none" }}>پیشنهادات ویژه</Link></li>
+                <li><Link to="/offers" style={{ color: "rgba(255,255,255,0.5)", fontSize: "var(--text-sm)", textDecoration: "none" }}>{t("offersAll.specialOffers")}</Link></li>
                 <li style={{ color: "rgba(255,255,255,0.3)" }}>/</li>
-                <li style={{ color: "var(--c-white)", fontSize: "var(--text-sm)", fontWeight: "var(--font-semibold)" }}>همه محصولات تخفیف‌دار</li>
+                <li style={{ color: "var(--c-white)", fontSize: "var(--text-sm)", fontWeight: "var(--font-semibold)" }}>{t("offersAll.allDiscountedProducts")}</li>
               </ol>
             </nav>
             <h1 style={{
@@ -216,17 +217,17 @@ export default function OffersAll() {
               marginBottom: "var(--space-2)",
             }}>
               <i className="bi bi-tag-fill me-2" style={{ color: "var(--c-danger)" }} />
-              همه محصولات تخفیف‌دار
+              {t("offersAll.allDiscountedProducts")}
             </h1>
             <p style={{ color: "rgba(255,255,255,0.6)", fontSize: "var(--text-base)" }}>
-              {saleProducts.length} محصول با تخفیف ویژه
+              {saleProducts.length} {t("offersAll.productsWithDiscount")}
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* Products */}
-      <section dir="rtl" style={{ paddingTop: "var(--space-8)", paddingBottom: "var(--space-16)" }}>
+      <section style={{ paddingTop: "var(--space-8)", paddingBottom: "var(--space-16)" }}>
         <div className="container">
           <ProductToolbar
             totalProducts={sortedProducts.length}
@@ -237,7 +238,7 @@ export default function OffersAll() {
           <div className="d-lg-none mb-3">
             <button className="ps-mobile-filter-btn" onClick={() => setFilterOpen(true)}>
               <i className="bi bi-funnel me-2" />
-              فیلترها
+              {t("products.filter")}
               {hasActiveFilters && (
                 <span className="ps-mobile-filter-count">{activeFilterChips.length}</span>
               )}
@@ -264,9 +265,9 @@ export default function OffersAll() {
                   <div className="ps-filter-drawer-header">
                     <h5 className="ps-filter-drawer-title">
                       <i className="bi bi-funnel me-2" />
-                      فیلترها
+                      {t("products.filter")}
                     </h5>
-                    <button className="ps-filter-drawer-close" onClick={() => setFilterOpen(false)} aria-label="بستن فیلترها">
+                    <button className="ps-filter-drawer-close" onClick={() => setFilterOpen(false)} aria-label="Close filters">
                       <i className="bi bi-x-lg" />
                     </button>
                   </div>
@@ -285,14 +286,14 @@ export default function OffersAll() {
                   {activeFilterChips.map((chip) => (
                     <span key={chip.key} className="ps-chip">
                       {chip.label}
-                      <button className="ps-chip-remove" onClick={chip.onRemove} aria-label={`حذف فیلتر ${chip.label}`}>
+                      <button className="ps-chip-remove" onClick={chip.onRemove} aria-label={`Remove filter ${chip.label}`}>
                         <i className="bi bi-x" />
                       </button>
                     </span>
                   ))}
                   <button className="ps-chips-clear" onClick={handleResetFilters}>
                     <i className="bi bi-x-circle me-1" />
-                    پاک کردن همه
+                    {t("products.clearAll")}
                   </button>
                 </div>
               </motion.div>
@@ -320,12 +321,12 @@ export default function OffersAll() {
                   <div className="ps-empty-icon">
                     <i className="bi bi-tag" />
                   </div>
-                  <h3 className="ps-empty-title">محصول تخفیف‌داری یافت نشد</h3>
-                  <p className="ps-empty-desc">هیچ محصولی با فیلترهای انتخابی مطابقت ندارد.</p>
+                  <h3 className="ps-empty-title">{t("offersAll.noDiscountedProducts")}</h3>
+                  <p className="ps-empty-desc">{t("offersAll.noDiscountedDesc")}</p>
                   <div className="ps-empty-actions">
                     <button className="btn-vesta-primary rounded-pill" onClick={handleResetFilters}>
                       <i className="bi bi-x-lg me-2" />
-                      پاک کردن فیلترها
+                      {t("offersAll.clearFilters")}
                     </button>
                   </div>
                 </div>

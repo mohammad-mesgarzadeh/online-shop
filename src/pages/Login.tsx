@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "../context/AuthContext";
+import { useLanguage } from "../context/LanguageContext";
 import "./Auth.css";
 
 const loginSchema = z.object({
@@ -15,6 +16,7 @@ type LoginForm = z.infer<typeof loginSchema>;
 
 export default function Login() {
   const { login, isLoading } = useAuth();
+  const { t } = useLanguage();
   const navigate = useNavigate();
   const location = useLocation();
   const [showPassword, setShowPassword] = useState(false);
@@ -37,12 +39,12 @@ export default function Login() {
     if (ok) {
       navigate(from, { replace: true });
     } else {
-      setError("ایمیل یا رمز عبور اشتباه است");
+      setError(t("auth.invalidCredentials"));
     }
   };
 
   return (
-    <section className="auth-page" dir="rtl">
+    <section className="auth-page">
       <div className="auth-container">
         <div className="auth-card">
           <div className="auth-header">
@@ -50,8 +52,8 @@ export default function Login() {
               <span className="brand-icon" />
               <span className="brand-text">VESTA</span>
             </Link>
-            <h2 className="auth-title">ورود به حساب کاربری</h2>
-            <p className="auth-subtitle">خوش آمدید! برای ادامه وارد شوید</p>
+            <h2 className="auth-title">{t("auth.loginTitle")}</h2>
+            <p className="auth-subtitle">{t("auth.loginSubtitle")}</p>
           </div>
 
           {error && (
@@ -63,7 +65,7 @@ export default function Login() {
 
           <form onSubmit={handleSubmit(onSubmit)} className="auth-form">
             <div className="auth-field">
-              <label className="auth-label">ایمیل</label>
+              <label className="auth-label">{t("auth.email")}</label>
               <div className="auth-input-wrapper">
                 <i className="bi bi-envelope auth-input-icon" />
                 <input
@@ -78,13 +80,13 @@ export default function Login() {
             </div>
 
             <div className="auth-field">
-              <label className="auth-label">رمز عبور</label>
+              <label className="auth-label">{t("auth.password")}</label>
               <div className="auth-input-wrapper">
                 <i className="bi bi-lock auth-input-icon" />
                 <input
                   type={showPassword ? "text" : "password"}
                   className={`auth-input ${errors.password ? "auth-input-error" : ""}`}
-                  placeholder="رمز عبور خود را وارد کنید"
+                  placeholder={t("auth.passwordPlaceholder")}
                   {...register("password")}
                 />
                 <button
@@ -102,9 +104,9 @@ export default function Login() {
             <div className="d-flex justify-content-between align-items-center mb-4">
               <label className="auth-checkbox">
                 <input type="checkbox" defaultChecked />
-                <span>مرا به خاطر بسپار</span>
+                <span>{t("auth.rememberMe")}</span>
               </label>
-              <button type="button" className="auth-link-btn">فراموشی رمز عبور</button>
+              <button type="button" className="auth-link-btn">{t("auth.forgotPassword")}</button>
             </div>
 
             <button
@@ -115,31 +117,31 @@ export default function Login() {
               {isLoading ? (
                 <>
                   <span className="spinner-border spinner-border-sm ms-2" />
-                  در حال ورود...
+                  {t("auth.loggingIn")}
                 </>
               ) : (
                 <>
                   <i className="bi bi-box-arrow-in-left ms-2" />
-                  ورود
+                  {t("auth.loginBtn")}
                 </>
               )}
             </button>
           </form>
 
           <div className="auth-footer">
-            <span className="text-muted">حساب کاربری ندارید؟</span>
+            <span className="text-muted">{t("auth.noAccountQuestion")}</span>
             <Link to="/register" className="auth-link-btn fw-bold">
-              ثبت نام کنید
+              {t("auth.registerLink")}
             </Link>
           </div>
 
           <div className="auth-divider">
-            <span>یا</span>
+            <span>{t("auth.or")}</span>
           </div>
 
           <Link to="/" className="auth-back-home">
             <i className="bi bi-house" />
-            بازگشت به صفحه اصلی
+            {t("auth.backToHome")}
           </Link>
         </div>
       </div>

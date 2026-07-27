@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { useLanguage } from "../context/LanguageContext";
 import { formatPriceNumber } from "../utils/formatPrice";
 import { products } from "../data/products";
 import ProductCard from "../components/ProductCard";
 import { motion } from "framer-motion";
 
 export default function Cart() {
+  const { t } = useLanguage();
   const {
     items,
     removeItem,
@@ -34,16 +36,16 @@ export default function Cart() {
       setCouponApplied(true);
       setCouponError("");
     } else {
-      setCouponError("کد تخفیف معتبر نیست");
+      setCouponError(t("cart.couponInvalid"));
       setCouponApplied(false);
     }
   };
 
   if (items.length === 0) {
     return (
-      <section className="py-5" dir="rtl">
+      <section className="py-5">
         <div className="container">
-          <h2 className="fw-bold mb-4">سبد خرید</h2>
+          <h2 className="fw-bold mb-4">{t("cart.title")}</h2>
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -52,10 +54,10 @@ export default function Cart() {
             <div className="empty-state-icon">
               <i className="bi bi-cart" />
             </div>
-            <h3 className="empty-state-title">سبد خرید شما خالی است</h3>
-            <p className="empty-state-desc">برای خرید می‌توانید از محصولات ما دیدن کنید.</p>
+            <h3 className="empty-state-title">{t("cart.emptyTitle")}</h3>
+            <p className="empty-state-desc">{t("cart.emptyDesc")}</p>
             <Link to="/products" className="btn btn-vesta-primary rounded-pill px-5 py-3">
-              مشاهده محصولات
+              {t("cart.viewProducts")}
               <i className="bi bi-arrow-left me-2" />
             </Link>
           </motion.div>
@@ -65,16 +67,16 @@ export default function Cart() {
   }
 
   return (
-    <section className="py-5" dir="rtl">
+    <section className="py-5">
       <div className="container">
         <div className="d-flex flex-column flex-sm-row justify-content-between align-items-start align-items-sm-center mb-4 gap-2">
-          <h2 className="fw-bold mb-0">سبد خرید ({itemCount} کالا)</h2>
+          <h2 className="fw-bold mb-0">{t("cart.title")} ({itemCount} {t("cart.itemsCount")})</h2>
           <button
             className="btn btn-outline-danger btn-sm rounded-pill touch-target"
             onClick={clearCart}
           >
             <i className="bi bi-trash3 me-1" />
-            خالی کردن سبد
+            {t("cart.clearCart")}
           </button>
         </div>
 
@@ -119,7 +121,7 @@ export default function Cart() {
                         <button
                           className="btn btn-sm text-muted touch-target flex-shrink-0"
                           onClick={() => removeItem(item.product.id)}
-                          aria-label="حذف از سبد"
+                          aria-label={t("cart.removeItem")}
                         >
                           <i className="bi bi-x-lg" />
                         </button>
@@ -131,7 +133,7 @@ export default function Cart() {
                             <button
                               onClick={() => decreaseQuantity(item.product.id)}
                               disabled={item.quantity <= 1}
-                              aria-label="کاهش تعداد"
+                              aria-label={t("cart.decreaseQty")}
                             >
                               <i className="bi bi-dash" />
                             </button>
@@ -144,18 +146,18 @@ export default function Cart() {
                                 const v = parseInt(e.target.value, 10);
                                 if (v > 0) updateQuantity(item.product.id, v);
                               }}
-                              aria-label="تعداد"
+                              aria-label={t("cart.quantity")}
                             />
                             <button
                               onClick={() => increaseQuantity(item.product.id)}
-                              aria-label="افزایش تعداد"
+                              aria-label={t("cart.increaseQty")}
                             >
                               <i className="bi bi-plus" />
                             </button>
                           </div>
                         </div>
                         <span className="fw-bold text-nowrap" style={{ color: "var(--c-primary)", fontSize: "var(--text-sm)" }}>
-                          {formatPriceNumber(item.product.price * item.quantity)} تومان
+                          {formatPriceNumber(item.product.price * item.quantity)} {t("common.toman")}
                         </span>
                       </div>
                     </div>
@@ -168,44 +170,44 @@ export default function Cart() {
           <div className="col-lg-4 order-lg-2 order-1">
             <div className="card border-0 shadow-sm rounded-4 sticky-top" style={{ top: "80px" }}>
               <div className="card-body p-4">
-                <h5 className="fw-bold mb-4">خلاصه سفارش</h5>
+                <h5 className="fw-bold mb-4">{t("cart.orderSummary")}</h5>
 
                 <div className="d-flex justify-content-between mb-2">
-                  <span style={{ color: "var(--c-gray-500)" }}>جمع کل</span>
-                  <span className="fw-medium">{formatPriceNumber(subtotal)} تومان</span>
+                  <span style={{ color: "var(--c-gray-500)" }}>{t("cart.subtotal")}</span>
+                  <span className="fw-medium">{formatPriceNumber(subtotal)} {t("common.toman")}</span>
                 </div>
 
                 <div className="d-flex justify-content-between mb-2">
-                  <span style={{ color: "var(--c-gray-500)" }}>هزینه ارسال</span>
+                  <span style={{ color: "var(--c-gray-500)" }}>{t("cart.shipping")}</span>
                   <span className="fw-medium">
                     {shippingCost === 0 ? (
-                      <span style={{ color: "var(--c-success)" }}>رایگان</span>
+                      <span style={{ color: "var(--c-success)" }}>{t("common.free")}</span>
                     ) : (
-                      `${formatPriceNumber(shippingCost)} تومان`
+                      `${formatPriceNumber(shippingCost)} ${t("common.toman")}`
                     )}
                   </span>
                 </div>
 
                 <div className="d-flex justify-content-between mb-3">
-                  <span style={{ color: "var(--c-gray-500)" }}>مالیات (۹٪)</span>
-                  <span className="fw-medium">{formatPriceNumber(tax)} تومان</span>
+                  <span style={{ color: "var(--c-gray-500)" }}>{t("cart.tax")}</span>
+                  <span className="fw-medium">{formatPriceNumber(tax)} {t("common.toman")}</span>
                 </div>
 
                 {shippingCost > 0 && (
                   <div className="d-flex align-items-center gap-2 py-2 px-3 rounded-3 mb-3" style={{ background: "var(--c-info-bg)", color: "var(--c-info)", fontSize: "var(--text-sm)" }}>
                     <i className="bi bi-info-circle" />
-                    ارسال رایگان برای سفارش‌های بالای {formatPriceNumber(5000000)} تومان
+                    {t("cart.freeShippingNote")} {formatPriceNumber(5000000)} {t("common.toman")}
                   </div>
                 )}
 
                 {/* Coupon Code */}
                 <div className="mb-3">
-                  <label className="form-label fw-medium" style={{ fontSize: "var(--text-sm)" }}>کد تخفیف</label>
+                  <label className="form-label fw-medium" style={{ fontSize: "var(--text-sm)" }}>{t("cart.couponCode")}</label>
                   <div className="input-group">
                     <input
                       type="text"
                       className="form-control rounded-3"
-                      placeholder="کد تخفیف را وارد کنید"
+                      placeholder={t("cart.couponPlaceholder")}
                       value={couponCode}
                       onChange={(e) => { setCouponCode(e.target.value); setCouponError(""); setCouponApplied(false); }}
                       disabled={couponApplied}
@@ -222,23 +224,23 @@ export default function Cart() {
                       onClick={handleApplyCoupon}
                       disabled={couponApplied || !couponCode.trim()}
                     >
-                      {couponApplied ? "اعمال شد" : "اعمال"}
+                      {couponApplied ? t("cart.couponApplied") : t("cart.couponApply")}
                     </button>
                   </div>
                   {couponError && (
                     <small style={{ color: "var(--c-danger)" }}>{couponError}</small>
                   )}
                   {couponApplied && (
-                    <small style={{ color: "var(--c-success)" }}>۱۰٪ تخفیف اعمال شد!</small>
+                    <small style={{ color: "var(--c-success)" }}>{t("cart.couponSuccess")}</small>
                   )}
                 </div>
 
                 <hr />
 
                 <div className="d-flex justify-content-between mb-4 gap-2">
-                  <span className="fw-bold" style={{ fontSize: "var(--text-lg)" }}>مبلغ قابل پرداخت</span>
+                  <span className="fw-bold" style={{ fontSize: "var(--text-lg)" }}>{t("cart.totalPayable")}</span>
                   <span className="fw-bold text-nowrap" style={{ fontSize: "var(--text-lg)", color: "var(--c-primary)" }}>
-                    {formatPriceNumber(grandTotal)} تومان
+                    {formatPriceNumber(grandTotal)} {t("common.toman")}
                   </span>
                 </div>
 
@@ -247,7 +249,7 @@ export default function Cart() {
                   className="btn btn-primary w-100 rounded-pill py-2 fw-bold"
                 >
                   <i className="bi bi-credit-card me-2" />
-                  ادامه و پرداخت
+                  {t("cart.proceedToPay")}
                 </Link>
 
                 <Link
@@ -255,7 +257,7 @@ export default function Cart() {
                   className="btn btn-outline-secondary w-100 rounded-pill py-2 mt-2"
                 >
                   <i className="bi bi-arrow-right me-2" />
-                  ادامه خرید
+                  {t("cart.continueShopping")}
                 </Link>
               </div>
             </div>
@@ -266,7 +268,7 @@ export default function Cart() {
         {recommendedProducts.length > 0 && (
           <section className="mt-5 pt-5" style={{ borderTop: "1px solid var(--c-border)" }}>
             <div className="section-header-row">
-              <h2>پیشنهاد ما برای شما</h2>
+              <h2>{t("cart.recommended")}</h2>
             </div>
             <div className="product-grid">
               {recommendedProducts.map((product, index) => (

@@ -2,6 +2,7 @@ import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { blogArticles } from "../data/blog";
+import { useLanguage } from "../context/LanguageContext";
 
 const containerVariants = {
   hidden: {},
@@ -15,6 +16,7 @@ const cardVariants = {
 
 export default function Blog() {
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState("همه");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -69,7 +71,6 @@ export default function Blog() {
 
         <div className="container" style={{ position: "relative", zIndex: 2, padding: "var(--space-20) var(--space-4)" }}>
           <motion.div
-            dir="rtl"
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
@@ -94,7 +95,7 @@ export default function Blog() {
               }}
             >
               <i className="bi bi-pencil-square" />
-              وبلاگ وستا
+               {t("blog.title")}
             </motion.span>
 
             <h1 style={{
@@ -104,7 +105,7 @@ export default function Blog() {
               lineHeight: "var(--leading-tight)",
               marginBottom: "var(--space-4)",
             }}>
-              مجله مد و استایل
+               {t("blog.heroTitle")}
             </h1>
 
             <p style={{
@@ -112,7 +113,7 @@ export default function Blog() {
               fontSize: "var(--text-lg)",
               marginBottom: "var(--space-8)",
             }}>
-              آموزش استایل، ترندهای روز و راهنمای خرید لباس
+               {t("blog.heroDesc")}
             </p>
 
             {/* Search */}
@@ -131,7 +132,7 @@ export default function Blog() {
               }} />
               <input
                 type="text"
-                placeholder="جستجو در مقالات..."
+                placeholder={t("blog.searchPlaceholder")}
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 style={{
@@ -203,11 +204,11 @@ export default function Blog() {
                       fontWeight: "var(--font-bold)",
                     }}>
                       <i className="bi bi-star-fill" style={{ fontSize: 10 }} />
-                      مقاله ویژه
+                      {t("blog.featuredArticle")}
                     </span>
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: "var(--text-xs)", color: "var(--c-gray-400)" }}>
                       <i className="bi bi-clock" />
-                      {featured.readingTime} دقیقه مطالعه
+                      {featured.readingTime} {t("blog.readTime")}
                     </span>
                   </div>
 
@@ -315,8 +316,8 @@ export default function Blog() {
               <div className="empty-state-icon">
                 <i className="bi bi-journal-text" />
               </div>
-              <h4 className="empty-state-title">مقاله‌ای یافت نشد</h4>
-              <p className="empty-state-desc">هیچ مقاله‌ای با جستجوی شما مطابقت ندارد.</p>
+              <h4 className="empty-state-title">{t("blog.noArticles")}</h4>
+              <p className="empty-state-desc">{t("blog.noArticlesDesc")}</p>
             </div>
           )}
         </div>
@@ -327,6 +328,7 @@ export default function Blog() {
 
 function BlogCard({ article }: { article: typeof blogArticles[0] }) {
   const navigate = useNavigate();
+  const { t } = useLanguage();
 
   return (
     <div
@@ -372,7 +374,7 @@ function BlogCard({ article }: { article: typeof blogArticles[0] }) {
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-3)", marginBottom: "var(--space-3)" }}>
           <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: "var(--text-xs)", color: "var(--c-gray-400)" }}>
             <i className="bi bi-clock" />
-            {article.readingTime} دقیقه
+             {article.readingTime} {t("blog.readTime")}
           </span>
           <span style={{ fontSize: "var(--text-xs)", color: "var(--c-gray-400)" }}>
             {article.date}

@@ -9,6 +9,7 @@ import ProductPagination from "../components/products/ProductPagination";
 
 import { products } from "../data/products";
 import { categories } from "../data/categories";
+import { useLanguage } from "../context/LanguageContext";
 import type { FilterState } from "../types";
 
 const PRICE_MIN = 0;
@@ -28,6 +29,7 @@ const DEFAULT_FILTERS: FilterState = {
 };
 
 export default function Products() {
+  const { t } = useLanguage();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const initialSort = searchParams.get("sort") || "featured";
@@ -224,7 +226,7 @@ export default function Products() {
       const catObj = categories.find((c) => c.slug === cat);
       chips.push({
         key: `cat-${cat}`,
-        label: `دسته: ${catObj?.label || cat}`,
+        label: `${t("filter.category")}: ${catObj?.label || cat}`,
         onRemove: () =>
           handleRemoveFilter({
             categories: f.categories.filter((c) => c !== cat),
@@ -235,7 +237,7 @@ export default function Products() {
     f.brands.forEach((brand) => {
       chips.push({
         key: `brand-${brand}`,
-        label: `برند: ${brand}`,
+        label: `${t("filter.brand")}: ${brand}`,
         onRemove: () =>
           handleRemoveFilter({
             brands: f.brands.filter((b) => b !== brand),
@@ -246,7 +248,7 @@ export default function Products() {
     f.sizes.forEach((size) => {
       chips.push({
         key: `size-${size}`,
-        label: `سایز: ${size}`,
+        label: `${t("filter.size")}: ${size}`,
         onRemove: () =>
           handleRemoveFilter({
             sizes: f.sizes.filter((s) => s !== size),
@@ -257,7 +259,7 @@ export default function Products() {
     f.colors.forEach((color) => {
       chips.push({
         key: `color-${color}`,
-        label: `رنگ: ${color}`,
+        label: `${t("filter.color")}: ${color}`,
         onRemove: () =>
           handleRemoveFilter({
             colors: f.colors.filter((c) => c !== color),
@@ -268,7 +270,7 @@ export default function Products() {
     if (f.priceRange[0] > PRICE_MIN || f.priceRange[1] < PRICE_MAX) {
       chips.push({
         key: "price",
-        label: `قیمت: ${f.priceRange[0].toLocaleString("fa-IR")} - ${f.priceRange[1].toLocaleString("fa-IR")}`,
+        label: `${t("filter.price")}: ${f.priceRange[0].toLocaleString("fa-IR")} - ${f.priceRange[1].toLocaleString("fa-IR")}`,
         onRemove: () =>
           handleRemoveFilter({ priceRange: [PRICE_MIN, PRICE_MAX] }),
       });
@@ -277,7 +279,7 @@ export default function Products() {
     if (f.minRating > 0) {
       chips.push({
         key: "rating",
-        label: `امتیاز: ${f.minRating}+`,
+        label: `${t("filter.rating")}: ${f.minRating}+`,
         onRemove: () => handleRemoveFilter({ minRating: 0 }),
       });
     }
@@ -285,7 +287,7 @@ export default function Products() {
     if (f.inStockOnly) {
       chips.push({
         key: "stock",
-        label: "موجود",
+        label: t("filter.inStock"),
         onRemove: () => handleRemoveFilter({ inStockOnly: false }),
       });
     }
@@ -293,7 +295,7 @@ export default function Products() {
     if (f.onSaleOnly) {
       chips.push({
         key: "sale",
-        label: "حراجی",
+        label: t("filter.onSale"),
         onRemove: () => handleRemoveFilter({ onSaleOnly: false }),
       });
     }
@@ -301,7 +303,7 @@ export default function Products() {
     if (f.newArrivalsOnly) {
       chips.push({
         key: "new",
-        label: "جدید",
+        label: t("filter.newArrivals"),
         onRemove: () => handleRemoveFilter({ newArrivalsOnly: false }),
       });
     }
@@ -312,7 +314,7 @@ export default function Products() {
   const hasActiveFilters = activeFilterChips.length > 0;
 
   return (
-    <section className="ps" dir="rtl">
+    <section className="ps">
       <div className="container">
         {/* Page Header */}
        
@@ -330,7 +332,7 @@ export default function Products() {
             onClick={() => setFilterOpen(true)}
           >
             <i className="bi bi-funnel me-2" />
-            فیلترها
+            {t("products.filter")}
             {appliedFilters.categories.length +
               appliedFilters.brands.length +
               appliedFilters.sizes.length +
@@ -375,12 +377,12 @@ export default function Products() {
                 <div className="ps-filter-drawer-header">
                   <h5 className="ps-filter-drawer-title">
                     <i className="bi bi-funnel me-2" />
-                    فیلترها
+                    {t("products.filter")}
                   </h5>
                   <button
                     className="ps-filter-drawer-close"
                     onClick={() => setFilterOpen(false)}
-                    aria-label="بستن فیلترها"
+                    aria-label={t("products.filter")}
                   >
                     <i className="bi bi-x-lg" />
                   </button>
@@ -415,7 +417,7 @@ export default function Products() {
                     <button
                       className="ps-chip-remove"
                       onClick={chip.onRemove}
-                      aria-label={`حذف فیلتر ${chip.label}`}
+                      aria-label={t("products.removeFilter") + ` ${chip.label}`}
                     >
                       <i className="bi bi-x" />
                     </button>
@@ -427,7 +429,7 @@ export default function Products() {
                     onClick={handleResetFilters}
                   >
                     <i className="bi bi-x-circle me-1" />
-                    پاک کردن همه
+                    {t("products.clearAll")}
                   </button>
                 )}
               </div>
@@ -464,13 +466,13 @@ export default function Products() {
                 </div>
                 <h3 className="ps-empty-title">
                   {activeFilters.search
-                    ? "نتیجه‌ای یافت نشد"
-                    : "محصولی یافت نشد"}
+                    ? t("products.noResults")
+                    : t("products.noResults")}
                 </h3>
                 <p className="ps-empty-desc">
                   {activeFilters.search
-                    ? `هیچ محصولی با عبارت "${activeFilters.search}" مطابقت ندارد.`
-                    : "هیچ محصولی با فیلترهای انتخابی مطابقت ندارد."}
+                    ? t("products.noProductsWithSearch") + " \"" + activeFilters.search + "\" " + t("products.noMatchWithSearch")
+                    : t("products.noMatchWithFilters")}
                 </p>
                 <div className="ps-empty-actions">
                   {hasActiveFilters && (
@@ -479,7 +481,7 @@ export default function Products() {
                       onClick={handleResetFilters}
                     >
                       <i className="bi bi-x-lg me-2" />
-                      پاک کردن فیلترها
+                      {t("products.clearFilters")}
                     </button>
                   )}
                   <a
@@ -491,7 +493,7 @@ export default function Products() {
                     }}
                   >
                     <i className="bi bi-grid me-2" />
-                    مشاهده همه محصولات
+                    {t("products.viewAll")}
                   </a>
                 </div>
               </div>

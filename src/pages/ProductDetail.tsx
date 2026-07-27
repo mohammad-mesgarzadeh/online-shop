@@ -3,6 +3,7 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { products } from "../data/products";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
+import { useLanguage } from "../context/LanguageContext";
 import ProductCard from "../components/ProductCard";
 import { formatPriceNumber } from "../utils/formatPrice";
 
@@ -28,6 +29,7 @@ export default function ProductDetail() {
   const navigate = useNavigate();
   const { addItem } = useCart();
   const { toggleItem, isWishlisted } = useWishlist();
+  const { t } = useLanguage();
   const [quantity, setQuantity] = useState(1);
   const [addedFeedback, setAddedFeedback] = useState(false);
   const [activeTab, setActiveTab] = useState<"description" | "specs" | "reviews">("description");
@@ -53,10 +55,10 @@ export default function ProductDetail() {
           <div className="empty-state-icon">
             <i className="bi bi-exclamation-circle" />
           </div>
-          <h3 className="empty-state-title">محصول یافت نشد</h3>
-          <p className="empty-state-desc">محصول مورد نظر شما وجود ندارد.</p>
+          <h3 className="empty-state-title">{t("product.notFound")}</h3>
+          <p className="empty-state-desc">{t("product.notFoundDesc")}</p>
           <Link to="/products" className="btn btn-vesta-primary rounded-pill">
-            بازگشت به فروشگاه
+            {t("product.backToShop")}
           </Link>
         </div>
       </div>
@@ -97,23 +99,23 @@ export default function ProductDetail() {
   const wishlisted = isWishlisted(product.id);
 
   const specs = [
-    { label: "دسته‌بندی", value: product.categoryLabel },
-    { label: "رنگ", value: "مشکی" },
-    { label: "سایز", value: "M, L, XL" },
-    { label: "جنس", value: "نخ پنبه" },
-    { label: "وزن", value: "350 گرم" },
+    { label: t("product.specCategory"), value: product.categoryLabel },
+    { label: t("product.specColor"), value: "مشکی" },
+    { label: t("product.specSize"), value: "M, L, XL" },
+    { label: t("product.specMaterial"), value: "نخ پنبه" },
+    { label: t("product.specWeight"), value: "350 گرم" },
   ];
 
   return (
-    <section className="py-5" dir="rtl">
+    <section className="py-5">
       <div className="container">
         <nav className="mb-4">
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
-              <Link to="/">خانه</Link>
+              <Link to="/">{t("product.home")}</Link>
             </li>
             <li className="breadcrumb-item">
-              <Link to="/products">فروشگاه</Link>
+              <Link to="/products">{t("product.shop")}</Link>
             </li>
             <li className="breadcrumb-item">
               <Link to={`/categories/${product.category}`}>{product.categoryLabel}</Link>
@@ -189,7 +191,7 @@ export default function ProductDetail() {
                     transition: "all 0.2s ease",
                   }}
                   onClick={handleWishlist}
-                  aria-label={wishlisted ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها"}
+                  aria-label={wishlisted ? t("product.removeFromWishlist") : t("product.addToWishlist")}
                 >
                   <i className={`bi ${wishlisted ? "bi-heart-fill" : "bi-heart"}`} />
                 </button>
@@ -232,31 +234,31 @@ export default function ProductDetail() {
               {hasDiscount && product.oldPrice ? (
                 <>
                   <span className="fw-bold" style={{ fontSize: "var(--text-2xl)", color: "var(--c-primary)" }}>
-                    {formatPriceNumber(product.price)} تومان
+                    {formatPriceNumber(product.price)} {t("common.toman")}
                   </span>
                   <span style={{ textDecoration: "line-through", color: "var(--c-gray-400)", fontSize: "var(--text-lg)" }}>
-                    {formatPriceNumber(product.oldPrice)} تومان
+                    {formatPriceNumber(product.oldPrice)} {t("common.toman")}
                   </span>
                   <span className="px-2 py-1 rounded" style={{ background: "var(--c-danger-bg)", color: "var(--c-danger)", fontSize: "var(--text-sm)", fontWeight: "var(--font-bold)" }}>
-                    {product.discount}% تخفیف
+                    {product.discount}% {t("product.discount")}
                   </span>
                 </>
               ) : (
                 <span className="fw-bold" style={{ fontSize: "var(--text-2xl)", color: "var(--c-primary)" }}>
-                  {formatPriceNumber(product.price)} تومان
+                  {formatPriceNumber(product.price)} {t("common.toman")}
                 </span>
               )}
             </div>
 
             {/* Quantity */}
             <div className="d-flex align-items-center gap-3 mb-4 flex-wrap">
-              <span className="fw-medium" style={{ color: "var(--c-gray-600)" }}>تعداد:</span>
+              <span className="fw-medium" style={{ color: "var(--c-gray-600)" }}>{t("product.quantity")}:</span>
               <div className="quantity-selector d-flex align-items-center border rounded-3 overflow-hidden">
                 <button
                   className="btn px-3 py-2 touch-target"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                   disabled={quantity <= 1}
-                  aria-label="کاهش تعداد"
+                  aria-label={t("product.quantity")}
                 >
                   <i className="bi bi-dash" />
                 </button>
@@ -266,13 +268,13 @@ export default function ProductDetail() {
                 <button
                   className="btn px-3 py-2 touch-target"
                   onClick={() => setQuantity((q) => q + 1)}
-                  aria-label="افزایش تعداد"
+                  aria-label={t("product.quantity")}
                 >
                   <i className="bi bi-plus" />
                 </button>
               </div>
               <span style={{ color: "var(--c-gray-400)", fontSize: "var(--text-sm)", whiteSpace: "nowrap" }}>
-                ({(product.price * quantity).toLocaleString("fa-IR")} تومان)
+                ({(product.price * quantity).toLocaleString("fa-IR")} {t("common.toman")})
               </span>
             </div>
 
@@ -283,7 +285,7 @@ export default function ProductDetail() {
                 style={{ background: "var(--c-success-bg)", color: "var(--c-success-dark)" }}
               >
                 <i className="bi bi-check-circle-fill" />
-                به سبد خرید اضافه شد!
+                {t("product.addedToCart")}
               </div>
             )}
 
@@ -294,7 +296,7 @@ export default function ProductDetail() {
                 onClick={handleAddToCart}
               >
                 <i className="bi bi-cart-plus me-2" />
-                افزودن به سبد خرید
+                {t("product.addToCart")}
               </button>
 
               <button
@@ -302,14 +304,14 @@ export default function ProductDetail() {
                 onClick={handleBuyNow}
               >
                 <i className="bi bi-lightning me-2" />
-                خرید آنی
+                {t("product.buyNow")}
               </button>
 
               <button
                 className="btn btn-outline-secondary btn-lg rounded-pill px-4 touch-target"
                 onClick={handleWishlist}
                 style={wishlisted ? { background: "#fee2e2", borderColor: "#fca5a5", color: "#dc2626" } : {}}
-                aria-label={wishlisted ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها"}
+                aria-label={wishlisted ? t("product.removeFromWishlist") : t("product.addToWishlist")}
               >
                 <i className={`bi ${wishlisted ? "bi-heart-fill" : "bi-heart"}`} />
               </button>
@@ -318,9 +320,9 @@ export default function ProductDetail() {
             {/* Trust indicators */}
             <div className="d-flex flex-wrap gap-3 pt-3" style={{ borderTop: "1px solid var(--c-border-light)" }}>
               {[
-                { icon: "bi-truck", text: "ارسال سریع" },
-                { icon: "bi-shield-check", text: "ضمانت اصالت" },
-                { icon: "bi-arrow-return-left", text: "۷ روز بازگشت" },
+                { icon: "bi-truck", text: t("product.fastShipping") },
+                { icon: "bi-shield-check", text: t("product.guarantee") },
+                { icon: "bi-arrow-return-left", text: t("product.returnPolicy") },
               ].map((item, i) => (
                 <div key={i} className="d-flex align-items-center gap-2" style={{ color: "var(--c-gray-500)", fontSize: "var(--text-sm)" }}>
                   <i className={`bi ${item.icon}`} style={{ color: "var(--c-success)" }} />
@@ -335,9 +337,9 @@ export default function ProductDetail() {
         <div className="mt-5 pt-5" style={{ borderTop: "1px solid var(--c-border)" }}>
           <div className="d-flex gap-1 mb-4 border-bottom" style={{ overflowX: "auto" }}>
             {[
-              { key: "description" as const, label: "توضیحات" },
-              { key: "specs" as const, label: "مشخصات" },
-              { key: "reviews" as const, label: `نظرات (${product.sold})` },
+              { key: "description" as const, label: t("product.descriptionTab") },
+              { key: "specs" as const, label: t("product.specsTab") },
+              { key: "reviews" as const, label: `${t("product.reviewsTab")} (${product.sold})` },
             ].map((tab) => (
               <button
                 key={tab.key}
@@ -360,7 +362,7 @@ export default function ProductDetail() {
           {activeTab === "description" && (
             <div style={{ lineHeight: 2, color: "var(--c-gray-600)" }}>
               <p>{product.description}</p>
-              <p>این محصول با استفاده از بهترین مواد اولیه و با دقت بالا تولید شده است. مناسب برای استفاده روزمره و مهمانی‌های غیررسمی.</p>
+              <p>{t("product.descriptionExtra")}</p>
             </div>
           )}
 
@@ -390,8 +392,8 @@ export default function ProductDetail() {
               <div className="empty-state-icon" style={{ width: "80px", height: "80px" }}>
                 <i className="bi bi-chat-square-text" style={{ fontSize: "2rem" }} />
               </div>
-              <h4 className="empty-state-title" style={{ fontSize: "var(--text-lg)" }}>هنوز نظری ثبت نشده است</h4>
-              <p className="empty-state-desc">اولین نفری باشید که نظر می‌دهد!</p>
+              <h4 className="empty-state-title" style={{ fontSize: "var(--text-lg)" }}>{t("product.noReviews")}</h4>
+              <p className="empty-state-desc">{t("product.beFirst")}</p>
             </div>
           )}
         </div>
@@ -400,7 +402,7 @@ export default function ProductDetail() {
         {relatedProducts.length > 0 && (
           <section className="mt-5 pt-5" style={{ borderTop: "1px solid var(--c-border)" }}>
             <div className="section-header-row">
-              <h2>محصولات مرتبط</h2>
+              <h2>{t("product.relatedProducts")}</h2>
             </div>
             <div className="product-grid">
               {relatedProducts.map((rp) => (
@@ -414,7 +416,7 @@ export default function ProductDetail() {
         {recentProducts.length > 0 && (
           <section className="mt-5 pt-5" style={{ borderTop: "1px solid var(--c-border)" }}>
             <div className="section-header-row">
-              <h2>اخیراً مشاهده شده</h2>
+              <h2>{t("product.recentlyViewed")}</h2>
             </div>
             <div className="product-grid">
               {recentProducts.map((rp) => (

@@ -81,14 +81,14 @@ export default function Footer() {
 
           {/* Shopping Guide */}
           <div className="col-6 col-md-4 col-lg-2">
-            <h6 className="fw-bold mb-4" style={{ color: "#fff", fontSize: "var(--text-base)" }}>راهنمای خرید</h6>
+            <h6 className="fw-bold mb-4" style={{ color: "#fff", fontSize: "var(--text-base)" }}>{t("footer.shoppingGuide")}</h6>
             <ul className="list-unstyled d-flex flex-column" style={{ gap: "0.75rem" }}>
               {[
-                "نحوه ثبت سفارش",
-                "روش‌های پرداخت",
-                "ارسال و تحویل",
-                "پیگیری سفارش",
-                "شرایط ابطال",
+                t("footer.guideHowToOrder"),
+                t("footer.guidePaymentMethods"),
+                t("footer.guideShipping"),
+                t("footer.guideOrderTracking"),
+                t("footer.guideCancellation"),
               ].map((item, i) => (
                 <li key={i}>
                   <span style={{ color: "#94a3b8", fontSize: "var(--text-sm)", cursor: "pointer", transition: "color 0.2s" }}
@@ -117,7 +117,7 @@ export default function Footer() {
               <li className="d-flex align-items-start gap-2">
                 <i className="bi bi-geo-alt mt-1" style={{ color: "#a78bfa", fontSize: "var(--text-sm)" }} />
                 <span style={{ color: "#94a3b8", fontSize: "var(--text-sm)", lineHeight: 1.7 }}>
-                  تهران، خیابان ولیعصر، پلاک ۱۲۳
+                  {t("footer.address")}
                 </span>
               </li>
             </ul>
@@ -125,13 +125,13 @@ export default function Footer() {
 
           {/* Customer Service */}
           <div className="col-12 col-lg-2">
-            <h6 className="fw-bold mb-4" style={{ color: "#fff", fontSize: "var(--text-base)" }}>خدمات مشتریان</h6>
+            <h6 className="fw-bold mb-4" style={{ color: "#fff", fontSize: "var(--text-base)" }}>{t("footer.customerService")}</h6>
             <ul className="list-unstyled d-flex flex-column" style={{ gap: "0.75rem" }}>
               {[
-                "پرسش‌های متداول",
-                "رویه بازگرداندن کالا",
-                "شرایط و قوانین",
-                "حریم خصوصی",
+                t("footer.csFAQ"),
+                t("footer.csReturnPolicy"),
+                t("footer.csTerms"),
+                t("footer.csPrivacy"),
               ].map((item, i) => (
                 <li key={i}>
                   <span style={{ color: "#94a3b8", fontSize: "var(--text-sm)", cursor: "pointer", transition: "color 0.2s" }}
@@ -154,8 +154,8 @@ export default function Footer() {
             {t("footer.rights")}
           </small>
           <div className="d-flex gap-3">
-            <small style={{ color: "#64748b", cursor: "pointer" }}>حریم خصوصی</small>
-            <small style={{ color: "#64748b", cursor: "pointer" }}>شرایط استفاده</small>
+            <small style={{ color: "#64748b", cursor: "pointer" }}>{t("footer.privacy")}</small>
+            <small style={{ color: "#64748b", cursor: "pointer" }}>{t("footer.terms")}</small>
           </div>
         </div>
       </div>

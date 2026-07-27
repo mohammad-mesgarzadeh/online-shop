@@ -2,10 +2,12 @@ import { useState, useEffect, useMemo, useRef, useCallback } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { blogArticles } from "../data/blog";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function BlogDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const { t } = useLanguage();
   const article = blogArticles.find((a) => a.id === id);
   const [readingProgress, setReadingProgress] = useState(0);
   const [activeHeading, setActiveHeading] = useState(0);
@@ -70,10 +72,10 @@ export default function BlogDetail() {
           <div className="empty-state-icon">
             <i className="bi bi-exclamation-circle" />
           </div>
-          <h3 className="empty-state-title">مقاله یافت نشد</h3>
-          <p className="empty-state-desc">مقاله مورد نظر شما وجود ندارد.</p>
+          <h3 className="empty-state-title">{t("blogDetail.notFound")}</h3>
+          <p className="empty-state-desc">{t("blogDetail.notFoundDesc")}</p>
           <Link to="/blog" className="btn btn-vesta-primary rounded-pill">
-            بازگشت به وبلاگ
+            {t("blogDetail.backToBlog")}
           </Link>
         </div>
       </div>
@@ -130,7 +132,7 @@ export default function BlogDetail() {
       </section>
 
       {/* Article Content */}
-      <section dir="rtl" style={{ paddingBottom: "var(--space-20)" }}>
+      <section style={{ paddingBottom: "var(--space-20)" }}>
         <div className="container">
           <div className="row" style={{ gap: "var(--space-8)" }}>
             {/* Main Content */}
@@ -159,7 +161,7 @@ export default function BlogDetail() {
                     </span>
                     <span style={{ display: "inline-flex", alignItems: "center", gap: 4, fontSize: "var(--text-sm)", color: "var(--c-gray-400)" }}>
                       <i className="bi bi-clock" />
-                      {article.readingTime} دقیقه مطالعه
+                      {article.readingTime} {t("blogDetail.minRead")}
                     </span>
                   </div>
                 </div>
@@ -230,7 +232,7 @@ export default function BlogDetail() {
                       }}
                     >
                       <i className="bi bi-share" />
-                      اشتراک‌گذاری
+                      {t("blogDetail.share")}
                     </button>
                   </div>
                 </div>
@@ -336,7 +338,7 @@ export default function BlogDetail() {
                     }}
                   >
                     <i className="bi bi-arrow-right" />
-                    بازگشت به وبلاگ
+                    {t("blogDetail.backToBlogBtn")}
                   </Link>
                 </div>
               </motion.div>
@@ -367,7 +369,7 @@ export default function BlogDetail() {
                       gap: 6,
                     }}>
                       <i className="bi bi-list-nested" style={{ color: "var(--c-primary)" }} />
-                      فهرست مقاله
+                      {t("blogDetail.tableOfContents")}
                     </h4>
                     <nav>
                       {headings.map((h, i) => (
@@ -413,19 +415,19 @@ export default function BlogDetail() {
                     color: "var(--c-white)",
                     marginBottom: "var(--space-2)",
                   }}>
-                    عضویت در خبرنامه
+                    {t("blogDetail.newsletterTitle")}
                   </h4>
                   <p style={{
                     fontSize: "var(--text-xs)",
                     color: "var(--c-gray-400)",
                     marginBottom: "var(--space-4)",
                   }}>
-                    جدیدترین مقالات و ترندها را در ایمیل خود دریافت کنید
+                    {t("blogDetail.newsletterDesc")}
                   </p>
                   <div style={{ position: "relative" }}>
                     <input
                       type="email"
-                      placeholder="ایمیل خود را وارد کنید"
+                      placeholder={t("blogDetail.emailPlaceholder")}
                       style={{
                         width: "100%",
                         padding: "12px 16px",
@@ -456,7 +458,7 @@ export default function BlogDetail() {
                       transition: "background var(--duration-fast)",
                     }}
                   >
-                    عضویت
+                    {t("blogDetail.subscribe")}
                   </button>
                 </div>
               </div>
@@ -472,9 +474,9 @@ export default function BlogDetail() {
             <div className="section-header">
               <span className="section-badge">
                 <i className="bi bi-journal-text" />
-                مقالات مرتبط
+                {t("blogDetail.relatedArticles")}
               </span>
-              <h2>مقالات مشابه</h2>
+              <h2>{t("blogDetail.similarArticles")}</h2>
             </div>
 
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: "var(--space-4)" }}>
@@ -513,7 +515,7 @@ export default function BlogDetail() {
                         </span>
                         <span style={{ fontSize: "var(--text-xs)", color: "var(--c-gray-300)" }}>·</span>
                         <span style={{ fontSize: "var(--text-xs)", color: "var(--c-gray-400)" }}>
-                          {related.readingTime} دقیقه
+                          {related.readingTime} {t("blogDetail.min")}
                         </span>
                       </div>
                       <h4 style={{
