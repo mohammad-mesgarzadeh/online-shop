@@ -108,6 +108,15 @@ const fa: Record<string, string> = {
   "orders.statusCancelled": "لغو شده",
   "orders.tracking": "اطلاعات پیگیری",
   "orders.trackShipment": "پیگیری مرسوله",
+  "orders.reorderSuccess": "به سبد خرید اضافه شد",
+  "orders.notFound": "سفارش یافت نشد",
+  "orders.notFoundDesc": "سفارش مورد نظر وجود ندارد.",
+  "orders.itemsCount": "اقلام",
+  "orders.orderPlaced": "تاریخ ثبت سفارش",
+  "orders.timelinePending": "در انتظار بررسی",
+  "orders.timelineProcessing": "در حال آماده‌سازی",
+  "orders.timelineShipped": "ارسال شده",
+  "orders.timelineDelivered": "تحویل شده",
 
   // Wishlist
   "wishlist.title": "علاقه‌مندی‌ها",

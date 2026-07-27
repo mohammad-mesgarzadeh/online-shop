@@ -3,6 +3,8 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
+import { useLanguage } from "../context/LanguageContext";
+import { useTheme } from "../context/ThemeContext";
 import { products } from "../data/products";
 import { formatPriceNumber } from "../utils/formatPrice";
 import "./Navbar.css";
@@ -22,6 +24,8 @@ export default function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
   const { itemCount } = useCart();
   const { itemCount: wishlistCount } = useWishlist();
+  const { language, setLanguage, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -149,6 +153,25 @@ export default function Navbar() {
               <i className="bi bi-search" />
             </button>
 
+            {/* Language Toggle (Desktop) */}
+            <button
+              className="navbar-icon-btn d-none d-xl-flex"
+              onClick={() => setLanguage(language === "fa" ? "en" : "fa")}
+              aria-label="تغییر زبان"
+              style={{ fontSize: "var(--text-sm)", fontWeight: 600 }}
+            >
+              {language === "fa" ? "EN" : "فارسی"}
+            </button>
+
+            {/* Theme Toggle (Desktop) */}
+            <button
+              className="navbar-icon-btn d-none d-xl-flex"
+              onClick={toggleTheme}
+              aria-label="تغییر تم"
+            >
+              <i className={`bi ${theme === "dark" ? "bi-sun" : "bi-moon"}`} />
+            </button>
+
             {/* Wishlist */}
             <Link to="/account/wishlist" className="navbar-icon-btn position-relative d-none d-xl-flex" aria-label="علاقه‌مندی‌ها">
               <i className="bi bi-heart" />
@@ -189,24 +212,24 @@ export default function Navbar() {
                     <div className="navbar-dropdown-divider" />
                     <Link to="/account/profile" className="navbar-dropdown-item" onClick={() => setDropdownOpen(false)}>
                       <i className="bi bi-person" />
-                      حساب کاربری
+                      {t("nav.account")}
                     </Link>
                     <Link to="/account/orders" className="navbar-dropdown-item" onClick={() => setDropdownOpen(false)}>
                       <i className="bi bi-box" />
-                      سفارشات من
+                      {t("nav.orders")}
                     </Link>
                     <Link to="/account/wishlist" className="navbar-dropdown-item" onClick={() => setDropdownOpen(false)}>
                       <i className="bi bi-heart" />
-                      علاقه‌مندی‌ها
+                      {t("nav.wishlist")}
                     </Link>
                     <Link to="/account/settings" className="navbar-dropdown-item" onClick={() => setDropdownOpen(false)}>
                       <i className="bi bi-gear" />
-                      تنظیمات
+                      {t("nav.settings")}
                     </Link>
                     <div className="navbar-dropdown-divider" />
                     <button className="navbar-dropdown-item navbar-dropdown-logout" onClick={handleLogout}>
                       <i className="bi bi-box-arrow-left" />
-                      خروج
+                      {t("nav.logout")}
                     </button>
                   </div>
                 )}
@@ -235,19 +258,19 @@ export default function Navbar() {
           {/* Center: Desktop Nav Links */}
           <ul className="navbar-nav-center d-none d-xl-flex gap-1">
             <li className="nav-item">
-              <NavLink to="/" end className={navLinkClass}>خانه</NavLink>
+              <NavLink to="/" end className={navLinkClass}>{t("nav.home")}</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/products" className={navLinkClass}>فروشگاه</NavLink>
+              <NavLink to="/products" className={navLinkClass}>{t("nav.products")}</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/categories" className={navLinkClass}>دسته‌بندی‌ها</NavLink>
+              <NavLink to="/categories" className={navLinkClass}>{t("nav.categories")}</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/offers" className={navLinkClass}>پیشنهاد ویژه</NavLink>
+              <NavLink to="/offers" className={navLinkClass}>{t("nav.offers")}</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink to="/blog" className={navLinkClass}>وبلاگ</NavLink>
+              <NavLink to="/blog" className={navLinkClass}>{t("nav.blog")}</NavLink>
             </li>
           </ul>
         </div>
@@ -269,7 +292,7 @@ export default function Navbar() {
                 ref={searchInputRef}
                 type="text"
                 className="form-control border-0 bg-transparent"
-                placeholder="جستجوی محصولات..."
+                placeholder={t("nav.searchPlaceholder")}
                 value={searchTerm}
                 onChange={(e) => handleSearchChange(e.target.value)}
                 style={{ fontSize: "var(--text-lg)", boxShadow: "none", outline: "none" }}
@@ -374,7 +397,7 @@ export default function Navbar() {
             <input
               type="text"
               className="form-control search-input"
-              placeholder="جستجوی محصولات..."
+              placeholder={t("nav.searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
@@ -385,27 +408,27 @@ export default function Navbar() {
         <nav className="d-flex flex-column gap-1">
           <NavLink to="/" end className="mobile-nav-link" onClick={closeMobile}>
             <i className="bi bi-house" />
-            خانه
+            {t("nav.home")}
           </NavLink>
           <NavLink to="/products" className="mobile-nav-link" onClick={closeMobile}>
             <i className="bi bi-bag" />
-            فروشگاه
+            {t("nav.products")}
           </NavLink>
           <NavLink to="/categories" className="mobile-nav-link" onClick={closeMobile}>
             <i className="bi bi-grid" />
-            دسته‌بندی‌ها
+            {t("nav.categories")}
           </NavLink>
           <NavLink to="/offers" className="mobile-nav-link" onClick={closeMobile}>
             <i className="bi bi-lightning" />
-            پیشنهاد ویژه
+            {t("nav.offers")}
           </NavLink>
           <NavLink to="/blog" className="mobile-nav-link" onClick={closeMobile}>
             <i className="bi bi-journal-text" />
-            وبلاگ
+            {t("nav.blog")}
           </NavLink>
           <NavLink to="/account/wishlist" className="mobile-nav-link" onClick={closeMobile}>
             <i className="bi bi-heart" />
-            علاقه‌مندی‌ها
+            {t("nav.wishlist")}
             {wishlistCount > 0 && (
               <span className="badge bg-danger rounded-pill ms-auto" style={{ fontSize: "var(--text-xs)" }}>
                 {wishlistCount}
@@ -415,6 +438,26 @@ export default function Navbar() {
         </nav>
 
         <div className="mobile-menu-divider" />
+
+        {/* Mobile Language & Theme Toggles */}
+        <div className="d-flex gap-2 mb-3 px-2">
+          <button
+            className="btn btn-sm rounded-pill flex-grow-1 py-2 fw-medium"
+            style={{ background: "var(--c-gray-100)", color: "var(--c-gray-700)", fontSize: "var(--text-sm)" }}
+            onClick={() => setLanguage(language === "fa" ? "en" : "fa")}
+          >
+            <i className="bi bi-translate me-1" />
+            {language === "fa" ? "EN" : "فارسی"}
+          </button>
+          <button
+            className="btn btn-sm rounded-pill flex-grow-1 py-2 fw-medium"
+            style={{ background: "var(--c-gray-100)", color: "var(--c-gray-700)", fontSize: "var(--text-sm)" }}
+            onClick={toggleTheme}
+          >
+            <i className={`bi ${theme === "dark" ? "bi-sun" : "bi-moon"} me-1`} />
+            {theme === "dark" ? "Light" : "Dark"}
+          </button>
+        </div>
 
         {/* Mobile Auth Section */}
         {isAuthenticated && user ? (
@@ -431,23 +474,23 @@ export default function Navbar() {
             <nav className="d-flex flex-column gap-1">
               <Link to="/account/profile" className="mobile-nav-link" onClick={closeMobile}>
                 <i className="bi bi-person" />
-                حساب کاربری
+                {t("nav.account")}
               </Link>
               <Link to="/account/orders" className="mobile-nav-link" onClick={closeMobile}>
                 <i className="bi bi-box" />
-                سفارشات من
+                {t("nav.orders")}
               </Link>
               <Link to="/account/wishlist" className="mobile-nav-link" onClick={closeMobile}>
                 <i className="bi bi-heart" />
-                علاقه‌مندی‌ها
+                {t("nav.wishlist")}
               </Link>
               <Link to="/account/settings" className="mobile-nav-link" onClick={closeMobile}>
                 <i className="bi bi-gear" />
-                تنظیمات
+                {t("nav.settings")}
               </Link>
               <button className="mobile-nav-link mobile-nav-link-danger" onClick={handleLogout}>
                 <i className="bi bi-box-arrow-left" />
-                خروج
+                {t("nav.logout")}
               </button>
             </nav>
           </div>
@@ -455,11 +498,11 @@ export default function Navbar() {
           <div className="d-flex flex-column gap-2">
             <Link to="/login" className="btn btn-primary rounded-pill py-2 fw-bold text-center" onClick={closeMobile}>
               <i className="bi bi-person me-2" />
-              ورود
+              {t("nav.login")}
             </Link>
             <Link to="/register" className="btn btn-outline-primary rounded-pill py-2 fw-bold text-center" onClick={closeMobile}>
               <i className="bi bi-person-plus me-2" />
-              ثبت نام
+              {t("nav.register")}
             </Link>
           </div>
         )}

@@ -108,6 +108,15 @@ const en: Record<string, string> = {
   "orders.statusCancelled": "Cancelled",
   "orders.tracking": "Tracking Info",
   "orders.trackShipment": "Track Shipment",
+  "orders.reorderSuccess": "Added to cart",
+  "orders.notFound": "Order not found",
+  "orders.notFoundDesc": "This order does not exist.",
+  "orders.itemsCount": "Items",
+  "orders.orderPlaced": "Order Placed",
+  "orders.timelinePending": "Awaiting Review",
+  "orders.timelineProcessing": "Preparing",
+  "orders.timelineShipped": "Shipped",
+  "orders.timelineDelivered": "Delivered",
 
   // Wishlist
   "wishlist.title": "Wishlist",

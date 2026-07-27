@@ -92,12 +92,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return false;
     }
 
+    const nameParts = name.trim().split(" ");
+    const firstName = nameParts[0] || name;
+    const lastName = nameParts.slice(1).join(" ") || "";
     const newUser: User = {
       id: generateId(),
       name,
+      firstName,
+      lastName,
       email: email.toLowerCase(),
       phone: "",
       avatar: createAvatar(name),
+      birthDate: "",
       createdAt: new Date().toISOString(),
     };
 

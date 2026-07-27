@@ -1,93 +1,89 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import { useAuth } from "../../context/AuthContext";
-import { useOrders } from "../../context/OrderContext";
-import { useWishlist } from "../../context/WishlistContext";
-import { formatPriceNumber } from "../../utils/formatPrice";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function AccountProfile() {
   const { user } = useAuth();
-  const { orders } = useOrders();
-  const { itemCount: wishlistCount } = useWishlist();
+  const { language, t } = useLanguage();
 
-  const totalSpent = orders.reduce((sum, o) => sum + o.total, 0);
+  const birthDateFormatted = user?.birthDate
+    ? new Date(user.birthDate).toLocaleDateString(language === "fa" ? "fa-IR" : "en-US")
+    : null;
+
+  const memberSinceFormatted = user?.createdAt
+    ? new Date(user.createdAt).toLocaleDateString(language === "fa" ? "fa-IR" : "en-US")
+    : null;
 
   return (
-    <div>
-      <div className="card border-0 shadow-sm rounded-4 mb-4">
-        <div className="card-body p-4">
-          <h5 className="fw-bold mb-4">
-            <i className="bi bi-person text-primary me-2" />
-            اطلاعات حساب کاربری
-          </h5>
-
-          <div className="row g-3">
-            <div className="col-sm-6">
-              <div className="bg-light rounded-3 p-3">
-                <span className="text-muted small d-block mb-1">نام و نام خانوادگی</span>
-                <span className="fw-bold">{user?.name}</span>
-              </div>
-            </div>
-            <div className="col-sm-6">
-              <div className="bg-light rounded-3 p-3">
-                <span className="text-muted small d-block mb-1">ایمیل</span>
-                <span className="fw-bold" style={{ direction: "ltr" }}>{user?.email}</span>
-              </div>
-            </div>
-            <div className="col-sm-6">
-              <div className="bg-light rounded-3 p-3">
-                <span className="text-muted small d-block mb-1">شماره تلفن</span>
-                <span className="fw-bold">{user?.phone || "ثبت نشده"}</span>
-              </div>
-            </div>
-            <div className="col-sm-6">
-              <div className="bg-light rounded-3 p-3">
-                <span className="text-muted small d-block mb-1">تاریخ عضویت</span>
-                <span className="fw-bold">
-                  {user?.createdAt ? new Date(user.createdAt).toLocaleDateString("fa-IR") : ""}
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+    >
+      <div className="text-center mb-4">
+        <img
+          src={user?.avatar}
+          alt={user?.name}
+          className="rounded-circle mb-3"
+          style={{ width: 100, height: 100, objectFit: "cover" }}
+        />
+        <h4 className="fw-bold mb-1">{user?.name}</h4>
+        <span className="text-muted" style={{ direction: "ltr", display: "inline-block" }}>
+          {user?.email}
+        </span>
       </div>
 
-      <div className="row g-3 mb-4">
-        <div className="col-4 col-sm-4">
-          <div className="card border-0 shadow-sm rounded-4">
-            <div className="card-body p-3 p-sm-4 text-center">
-              <i className="bi bi-box text-primary fs-3 mb-2" />
-              <h4 className="fw-bold mb-0" style={{ fontSize: "clamp(1rem, 3vw, 1.5rem)" }}>{orders.length}</h4>
-              <span className="text-muted small">سفارش</span>
-            </div>
+      <div className="row g-3">
+        <div className="col-sm-6">
+          <div className="bg-light rounded-3 p-3">
+            <span className="text-muted small d-block mb-1">{t("profile.firstName")}</span>
+            <span className="fw-bold">{user?.firstName}</span>
           </div>
         </div>
-        <div className="col-4 col-sm-4">
-          <div className="card border-0 shadow-sm rounded-4">
-            <div className="card-body p-3 p-sm-4 text-center">
-              <i className="bi bi-heart text-danger fs-3 mb-2" />
-              <h4 className="fw-bold mb-0" style={{ fontSize: "clamp(1rem, 3vw, 1.5rem)" }}>{wishlistCount}</h4>
-              <span className="text-muted small">علاقه‌مندی</span>
-            </div>
+        <div className="col-sm-6">
+          <div className="bg-light rounded-3 p-3">
+            <span className="text-muted small d-block mb-1">{t("profile.lastName")}</span>
+            <span className="fw-bold">{user?.lastName || "—"}</span>
           </div>
         </div>
-        <div className="col-4 col-sm-4">
-          <div className="card border-0 shadow-sm rounded-4">
-            <div className="card-body p-3 p-sm-4 text-center">
-              <i className="bi bi-cash-stack text-success fs-3 mb-2" />
-              <h4 className="fw-bold mb-0 text-truncate" style={{ fontSize: "clamp(0.8rem, 2.5vw, 1.5rem)" }}>{formatPriceNumber(totalSpent)}</h4>
-              <span className="text-muted small">تومان خرید</span>
-            </div>
+        <div className="col-sm-6">
+          <div className="bg-light rounded-3 p-3">
+            <span className="text-muted small d-block mb-1">{t("profile.email")}</span>
+            <span className="fw-bold" style={{ direction: "ltr", display: "inline-block" }}>
+              {user?.email}
+            </span>
+          </div>
+        </div>
+        <div className="col-sm-6">
+          <div className="bg-light rounded-3 p-3">
+            <span className="text-muted small d-block mb-1">{t("profile.phone")}</span>
+            <span className="fw-bold" style={{ direction: "ltr", display: "inline-block" }}>
+              {user?.phone || "—"}
+            </span>
+          </div>
+        </div>
+        <div className="col-sm-6">
+          <div className="bg-light rounded-3 p-3">
+            <span className="text-muted small d-block mb-1">{t("profile.birthDate")}</span>
+            <span className="fw-bold">{birthDateFormatted || "—"}</span>
+          </div>
+        </div>
+        <div className="col-sm-6">
+          <div className="bg-light rounded-3 p-3">
+            <span className="text-muted small d-block mb-1">{t("profile.memberSince")}</span>
+            <span className="fw-bold">{memberSinceFormatted || "—"}</span>
           </div>
         </div>
       </div>
 
       <Link
         to="/account/edit-profile"
-        className="btn btn-primary rounded-pill px-4"
+        className="btn btn-primary rounded-pill px-4 mt-4"
       >
         <i className="bi bi-pencil me-2" />
-        ویرایش پروفایل
+        {t("profile.editProfile")}
       </Link>
-    </div>
+    </motion.div>
   );
 }

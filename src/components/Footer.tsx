@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
   return (
     <footer style={{ background: "var(--c-gray-900)", color: "#cbd5e1" }}>
       {/* Main Footer */}
@@ -13,8 +15,7 @@ export default function Footer() {
               <span className="brand-text" style={{ fontSize: "1.5rem" }}>VESTA</span>
             </Link>
             <p style={{ color: "#94a3b8", lineHeight: 1.9, fontSize: "var(--text-sm)", maxWidth: 320 }}>
-              وستا بزرگترین فروشگاه آنلاین مد و استایل با بهترین کیفیت و مناسب‌ترین قیمت.
-              ما تجربه خریدی لوکس و متفاوت را برای شما رقم می‌زنیم.
+              {t("footer.aboutText")}
             </p>
             <div className="d-flex gap-3 mt-4">
               {[
@@ -54,14 +55,14 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="col-6 col-md-4 col-lg-2">
-            <h6 className="fw-bold mb-4" style={{ color: "#fff", fontSize: "var(--text-base)" }}>دسترسی سریع</h6>
+            <h6 className="fw-bold mb-4" style={{ color: "#fff", fontSize: "var(--text-base)" }}>{t("footer.quickLinks")}</h6>
             <ul className="list-unstyled d-flex flex-column" style={{ gap: "0.75rem" }}>
               {[
-                { to: "/", label: "خانه" },
-                { to: "/products", label: "فروشگاه" },
-                { to: "/categories", label: "دسته‌بندی‌ها" },
-                { to: "/offers", label: "پیشنهاد ویژه" },
-                { to: "/blog", label: "وبلاگ" },
+                { to: "/", label: t("nav.home") },
+                { to: "/products", label: t("nav.products") },
+                { to: "/categories", label: t("nav.categories") },
+                { to: "/offers", label: t("nav.offers") },
+                { to: "/blog", label: t("nav.blog") },
               ].map((link, i) => (
                 <li key={i}>
                   <Link
@@ -103,7 +104,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="col-12 col-md-4 col-lg-2">
-            <h6 className="fw-bold mb-4" style={{ color: "#fff", fontSize: "var(--text-base)" }}>تماس با ما</h6>
+            <h6 className="fw-bold mb-4" style={{ color: "#fff", fontSize: "var(--text-base)" }}>{t("footer.contact")}</h6>
             <ul className="list-unstyled d-flex flex-column" style={{ gap: "0.875rem" }}>
               <li className="d-flex align-items-center gap-2">
                 <i className="bi bi-telephone" style={{ color: "#a78bfa", fontSize: "var(--text-sm)" }} />
@@ -150,7 +151,7 @@ export default function Footer() {
       <div style={{ borderTop: "1px solid rgba(255,255,255,0.06)" }}>
         <div className="container py-3 d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
           <small style={{ color: "#64748b" }}>
-            تمامی حقوق این وبسایت متعلق به وستا می‌باشد.
+            {t("footer.rights")}
           </small>
           <div className="d-flex gap-3">
             <small style={{ color: "#64748b", cursor: "pointer" }}>حریم خصوصی</small>
