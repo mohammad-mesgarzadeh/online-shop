@@ -540,6 +540,28 @@ const fa: Record<string, string> = {
   "offersAll.noDiscountedDesc": "هیچ محصولی با فیلترهای انتخابی مطابقت ندارد.",
   "offersAll.clearFilters": "پاک کردن فیلترها",
 
+  // Accessories
+  "accessories.title": "اکسسوری",
+  "accessories.desc": "مجموعه کامل اکسسوری با بهترین کیفیت و برندهای لوکس",
+  "accessories.backToCategories": "بازگشت به دسته‌بندی‌ها",
+  "accessories.featured": "ویژه",
+  "accessories.featuredProduct": "محصول ویژه",
+  "accessories.highestRating": "بالاترین امتیاز",
+  "accessories.reviews": "نظر",
+  "accessories.allProducts": "همه محصولات",
+  "accessories.accessoriesProducts": "اکسسوری",
+  "accessories.all": "همه",
+  "accessories.noProducts": "محصولی یافت نشد",
+  "accessories.noProductsDesc": "در این دسته‌بندی محصولی موجود نیست",
+  "accessories.bestSellers": "پرفروش‌ها",
+  "accessories.bestSellersTitle": "پرفروش‌ترین محصولات",
+  "accessories.newArrivals": "جدید",
+  "accessories.newArrivalsTitle": "جدیدترین محصولات",
+  "accessories.promoTitle": "استایل خود را با اکسسوری کامل کنید",
+  "accessories.promoDesc": "از ساعت‌های لوکس گرفته تا کیف‌های شیک و عینک‌های آفتابی، امروز استایل خود را ارتقا دهید",
+  "accessories.viewAll": "مشاهده همه محصولات",
+  "accessories.specialOffers": "پیشنهادات ویژه",
+
   // Category Products
   "categoryProducts.home": "خانه",
   "categoryProducts.categories": "دسته بندی‌ها",

@@ -540,6 +540,28 @@ const en: Record<string, string> = {
   "offersAll.noDiscountedDesc": "No products match the selected filters.",
   "offersAll.clearFilters": "Clear Filters",
 
+  // Accessories
+  "accessories.title": "Accessories",
+  "accessories.desc": "Complete accessories collection with premium quality and luxury brands",
+  "accessories.backToCategories": "Back to Categories",
+  "accessories.featured": "Featured",
+  "accessories.featuredProduct": "Featured Product",
+  "accessories.highestRating": "Highest Rating",
+  "accessories.reviews": "reviews",
+  "accessories.allProducts": "All Products",
+  "accessories.accessoriesProducts": "Accessories",
+  "accessories.all": "All",
+  "accessories.noProducts": "No products found",
+  "accessories.noProductsDesc": "No products available in this category",
+  "accessories.bestSellers": "Best Sellers",
+  "accessories.bestSellersTitle": "Best Selling Products",
+  "accessories.newArrivals": "New",
+  "accessories.newArrivalsTitle": "Latest Products",
+  "accessories.promoTitle": "Complete Your Style with Accessories",
+  "accessories.promoDesc": "From luxury watches to stylish bags and sunglasses, upgrade your style today",
+  "accessories.viewAll": "View All Products",
+  "accessories.specialOffers": "Special Offers",
+
   // Category Products
   "categoryProducts.home": "Home",
   "categoryProducts.categories": "Categories",

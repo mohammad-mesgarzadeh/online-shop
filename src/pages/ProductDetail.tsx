@@ -310,7 +310,7 @@ export default function ProductDetail() {
               <button
                 className="btn btn-outline-secondary btn-lg rounded-pill px-4 touch-target"
                 onClick={handleWishlist}
-                style={wishlisted ? { background: "#fee2e2", borderColor: "#fca5a5", color: "#dc2626" } : {}}
+                style={wishlisted ? { background: "var(--c-danger-bg)", borderColor: "transparent", color: "var(--c-danger)" } : {}}
                 aria-label={wishlisted ? t("product.removeFromWishlist") : t("product.addToWishlist")}
               >
                 <i className={`bi ${wishlisted ? "bi-heart-fill" : "bi-heart"}`} />
