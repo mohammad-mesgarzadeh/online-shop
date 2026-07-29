@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useWishlist } from "../context/WishlistContext";
 import { useCart } from "../context/CartContext";
+import { useLanguage } from "../context/LanguageContext";
 import type { ProductItem } from "../data/products";
 import "./ProductCard.css";
 
@@ -34,6 +35,7 @@ export default function ProductCard({ product, index = 0, searchQuery }: Product
   const [addedFeedback, setAddedFeedback] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const { t, language } = useLanguage();
   const wishlisted = isWishlisted(product.id);
   const hasDiscount = product.discount != null && product.discount > 0;
 
@@ -92,7 +94,7 @@ export default function ProductCard({ product, index = 0, searchQuery }: Product
             </span>
           )}
           {product.isNew && (
-            <span className="pc-badge pc-badge--new">جدید</span>
+            <span className="pc-badge pc-badge--new">{t("productCard.new")}</span>
           )}
         </div>
 
@@ -101,7 +103,7 @@ export default function ProductCard({ product, index = 0, searchQuery }: Product
           className={`pc-wishlist ${wishlisted ? "pc-wishlist--active" : ""}`}
           onClick={handleWishlist}
           aria-label={
-            wishlisted ? "حذف از علاقه‌مندی‌ها" : "افزودن به علاقه‌مندی‌ها"
+            wishlisted ? t("productCard.removeFromWishlist") : t("productCard.addToWishlist")
           }
         >
           <i className={`bi ${wishlisted ? "bi-heart-fill" : "bi-heart"}`} />
@@ -114,7 +116,7 @@ export default function ProductCard({ product, index = 0, searchQuery }: Product
           className="pc-img"
           onError={(e) => {
             (e.target as HTMLImageElement).src =
-              "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' fill='%23e2e8f0'%3E%3Crect width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='14'%3Eتصویر%3C/text%3E%3C/svg%3E";
+              `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' fill='%23e2e8f0'%3E%3Crect width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%2394a3b8' font-size='14'%3E${encodeURIComponent(t("productCard.image"))}%3C/text%3E%3C/svg%3E`;
           }}
         />
 
@@ -123,7 +125,7 @@ export default function ProductCard({ product, index = 0, searchQuery }: Product
           <button
             className="pc-quick-btn"
             onClick={handleAddToCart}
-            aria-label="افزودن به سبد خرید"
+            aria-label={t("product.addToCart")}
           >
             <i
               className={`bi ${
@@ -137,7 +139,7 @@ export default function ProductCard({ product, index = 0, searchQuery }: Product
               e.stopPropagation();
               navigate(`/products/${product.id}`);
             }}
-            aria-label="مشاهده محصول"
+            aria-label={t("productCard.viewProduct")}
           >
             <i className="bi bi-eye" />
           </button>
@@ -147,7 +149,7 @@ export default function ProductCard({ product, index = 0, searchQuery }: Product
         {addedFeedback && (
           <div className="pc-added-toast">
             <i className="bi bi-check-circle-fill me-1" />
-            افزوده شد
+            {t("productCard.added")}
           </div>
         )}
       </div>
@@ -235,17 +237,17 @@ export default function ProductCard({ product, index = 0, searchQuery }: Product
         <div className="pc-price">
           {hasDiscount && product.oldPrice && (
             <span className="pc-old-price">
-              {product.oldPrice.toLocaleString("fa-IR")}
+              {product.oldPrice.toLocaleString(language === "fa" ? "fa-IR" : "en-US")}
             </span>
           )}
           <span className="pc-current-price">
-            {product.price.toLocaleString("fa-IR")} تومان
+            {product.price.toLocaleString(language === "fa" ? "fa-IR" : "en-US")} {t("common.toman")}
           </span>
         </div>
 
         {/* Stock status */}
         {!product.inStock && (
-          <span className="pc-out-of-stock">ناموجود</span>
+          <span className="pc-out-of-stock">{t("product.outOfStock")}</span>
         )}
       </div>
     </div>

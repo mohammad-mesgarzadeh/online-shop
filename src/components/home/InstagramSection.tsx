@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 
 const images = [
   "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&q=80",
@@ -10,19 +11,20 @@ const images = [
 ];
 
 export default function InstagramSection() {
+  const { t } = useLanguage();
   return (
     <section className="py-5 py-lg-6 overflow-hidden" dir="rtl">
       <div className="container">
         <div className="text-center mb-5">
           <span className="section-badge">
             <i className="bi bi-instagram me-1" />
-            اینستاگرام
+            {t("instagram.badge")}
           </span>
           <h2 className="mt-3" style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}>
-            ما را در اینستاگرام دنبال کنید
+            {t("instagram.title")}
           </h2>
           <p style={{ color: "var(--c-gray-500)", maxWidth: 500, margin: "0 auto" }}>
-            @vesta_shop
+            {t("instagram.handle")}
           </p>
         </div>
 

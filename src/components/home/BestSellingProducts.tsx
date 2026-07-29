@@ -6,6 +6,7 @@ import {  Autoplay } from "swiper/modules";
 
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -13,6 +14,7 @@ import "swiper/css/navigation";
 import { products } from "../../data/products";
 
 export default function BestSellingProducts() {
+  const { t } = useLanguage();
   const bestSellers = [...products]
     .sort((a, b) => b.sold - a.sold)
     .slice(0, 8);
@@ -24,15 +26,15 @@ export default function BestSellingProducts() {
           <div>
             <span className="section-badge">
               <i className="bi bi-fire me-1" />
-              پرفروش‌ها
+              {t("bestSelling.badge")}
             </span>
-            <h2>پرفروش‌ترین محصولات</h2>
+            <h2>{t("bestSelling.title")}</h2>
             <p className="section-subtitle mt-2">
-              محبوب‌ترین محصولات در میان مشتریان ما
+              {t("bestSelling.desc")}
             </p>
           </div>
           <Link to="/products?sort=best-selling" className="btn btn-vesta-outline rounded-pill">
-            مشاهده همه
+            {t("categories.viewAll")}
             <i className="bi bi-arrow-left me-2" />
           </Link>
         </div>

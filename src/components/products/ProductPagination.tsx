@@ -1,3 +1,5 @@
+import { useLanguage } from "../../context/LanguageContext";
+
 type Props = {
   page: number;
   totalPages: number;
@@ -9,15 +11,16 @@ export default function ProductPagination({
   totalPages,
   onPageChange,
 }: Props) {
+  const { t } = useLanguage();
   return (
-    <nav className="mt-5" aria-label="صفحه‌بندی">
+    <nav className="mt-5" aria-label={t("common.pagination")}>
       <ul className="pagination justify-content-center flex-wrap gap-1">
         <li className={`page-item ${page === 1 ? "disabled" : ""}`}>
           <button
             className="page-link touch-target"
             onClick={() => onPageChange(page - 1)}
           >
-            قبلی
+            {t("common.previous")}
           </button>
         </li>
 
@@ -40,7 +43,7 @@ export default function ProductPagination({
             className="page-link touch-target"
             onClick={() => onPageChange(page + 1)}
           >
-            بعدی
+            {t("common.next")}
           </button>
         </li>
       </ul>

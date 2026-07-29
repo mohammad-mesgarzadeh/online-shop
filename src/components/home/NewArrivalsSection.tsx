@@ -1,29 +1,31 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 import ProductCard from "../ProductCard";
 import { products } from "../../data/products";
 
 export default function NewArrivalsSection() {
+  const { t } = useLanguage();
   const newArrivals = [...products]
     .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
     .slice(0, 4);
 
   return (
-    <section className="py-5 py-lg-6" dir="rtl" style={{ background: "var(--c-gray-50)" }}>
+    <section className="py-5 py-lg-6 bg-light" dir="rtl">
       <div className="container">
         <div className="section-header-row">
           <div>
             <span className="section-badge">
               <i className="bi bi-stars me-1" />
-              جدیدترین‌ها
+              {t("newArrivals.badge")}
             </span>
-            <h2>محصولات جدید</h2>
+            <h2>{t("newArrivals.title")}</h2>
             <p className="section-subtitle mt-2">
-              تازه‌ترین محصولات اضافه شده به فروشگاه ما را کشف کنید
+              {t("newArrivals.desc")}
             </p>
           </div>
           <Link to="/products?sort=newest" className="btn btn-vesta-outline rounded-pill">
-            مشاهده همه
+            {t("categories.viewAll")}
             <i className="bi bi-arrow-left me-2" />
           </Link>
         </div>

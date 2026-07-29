@@ -1,61 +1,63 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function WhyChooseUsSection() {
+  const { t } = useLanguage();
   const reasons = [
     {
       icon: "bi-patch-check",
-      title: "محصولات اصل",
-      desc: "تمام محصولات ما از برندهای معتبر و با ضمانت اصالت ارائه می‌شوند.",
+      title: t("whyChooseUs.reason1.title"),
+      desc: t("whyChooseUs.reason1.desc"),
       color: "#6C63FF",
       bg: "rgba(108,99,255,0.08)",
     },
     {
       icon: "bi-arrow-repeat",
-      title: "بازگشت آسان",
-      desc: "تا ۷ روز پس از خرید، امکان بازگشت محصول بدون قید و شرط.",
+      title: t("whyChooseUs.reason2.title"),
+      desc: t("whyChooseUs.reason2.desc"),
       color: "#10b981",
       bg: "rgba(16,185,129,0.08)",
     },
     {
       icon: "bi-truck",
-      title: "ارسال سریع",
-      desc: "ارسال در کمتر از ۲۴ ساعت در تهران و ۴۸ ساعت در سراسر کشور.",
+      title: t("whyChooseUs.reason3.title"),
+      desc: t("whyChooseUs.reason3.desc"),
       color: "#f59e0b",
       bg: "rgba(245,158,11,0.08)",
     },
     {
       icon: "bi-headset",
-      title: "پشتیبانی ۲۴ ساعته",
-      desc: "تیم پشتیبانی ما در تمام ساعات شبانه‌روز آماده کمک به شماست.",
+      title: t("whyChooseUs.reason4.title"),
+      desc: t("whyChooseUs.reason4.desc"),
       color: "#f43f5e",
       bg: "rgba(244,63,94,0.08)",
     },
     {
       icon: "bi-wallet2",
-      title: "پرداخت امن",
-      desc: "پرداخت از طریق درگاه‌های بانکی معتبر و با رمزنگاری کامل.",
+      title: t("whyChooseUs.reason5.title"),
+      desc: t("whyChooseUs.reason5.desc"),
       color: "#8b5cf6",
       bg: "rgba(139,92,246,0.08)",
     },
     {
       icon: "bi-gift",
-      title: "تخفیف‌های ویژه",
-      desc: "تخفیف‌های دوره‌ای و پیشنهادات ویژه برای اعضای باشگاه مشتریان.",
+      title: t("whyChooseUs.reason6.title"),
+      desc: t("whyChooseUs.reason6.desc"),
       color: "#ec4899",
       bg: "rgba(236,72,153,0.08)",
     },
   ];
 
   return (
-    <section className="py-5 py-lg-6" dir="rtl" style={{ background: "var(--c-gray-50)" }}>
+    <section className="py-5 py-lg-6 bg-light" dir="rtl">
       <div className="container">
         <div className="text-center mb-5">
           <span className="section-badge">
             <i className="bi bi-shield-check me-1" />
-            چرا وستا؟
+            {t("whyChooseUs.badge")}
           </span>
           <h2 className="mt-3" style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}>
-            چرا ما را انتخاب کنید؟
+            {t("whyChooseUs.title")}
           </h2>
         </div>
 

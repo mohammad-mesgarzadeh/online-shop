@@ -1,44 +1,46 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 
 const slides = [
   {
-    badge: "کالکشن تابستان ۲۰۲۶",
-    headline: "استایل خودت را بساز",
-    sub: "جدیدترین مدل‌های مردانه و زنانه با تخفیف‌های ویژه فصل",
-    cta: "خرید کنید",
-    ctaSecondary: "مشاهده کالکشن",
+    badge: "hero.slide0.badge",
+    headline: "hero.slide0.headline",
+    sub: "hero.slide0.sub",
+    cta: "hero.slide0.cta",
+    ctaSecondary: "hero.slide0.ctaSecondary",
     to: "/products",
     toSecondary: "/categories",
     img: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=1400&q=80",
-    tag: { label: "تخفیف ویژه", value: "۵۰٪" },
+    tag: { label: "hero.slide0.tagLabel", value: "hero.slide0.tagValue" },
   },
   {
-    badge: "ترندهای جدید",
-    headline: "کالکشن پاییزه ۲۰۲۶",
-    sub: "جدیدترین هودی‌ها، سویشرت‌ها و لباس‌های ترندی این فصل",
-    cta: "مشاهده محصولات",
-    ctaSecondary: "پرفروش‌ها",
+    badge: "hero.slide1.badge",
+    headline: "hero.slide1.headline",
+    sub: "hero.slide1.sub",
+    cta: "hero.slide1.cta",
+    ctaSecondary: "hero.slide1.ctaSecondary",
     to: "/products",
     toSecondary: "/products?sort=best-selling",
     img: "https://images.unsplash.com/photo-1483985988355-763728e1935b?w=1400&q=80",
-    tag: { label: "محصول جدید", value: "+200" },
+    tag: { label: "hero.slide1.tagLabel", value: "hero.slide1.tagValue" },
   },
   {
-    badge: "ارسال رایگان",
-    headline: "استایل خاص، قیمت مناسب",
-    sub: "برای خریدهای بالای ۲ میلیون تومان ارسال رایگان دریافت کنید",
-    cta: "مشاهده تخفیف‌ها",
-    ctaSecondary: " rules",
+    badge: "hero.slide2.badge",
+    headline: "hero.slide2.headline",
+    sub: "hero.slide2.sub",
+    cta: "hero.slide2.cta",
+    ctaSecondary: "hero.slide2.ctaSecondary",
     to: "/offers",
     toSecondary: "/products",
     img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=1400&q=80",
-    tag: { label: "ارسال", value: "رایگان" },
+    tag: { label: "hero.slide2.tagLabel", value: "hero.slide2.tagValue" },
   },
 ];
 
 export default function HeroSection() {
+  const { t, dir } = useLanguage();
   const [current, setCurrent] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
@@ -74,7 +76,7 @@ export default function HeroSection() {
       style={{
         background: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #312e81 100%)",
         minHeight: "85vh",
-        direction: "rtl",
+        direction: dir,
       }}
       onMouseEnter={stopAutoPlay}
       onMouseLeave={startAutoPlay}
@@ -90,7 +92,7 @@ export default function HeroSection() {
         >
           <img
             src={slide.img}
-            alt={slide.headline}
+            alt={t(slide.headline)}
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", opacity: 0.35 }}
           />
           <div
@@ -127,7 +129,7 @@ export default function HeroSection() {
                     width: 6, height: 6, borderRadius: "50%",
                     background: "#6C63FF", boxShadow: "0 0 8px #6C63FF"
                   }} />
-                  {slide.badge}
+                  {t(slide.badge)}
                 </span>
 
                 <h1
@@ -139,7 +141,7 @@ export default function HeroSection() {
                     letterSpacing: "var(--tracking-tight)",
                   }}
                 >
-                  {slide.headline}
+                  {t(slide.headline)}
                 </h1>
 
                 <p
@@ -151,7 +153,7 @@ export default function HeroSection() {
                     maxWidth: "480px",
                   }}
                 >
-                  {slide.sub}
+                  {t(slide.sub)}
                 </p>
 
                 <div className="d-flex gap-3 flex-wrap mb-5">
@@ -166,7 +168,7 @@ export default function HeroSection() {
                       boxShadow: "0 4px 20px rgba(255,255,255,0.15)",
                     }}
                   >
-                    {slide.cta}
+                    {t(slide.cta)}
                     <i className="bi bi-arrow-left me-2" />
                   </Link>
 
@@ -175,22 +177,22 @@ export default function HeroSection() {
                     className="btn btn-outline-light rounded-pill px-5 py-3"
                     style={{ fontSize: "var(--text-base)" }}
                   >
-                    {slide.ctaSecondary}
+                    {t(slide.ctaSecondary)}
                   </Link>
                 </div>
 
                 <div className="d-flex gap-5 flex-wrap">
                   {[
-                    { num: "+10K", label: "مشتری فعال" },
-                    { num: "+500", label: "محصول متنوع" },
-                    { num: "4.9", label: "امتیاز کاربران" },
+                    { num: "+10K", label: "hero.stat1.label" },
+                    { num: "+500", label: "hero.stat2.label" },
+                    { num: "4.9", label: "hero.stat3.label" },
                   ].map((stat, i) => (
                     <div key={i}>
                       <div className="text-white fw-bold" style={{ fontSize: "var(--text-2xl)" }}>
                         {stat.num}
                       </div>
                       <div style={{ color: "#94a3b8", fontSize: "var(--text-sm)" }}>
-                        {stat.label}
+                        {t(stat.label)}
                       </div>
                     </div>
                   ))}
@@ -221,7 +223,7 @@ export default function HeroSection() {
                 >
                   <img
                     src={slide.img}
-                    alt={slide.headline}
+                    alt={t(slide.headline)}
                     style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
                   />
                 </div>
@@ -240,10 +242,10 @@ export default function HeroSection() {
                   }}
                 >
                   <div style={{ fontSize: "var(--text-xs)", opacity: ".7", marginBottom: 4 }}>
-                    {slide.tag.label}
+                    {t(slide.tag.label)}
                   </div>
                   <div className="fw-bold" style={{ fontSize: "var(--text-3xl)" }}>
-                    {slide.tag.value}
+                    {t(slide.tag.value)}
                   </div>
                 </div>
               </motion.div>

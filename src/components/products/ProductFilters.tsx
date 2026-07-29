@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback } from "react";
 import { categories } from "../../data/categories";
 import { products } from "../../data/products";
 import type { FilterState } from "../../types";
+import { useLanguage } from "../../context/LanguageContext";
 
 type ProductFiltersProps = {
   filters: FilterState;
@@ -97,6 +98,7 @@ export default function ProductFilters({
   isMobile,
   onApply,
 }: ProductFiltersProps) {
+  const { t } = useLanguage();
   const brands = useMemo(() => getUniqueBrands(), []);
   const colors = useMemo(() => getUniqueColors(), []);
   const sizes = useMemo(() => getUniqueSizes(), []);
@@ -174,14 +176,14 @@ export default function ProductFilters({
   }, [filters, priceMin, priceMax]);
 
   const formatPrice = (val: number) =>
-    val.toLocaleString("fa-IR") + " تومان";
+    val.toLocaleString() + " " + t("common.toman");
 
   return (
     <div className={`pf ${isMobile ? "pf--mobile" : ""}`}>
       <div className="pf-header">
         <h5 className="pf-title">
           <i className="bi bi-funnel me-2" />
-          فیلترها
+          {t("products.filter")}
           {activeCount > 0 && (
             <span className="pf-active-badge">{activeCount}</span>
           )}
@@ -189,14 +191,14 @@ export default function ProductFilters({
         {activeCount > 0 && (
           <button className="pf-reset-btn" onClick={onReset} type="button">
             <i className="bi bi-x-circle me-1" />
-            پاک کردن همه
+            {t("products.clearAll")}
           </button>
         )}
       </div>
 
       <div className="pf-body">
         {/* Category */}
-        <FilterGroup id="category" title="دسته‌بندی" icon="bi-tag" isOpen={openGroup === "category"} onToggle={handleToggleGroup}>
+        <FilterGroup id="category" title={t("filter.category")} icon="bi-tag" isOpen={openGroup === "category"} onToggle={handleToggleGroup}>
           <div className="pf-check-list">
             {categories.map((cat) => {
               const count = products.filter(
@@ -219,10 +221,10 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Price Range */}
-        <FilterGroup id="price" title="محدوده قیمت" icon="bi-cash-stack" isOpen={openGroup === "price"} onToggle={handleToggleGroup}>
+        <FilterGroup id="price" title={t("filter.price")} icon="bi-cash-stack" isOpen={openGroup === "price"} onToggle={handleToggleGroup}>
           <div className="pf-price-inputs">
             <div className="pf-price-field">
-              <label>از</label>
+              <label>{t("filter.from")}</label>
               <input
                 type="number"
                 className="pf-price-input"
@@ -230,12 +232,12 @@ export default function ProductFilters({
                 onChange={(e) => handlePriceMinChange(e.target.value)}
                 min={priceMin}
                 max={filters.priceRange[1]}
-                placeholder={priceMin.toLocaleString("fa-IR")}
+                placeholder={priceMin.toLocaleString()}
               />
             </div>
             <span className="pf-price-sep">—</span>
             <div className="pf-price-field">
-              <label>تا</label>
+              <label>{t("filter.to")}</label>
               <input
                 type="number"
                 className="pf-price-input"
@@ -243,7 +245,7 @@ export default function ProductFilters({
                 onChange={(e) => handlePriceMaxChange(e.target.value)}
                 min={filters.priceRange[0]}
                 max={priceMax}
-                placeholder={priceMax.toLocaleString("fa-IR")}
+                placeholder={priceMax.toLocaleString()}
               />
             </div>
           </div>
@@ -260,7 +262,7 @@ export default function ProductFilters({
               step={50000}
               value={filters.priceRange[0]}
               onChange={(e) => handleSliderMin(e.target.value)}
-              aria-label="حداقل قیمت"
+              aria-label={t("filter.minPrice")}
             />
             <input
               type="range"
@@ -270,7 +272,7 @@ export default function ProductFilters({
               step={50000}
               value={filters.priceRange[1]}
               onChange={(e) => handleSliderMax(e.target.value)}
-              aria-label="حداکثر قیمت"
+              aria-label={t("filter.maxPrice")}
             />
             <div
               className="pf-slider-fill"
@@ -284,7 +286,7 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Brand */}
-        <FilterGroup id="brand" title="برند" icon="bi-award" isOpen={openGroup === "brand"} onToggle={handleToggleGroup}>
+        <FilterGroup id="brand" title={t("filter.brand")} icon="bi-award" isOpen={openGroup === "brand"} onToggle={handleToggleGroup}>
           <div className="pf-check-list">
             {brands.map((brand) => {
               const count = products.filter((p) => p.brand === brand).length;
@@ -305,7 +307,7 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Size */}
-        <FilterGroup id="size" title="سایز" icon="bi-rulers" isOpen={openGroup === "size"} onToggle={handleToggleGroup}>
+        <FilterGroup id="size" title={t("filter.size")} icon="bi-rulers" isOpen={openGroup === "size"} onToggle={handleToggleGroup}>
           <div className="pf-size-grid">
             {sizes.map((size) => (
               <button
@@ -323,7 +325,7 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Color */}
-        <FilterGroup id="color" title="رنگ" icon="bi-palette" isOpen={openGroup === "color"} onToggle={handleToggleGroup}>
+        <FilterGroup id="color" title={t("filter.color")} icon="bi-palette" isOpen={openGroup === "color"} onToggle={handleToggleGroup}>
           <div className="pf-color-grid">
             {colors.map((color) => (
               <button
@@ -348,7 +350,7 @@ export default function ProductFilters({
         </FilterGroup>
 
         {/* Rating */}
-        <FilterGroup id="rating" title="امتیاز" icon="bi-star-fill" isOpen={openGroup === "rating"} onToggle={handleToggleGroup}>
+        <FilterGroup id="rating" title={t("filter.rating")} icon="bi-star-fill" isOpen={openGroup === "rating"} onToggle={handleToggleGroup}>
           <div className="pf-rating-list">
             {[4, 3, 2, 1].map((r) => (
               <button
@@ -373,19 +375,19 @@ export default function ProductFilters({
                     />
                   ))}
                 </span>
-                <span className="pf-rating-text">و بالاتر</span>
+                <span className="pf-rating-text">{t("filter.andUp")}</span>
               </button>
             ))}
           </div>
         </FilterGroup>
 
         {/* Toggles */}
-        <FilterGroup id="features" title="ویژگی‌ها" icon="bi-sliders" isOpen={openGroup === "features"} onToggle={handleToggleGroup}>
+        <FilterGroup id="features" title={t("filter.features")} icon="bi-sliders" isOpen={openGroup === "features"} onToggle={handleToggleGroup}>
           <div className="pf-toggle-list">
             <label className="pf-toggle-item">
               <span className="pf-toggle-label">
                 <i className="bi bi-box-seam me-2" />
-                فقط موجود
+                {t("filter.inStock")}
               </span>
               <div className="pf-toggle-switch">
                 <input
@@ -401,7 +403,7 @@ export default function ProductFilters({
             <label className="pf-toggle-item">
               <span className="pf-toggle-label">
                 <i className="bi bi-tag-fill me-2" style={{ color: "var(--c-danger)" }} />
-                فقط حراجی
+                {t("filter.onSale")}
               </span>
               <div className="pf-toggle-switch">
                 <input
@@ -417,7 +419,7 @@ export default function ProductFilters({
             <label className="pf-toggle-item">
               <span className="pf-toggle-label">
                 <i className="bi bi-stars me-2" style={{ color: "var(--c-accent-amber)" }} />
-                جدیدها
+                {t("filter.newArrivals")}
               </span>
               <div className="pf-toggle-switch">
                 <input
@@ -439,11 +441,11 @@ export default function ProductFilters({
         <div className="pf-footer">
           <button className="pf-footer-btn pf-footer-btn--reset" onClick={onReset} type="button">
             <i className="bi bi-arrow-counterclockwise me-1" />
-            پاک کردن
+            {t("filter.reset")}
           </button>
           <button className="pf-footer-btn pf-footer-btn--apply" onClick={onApply} type="button">
             <i className="bi bi-check-lg me-1" />
-            اعمال فیلترها
+            {t("filter.apply")}
           </button>
         </div>
       )}

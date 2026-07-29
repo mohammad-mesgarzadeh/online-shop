@@ -1,38 +1,16 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useLanguage } from "../../context/LanguageContext";
 
 const testimonials = [
-  {
-    name: "سارا احمدی",
-    role: "طراح مد",
-    avatar: "https://ui-avatars.com/api/?name=SA&background=6C63FF&color=fff&bold=true&size=128",
-    text: "کیفیت محصولات وستا واقعاً عالیه. هر بار که سفارش میدم از بسته‌بندی و کیفیت لباس‌ها شگفت‌زده میشم. بهترین فروشگاه آنلاین برای خرید لباس.",
-    rating: 5,
-  },
-  {
-    name: "محمد رضایی",
-    role: "برنامه‌نویس",
-    avatar: "https://ui-avatars.com/api/?name=MR&background=4f46e5&color=fff&bold=true&size=128",
-    text: "ارسال سریع و بسته‌بندی شیک. قیمت‌ها نسبت به کیفیت خیلی مناسبه. حتماً دوباره خرید میکنم.",
-    rating: 5,
-  },
-  {
-    name: "نیلوفر کریمی",
-    role: "عکاس",
-    avatar: "https://ui-avatars.com/api/?name=NK&background=a78bfa&color=fff&bold=true&size=128",
-    text: "استایل و طراحی محصولات خیلی مدرن و خاصه. دقیقاً همون چیزیه که دنبالش بودم. پشتیبانی عالی و پاسخگو.",
-    rating: 5,
-  },
-  {
-    name: "علی محمدی",
-    role: "مدیر کسب‌وکار",
-    avatar: "https://ui-avatars.com/api/?name=AM&background=8B7CFA&color=fff&bold=true&size=128",
-    text: "از خریدم کاملاً راضیم. محصولات اصل و با کیفیت هستن. تخفیف‌های خوبی هم دارن.",
-    rating: 4,
-  },
+  { name: "testimonials.0.name", role: "testimonials.0.role", text: "testimonials.0.text", rating: 5, avatar: "https://ui-avatars.com/api/?name=SA&background=6C63FF&color=fff&bold=true&size=128" },
+  { name: "testimonials.1.name", role: "testimonials.1.role", text: "testimonials.1.text", rating: 5, avatar: "https://ui-avatars.com/api/?name=MR&background=4f46e5&color=fff&bold=true&size=128" },
+  { name: "testimonials.2.name", role: "testimonials.2.role", text: "testimonials.2.text", rating: 5, avatar: "https://ui-avatars.com/api/?name=NK&background=a78bfa&color=fff&bold=true&size=128" },
+  { name: "testimonials.3.name", role: "testimonials.3.role", text: "testimonials.3.text", rating: 4, avatar: "https://ui-avatars.com/api/?name=AM&background=8B7CFA&color=fff&bold=true&size=128" },
 ];
 
 export default function TestimonialsSection() {
+  const { t } = useLanguage();
   const [active, setActive] = useState(0);
 
   return (
@@ -48,15 +26,15 @@ export default function TestimonialsSection() {
             }}
           >
             <i className="bi bi-chat-quote me-1" />
-            نظرات مشتریان
+            {t("testimonials.badge")}
           </span>
           <h2 className="text-white" style={{ fontSize: "clamp(1.5rem, 3.5vw, 2.5rem)" }}>
-            مشتریان ما چه می‌گویند
+            {t("testimonials.title")}
           </h2>
         </div>
 
         <div className="row g-4 justify-content-center">
-          {testimonials.map((t, i) => (
+          {testimonials.map((item, i) => (
             <div key={i} className="col-md-6 col-lg-3">
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
@@ -78,26 +56,26 @@ export default function TestimonialsSection() {
                   {Array.from({ length: 5 }).map((_, s) => (
                     <i
                       key={s}
-                      className={`bi ${s < t.rating ? "bi-star-fill" : "bi-star"}`}
+                      className={`bi ${s < item.rating ? "bi-star-fill" : "bi-star"}`}
                       style={{ color: "#fbbf24", fontSize: 14 }}
                     />
                   ))}
                 </div>
 
                 <p style={{ color: "#cbd5e1", fontSize: "var(--text-sm)", lineHeight: 1.8, marginBottom: "var(--space-4)" }}>
-                  "{t.text}"
+                  "{t(item.text)}"
                 </p>
 
                 <div className="d-flex align-items-center gap-3">
                   <img
-                    src={t.avatar}
-                    alt={t.name}
+                    src={item.avatar}
+                    alt={t(item.name)}
                     className="rounded-circle"
                     style={{ width: 44, height: 44, objectFit: "cover" }}
                   />
                   <div>
-                    <div className="text-white fw-bold" style={{ fontSize: "var(--text-sm)" }}>{t.name}</div>
-                    <div style={{ color: "#94a3b8", fontSize: "var(--text-xs)" }}>{t.role}</div>
+                    <div className="text-white fw-bold" style={{ fontSize: "var(--text-sm)" }}>{t(item.name)}</div>
+                    <div style={{ color: "#94a3b8", fontSize: "var(--text-xs)" }}>{t(item.role)}</div>
                   </div>
                 </div>
               </motion.div>

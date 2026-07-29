@@ -19,6 +19,7 @@ const fa: Record<string, string> = {
   "common.or": "یا",
   "common.toman": "تومان",
   "common.free": "رایگان",
+  "common.pagination": "صفحه‌بندی",
 
   // Navbar
   "nav.home": "خانه",
@@ -311,6 +312,134 @@ const fa: Record<string, string> = {
   "auth.invalidCredentials": "ایمیل یا رمز عبور اشتباه است",
   "auth.emailTaken": "ایمیل قبلاً ثبت شده است",
 
+  // Home Section - Features
+  "features.warranty.title": "ضمانت اصالت کالا",
+  "features.warranty.desc": "تضمین کیفیت تمام محصولات",
+  "features.support.title": "پشتیبانی ۲۴/۷",
+  "features.support.desc": "همیشه در کنار شما هستیم",
+  "features.returns.title": "گارانتی بازگشت وجه",
+  "features.returns.desc": "۷ روز مهلت بازگشت خرید",
+  "features.shipping.title": "ارسال رایگان",
+  "features.shipping.desc": "برای سفارش‌های بالای ۱ میلیون تومان",
+
+  // Home Section - Categories
+  "categoriesSection.badge": "دسته‌بندی‌ها",
+  "categoriesSection.title": "دسته بندی های محبوب",
+
+  // Home Section - Best Selling
+  "bestSelling.badge": "پرفروش‌ها",
+  "bestSelling.title": "پرفروش‌ترین محصولات",
+  "bestSelling.desc": "محبوب‌ترین محصولات در میان مشتریان ما",
+
+  // Home Section - New Arrivals
+  "newArrivals.badge": "جدیدترین‌ها",
+  "newArrivals.title": "محصولات جدید",
+  "newArrivals.desc": "تازه‌ترین محصولات اضافه شده به فروشگاه ما را کشف کنید",
+
+  // Home Section - Promotional Banners
+  "promo.collection.tag": "NEW COLLECTION",
+  "promo.collection.title": "کالکشن مردانه ۲۰۲۶",
+  "promo.collection.desc": "جدیدترین هودی‌ها، تیشرت‌ها و لباس‌های استریت استایل",
+  "promo.collection.cta": "مشاهده محصولات",
+  "promo.sale.tag": "SALE UP TO 50%",
+  "promo.sale.title": "حراج پایان فصل",
+  "promo.sale.desc": "روی صدها محصول تا ۵۰٪ تخفیف دریافت کنید",
+  "promo.sale.cta": "خرید با تخفیف",
+
+  // Home Section - Collections
+  "collections.badge": "کالکشن‌ها",
+  "collections.title": "مجموعه‌های ما",
+  "collections.viewCollection": "مشاهده مجموعه",
+
+  // Home Section - Brand Story
+  "brandStory.badge": "داستان ما",
+  "brandStory.heading1": "بیشتر از یک فروشگاه،",
+  "brandStory.heading2": "یک تجربه استایل",
+  "brandStory.p1": "وستا با هدف ارائه بهترین محصولات مد و پوشاک از برندهای معتبر جهانی تأسیس شد. ما باور داریم که هر فردی حق دارد استایل منحصر به فرد خود را داشته باشد.",
+  "brandStory.p2": "از انتخاب دقیق محصولات تا بسته‌بندی لوکس و ارسال سریع، تمام تجربه خرید شما با دقت و عشق طراحی شده است.",
+  "brandStory.stat1.num": "۵۰+",
+  "brandStory.stat1.label": "برند معتبر",
+  "brandStory.stat2.num": "۱۰K+",
+  "brandStory.stat2.label": "مشتری راضی",
+  "brandStory.stat3.num": "۲۴ ساعت",
+  "brandStory.stat3.label": "ارسال سریع",
+  "brandStory.rating": "۴.۹",
+  "brandStory.ratingLabel": "امتیاز از ۵",
+
+  // Home Section - Why Choose Us
+  "whyChooseUs.badge": "چرا وستا؟",
+  "whyChooseUs.title": "چرا ما را انتخاب کنید؟",
+  "whyChooseUs.reason1.title": "محصولات اصل",
+  "whyChooseUs.reason1.desc": "تمام محصولات ما از برندهای معتبر و با ضمانت اصالت ارائه می‌شوند.",
+  "whyChooseUs.reason2.title": "بازگشت آسان",
+  "whyChooseUs.reason2.desc": "تا ۷ روز پس از خرید، امکان بازگشت محصول بدون قید و شرط.",
+  "whyChooseUs.reason3.title": "ارسال سریع",
+  "whyChooseUs.reason3.desc": "ارسال در کمتر از ۲۴ ساعت در تهران و ۴۸ ساعت در سراسر کشور.",
+  "whyChooseUs.reason4.title": "پشتیبانی ۲۴ ساعته",
+  "whyChooseUs.reason4.desc": "تیم پشتیبانی ما در تمام ساعات شبانه‌روز آماده کمک به شماست.",
+  "whyChooseUs.reason5.title": "پرداخت امن",
+  "whyChooseUs.reason5.desc": "پرداخت از طریق درگاه‌های بانکی معتبر و با رمزنگاری کامل.",
+  "whyChooseUs.reason6.title": "تخفیف‌های ویژه",
+  "whyChooseUs.reason6.desc": "تخفیف‌های دوره‌ای و پیشنهادات ویژه برای اعضای باشگاه مشتریان.",
+
+  // Home Section - Testimonials
+  "testimonials.badge": "نظرات مشتریان",
+  "testimonials.title": "مشتریان ما چه می‌گویند",
+  "testimonials.0.name": "سارا احمدی",
+  "testimonials.0.role": "طراح مد",
+  "testimonials.0.text": "کیفیت محصولات وستا واقعاً عالیه. هر بار که سفارش میدم از بسته‌بندی و کیفیت لباس‌ها شگفت‌زده میشم. بهترین فروشگاه آنلاین برای خرید لباس.",
+  "testimonials.1.name": "محمد رضایی",
+  "testimonials.1.role": "برنامه‌نویس",
+  "testimonials.1.text": "ارسال سریع و بسته‌بندی شیک. قیمت‌ها نسبت به کیفیت خیلی مناسبه. حتماً دوباره خرید میکنم.",
+  "testimonials.2.name": "نیلوفر کریمی",
+  "testimonials.2.role": "عکاس",
+  "testimonials.2.text": "استایل و طراحی محصولات خیلی مدرن و خاصه. دقیقاً همون چیزیه که دنبالش بودم. پشتیبانی عالی و پاسخگو.",
+  "testimonials.3.name": "علی محمدی",
+  "testimonials.3.role": "مدیر کسب‌وکار",
+  "testimonials.3.text": "از خریدم کاملاً راضیم. محصولات اصل و با کیفیت هستن. تخفیف‌های خوبی هم دارن.",
+
+  // Home Section - Instagram
+  "instagram.badge": "اینستاگرام",
+  "instagram.title": "ما را در اینستاگرام دنبال کنید",
+  "instagram.handle": "@vesta_shop",
+
+  // Home Section - Newsletter
+  "newsletter.badge": "عضویت ویژه",
+  "newsletter.title": "از جدیدترین کالکشن‌ها و تخفیف‌ها باخبر شوید",
+  "newsletter.desc": "عضو خبرنامه شوید و اولین نفری باشید که از محصولات جدید، حراج‌های ویژه و پیشنهادهای اختصاصی مطلع می‌شود.",
+  "newsletter.placeholder": "ایمیل خود را وارد کنید",
+  "newsletter.submit": "عضویت",
+  "newsletter.success": "با موفقیت عضو شدید!",
+  "newsletter.perk1": "تخفیف ۱۰٪ برای اولین خرید",
+  "newsletter.perk2": "اطلاع از موجودی محصولات",
+  "newsletter.perk3": "بدون اسپم",
+
+  // Home Section - Hero
+  "hero.slide0.badge": "کالکشن تابستان ۲۰۲۶",
+  "hero.slide0.headline": "استایل خودت را بساز",
+  "hero.slide0.sub": "جدیدترین مدل‌های مردانه و زنانه با تخفیف‌های ویژه فصل",
+  "hero.slide0.cta": "خرید کنید",
+  "hero.slide0.ctaSecondary": "مشاهده کالکشن",
+  "hero.slide0.tagLabel": "تخفیف ویژه",
+  "hero.slide0.tagValue": "۵۰٪",
+  "hero.slide1.badge": "ترندهای جدید",
+  "hero.slide1.headline": "کالکشن پاییزه ۲۰۲۶",
+  "hero.slide1.sub": "جدیدترین هودی‌ها، سویشرت‌ها و لباس‌های ترندی این فصل",
+  "hero.slide1.cta": "مشاهده محصولات",
+  "hero.slide1.ctaSecondary": "پرفروش‌ها",
+  "hero.slide1.tagLabel": "محصول جدید",
+  "hero.slide1.tagValue": "+200",
+  "hero.slide2.badge": "ارسال رایگان",
+  "hero.slide2.headline": "استایل خاص، قیمت مناسب",
+  "hero.slide2.sub": "برای خریدهای بالای ۲ میلیون تومان ارسال رایگان دریافت کنید",
+  "hero.slide2.cta": "مشاهده تخفیف‌ها",
+  "hero.slide2.ctaSecondary": "قوانین",
+  "hero.slide2.tagLabel": "ارسال",
+  "hero.slide2.tagValue": "رایگان",
+  "hero.stat1.label": "مشتری فعال",
+  "hero.stat2.label": "محصول متنوع",
+  "hero.stat3.label": "امتیاز کاربران",
+
   // Product
   "product.addToCart": "افزودن به سبد",
   "product.buyNow": "خرید آنی",
@@ -347,6 +476,15 @@ const fa: Record<string, string> = {
   "product.specMaterial": "جنس",
   "product.specWeight": "وزن",
   "product.descriptionExtra": "این محصول با استفاده از بهترین مواد اولیه و با دقت بالا تولید شده است. مناسب برای استفاده روزمره و مهمانی‌های غیررسمی.",
+
+  // ProductCard
+  "productCard.new": "جدید",
+  "productCard.addToWishlist": "افزودن به علاقه‌مندی‌ها",
+  "productCard.removeFromWishlist": "حذف از علاقه‌مندی‌ها",
+  "productCard.viewProduct": "مشاهده محصول",
+  "productCard.added": "افزوده شد",
+  "productCard.outOfStock": "ناموجود",
+  "productCard.image": "تصویر",
 
   // Cart
   "cart.title": "سبد خرید",
@@ -440,6 +578,7 @@ const fa: Record<string, string> = {
   "products.noResultsDesc": "هیچ محصولی با فیلترهای انتخابی مطابقت ندارد.",
   "products.clearFilters": "پاک کردن فیلترها",
   "products.viewAll": "مشاهده همه محصولات",
+  "products.count": "محصول",
   "products.clearAll": "پاک کردن همه",
   "products.noProductsWithSearch": "هیچ محصولی با عبارت",
   "products.noMatchWithSearch": "مطابقت ندارد.",
@@ -456,6 +595,12 @@ const fa: Record<string, string> = {
   "filter.onSale": "حراجی",
   "filter.newArrivals": "جدید",
   "filter.all": "همه",
+  "filter.from": "از",
+  "filter.to": "تا",
+  "filter.minPrice": "حداقل قیمت",
+  "filter.maxPrice": "حداکثر قیمت",
+  "filter.andUp": "و بالاتر",
+  "filter.features": "ویژگی‌ها",
   "filter.apply": "اعمال فیلترها",
   "filter.reset": "بازنشانی",
 

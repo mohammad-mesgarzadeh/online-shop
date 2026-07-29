@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function NewsletterSection() {
+  const { t } = useLanguage();
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
@@ -24,44 +26,43 @@ export default function NewsletterSection() {
           transition={{ duration: 0.6 }}
           className="newsletter-section rounded-4 p-4 p-md-5 text-center position-relative overflow-hidden"
           style={{
-            background: "linear-gradient(135deg, #f8f7ff 0%, #f0eaff 50%, #fef2f8 100%)",
-            border: "1px solid #ede9fe",
+            background: "var(--c-surface)",
+            border: "1px solid var(--c-border-light)",
           }}
         >
-          <div className="newsletter-blob-1 position-absolute top-0 end-0 rounded-circle" style={{ width: 340, height: 340, background: "#ede9fe", filter: "blur(90px)", transform: "translate(80px,-80px)", pointerEvents: "none" }} />
-          <div className="newsletter-blob-2 position-absolute bottom-0 start-0 rounded-circle" style={{ width: 260, height: 260, background: "#fce7f3", filter: "blur(80px)", transform: "translate(-60px,60px)", pointerEvents: "none" }} />
+          <div className="newsletter-blob-1 position-absolute top-0 end-0 rounded-circle" style={{ width: 340, height: 340, background: "var(--c-primary-bg)", filter: "blur(90px)", transform: "translate(80px,-80px)", pointerEvents: "none" }} />
+          <div className="newsletter-blob-2 position-absolute bottom-0 start-0 rounded-circle" style={{ width: 260, height: 260, background: "var(--c-primary-bg)", filter: "blur(80px)", transform: "translate(-60px,60px)", pointerEvents: "none" }} />
 
           <div className="position-relative z-1">
             <div
               className="newsletter-icon-wrap d-inline-flex align-items-center justify-content-center rounded-3 mb-4"
-              style={{ width: 68, height: 68, background: "#ede9fe" }}
+              style={{ width: 68, height: 68, background: "var(--c-primary-bg)" }}
             >
-              <i className="bi bi-envelope-paper-heart fs-2" style={{ color: "#6d28d9" }} />
+              <i className="bi bi-envelope-paper-heart fs-2" style={{ color: "var(--c-primary)" }} />
             </div>
 
             <div className="mb-3">
               <span
                 className="newsletter-badge badge rounded-pill px-3 py-2 fw-normal"
-                style={{ background: "#ede9fe", color: "#6d28d9", fontSize: 12, letterSpacing: ".04em" }}
+                style={{ background: "var(--c-primary-bg)", color: "var(--c-primary)", fontSize: 12, letterSpacing: ".04em" }}
               >
                 <i className="bi bi-stars me-1" />
-                عضویت ویژه
+                {t("newsletter.badge")}
               </span>
             </div>
 
             <h2
               className="newsletter-title fw-bold mb-3"
-              style={{ fontSize: "clamp(1.4rem,3vw,2rem)", color: "#1a0f3c", lineHeight: 1.35 }}
+              style={{ fontSize: "clamp(1.4rem,3vw,2rem)", color: "var(--c-gray-900)", lineHeight: 1.35 }}
             >
-              از جدیدترین کالکشن‌ها و تخفیف‌ها باخبر شوید
+              {t("newsletter.title")}
             </h2>
 
             <p
               className="newsletter-desc mb-4 mx-auto"
-              style={{ maxWidth: 480, fontSize: 15, lineHeight: 1.9, color: "#7c6fa0" }}
+              style={{ maxWidth: 480, fontSize: 15, lineHeight: 1.9, color: "var(--c-gray-500)" }}
             >
-              عضو خبرنامه شوید و اولین نفری باشید که از محصولات جدید،
-              حراج‌های ویژه و پیشنهادهای اختصاصی مطلع می‌شود.
+              {t("newsletter.desc")}
             </p>
 
             {submitted ? (
@@ -70,7 +71,7 @@ export default function NewsletterSection() {
                 style={{ background: "var(--c-success-bg)", color: "var(--c-success-dark)", fontWeight: "var(--font-semibold)" }}
               >
                 <i className="bi bi-check-circle-fill" />
-                با موفقیت عضو شدید!
+                {t("newsletter.success")}
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="row justify-content-center mb-4">
@@ -79,18 +80,18 @@ export default function NewsletterSection() {
                     <input
                       type="email"
                       className="newsletter-input form-control border-0 px-3 px-md-4"
-                      placeholder="ایمیل خود را وارد کنید"
+                      placeholder={t("newsletter.placeholder")}
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      style={{ borderRadius: "100px 0 0 100px", background: "#f5f3ff", color: "#1a0f3c", fontSize: "clamp(0.85rem, 2vw, 0.95rem)" }}
+                      style={{ borderRadius: "100px 0 0 100px", background: "var(--c-gray-50)", color: "var(--c-gray-900)", fontSize: "clamp(0.85rem, 2vw, 0.95rem)" }}
                     />
                     <button
                       type="submit"
                       className="newsletter-submit btn fw-bold px-3 px-md-4 d-flex align-items-center gap-2 touch-target flex-shrink-0"
-                      style={{ borderRadius: "0 100px 100px 0", background: "#4f46e5", color: "#fff", fontSize: "clamp(0.85rem, 2vw, 0.95rem)" }}
+                      style={{ borderRadius: "0 100px 100px 0", background: "var(--c-primary)", color: "#fff", fontSize: "clamp(0.85rem, 2vw, 0.95rem)" }}
                     >
                       <i className="bi bi-send" />
-                      <span className="d-none d-sm-inline">عضویت</span>
+                      <span className="d-none d-sm-inline">{t("newsletter.submit")}</span>
                     </button>
                   </div>
                 </div>
@@ -99,14 +100,14 @@ export default function NewsletterSection() {
 
             <div className="d-flex flex-wrap justify-content-center gap-2">
               {[
-                { icon: "bi-gift", text: "تخفیف ۱۰٪ برای اولین خرید" },
-                { icon: "bi-bell", text: "اطلاع از موجودی محصولات" },
-                { icon: "bi-shield-check", text: "بدون اسپم" },
+                { icon: "bi-gift", text: t("newsletter.perk1") },
+                { icon: "bi-bell", text: t("newsletter.perk2") },
+                { icon: "bi-shield-check", text: t("newsletter.perk3") },
               ].map((p, i) => (
                 <span
                   key={i}
                   className="newsletter-perk d-inline-flex align-items-center gap-2 rounded-pill px-3 py-2"
-                  style={{ background: "#f5f3ff", color: "#6d28d9", fontSize: 13, border: "1px solid #ede9fe" }}
+                  style={{ background: "var(--c-primary-bg)", color: "var(--c-primary)", fontSize: 13, border: "1px solid transparent" }}
                 >
                   <i className={`bi ${p.icon}`} />
                   {p.text}

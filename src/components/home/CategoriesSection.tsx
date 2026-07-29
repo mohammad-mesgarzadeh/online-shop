@@ -3,12 +3,14 @@ import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 
 import "swiper/css";
 
 import { categories } from "../../data/categories";
 
 export default function CategoriesSection() {
+  const { t } = useLanguage();
   return (
     <section className="py-5 py-lg-6" dir="rtl">
       <div className="container">
@@ -16,12 +18,12 @@ export default function CategoriesSection() {
           <div>
             <span className="section-badge">
               <i className="bi bi-grid me-1" />
-              دسته‌بندی‌ها
+              {t("categoriesSection.badge")}
             </span>
-            <h2>دسته بندی های محبوب</h2>
+            <h2>{t("categoriesSection.title")}</h2>
           </div>
           <Link to="/categories" className="btn btn-vesta-outline rounded-pill">
-            مشاهده همه
+            {t("categories.viewAll")}
             <i className="bi bi-arrow-left me-2" />
           </Link>
         </div>

@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function FeaturesSection() {
+  const { t } = useLanguage();
   const features = [
-    { icon: "bi-award", title: "ضمانت اصالت کالا", desc: "تضمین کیفیت تمام محصولات" },
-    { icon: "bi-headset", title: "پشتیبانی ۲۴/۷", desc: "همیشه در کنار شما هستیم" },
-    { icon: "bi-shield-check", title: "گارانتی بازگشت وجه", desc: "۷ روز مهلت بازگشت خرید" },
-    { icon: "bi-truck", title: "ارسال رایگان", desc: "برای سفارش‌های بالای ۱ میلیون تومان" },
+    { icon: "bi-award", title: t("features.warranty.title"), desc: t("features.warranty.desc") },
+    { icon: "bi-headset", title: t("features.support.title"), desc: t("features.support.desc") },
+    { icon: "bi-shield-check", title: t("features.returns.title"), desc: t("features.returns.desc") },
+    { icon: "bi-truck", title: t("features.shipping.title"), desc: t("features.shipping.desc") },
   ];
 
   return (

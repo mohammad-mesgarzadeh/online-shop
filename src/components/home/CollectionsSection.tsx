@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 import { categoryGroups } from "../../data/categories";
 import { categories } from "../../data/categories";
 
 export default function CollectionsSection() {
+  const { t } = useLanguage();
   return (
     <section className="py-5 py-lg-6" dir="rtl">
       <div className="container">
@@ -11,12 +13,12 @@ export default function CollectionsSection() {
           <div>
             <span className="section-badge">
               <i className="bi bi-grid-3x3-gap me-1" />
-              کالکشن‌ها
+              {t("collections.badge")}
             </span>
-            <h2>مجموعه‌های ما</h2>
+            <h2>{t("collections.title")}</h2>
           </div>
           <Link to="/categories" className="btn btn-vesta-outline rounded-pill">
-            مشاهده همه
+            {t("categories.viewAll")}
             <i className="bi bi-arrow-left me-2" />
           </Link>
         </div>
@@ -95,7 +97,7 @@ export default function CollectionsSection() {
                           className="mt-3 d-inline-flex align-items-center gap-2"
                           style={{ color: "#a78bfa", fontSize: "var(--text-sm)", fontWeight: "var(--font-semibold)" }}
                         >
-                          مشاهده مجموعه
+                          {t("collections.viewCollection")}
                           <i className="bi bi-arrow-left" />
                         </div>
                       </div>

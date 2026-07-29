@@ -19,6 +19,7 @@ const en: Record<string, string> = {
   "common.or": "or",
   "common.toman": "Toman",
   "common.free": "Free",
+  "common.pagination": "Pagination",
 
   // Navbar
   "nav.home": "Home",
@@ -311,6 +312,134 @@ const en: Record<string, string> = {
   "auth.invalidCredentials": "Invalid email or password",
   "auth.emailTaken": "Email is already registered",
 
+  // Home Section - Features
+  "features.warranty.title": "Product Authenticity Guarantee",
+  "features.warranty.desc": "Quality guaranteed for all products",
+  "features.support.title": "24/7 Support",
+  "features.support.desc": "We're always here for you",
+  "features.returns.title": "Money Back Guarantee",
+  "features.returns.desc": "7-day return policy",
+  "features.shipping.title": "Free Shipping",
+  "features.shipping.desc": "For orders over 1 million Toman",
+
+  // Home Section - Categories
+  "categoriesSection.badge": "Categories",
+  "categoriesSection.title": "Popular Categories",
+
+  // Home Section - Best Selling
+  "bestSelling.badge": "Best Sellers",
+  "bestSelling.title": "Best Selling Products",
+  "bestSelling.desc": "Our customers' most popular products",
+
+  // Home Section - New Arrivals
+  "newArrivals.badge": "New Arrivals",
+  "newArrivals.title": "New Products",
+  "newArrivals.desc": "Discover the newest products added to our store",
+
+  // Home Section - Promotional Banners
+  "promo.collection.tag": "NEW COLLECTION",
+  "promo.collection.title": "Men's Collection 2026",
+  "promo.collection.desc": "The latest hoodies, t-shirts and street style clothing",
+  "promo.collection.cta": "View Products",
+  "promo.sale.tag": "SALE UP TO 50%",
+  "promo.sale.title": "End of Season Sale",
+  "promo.sale.desc": "Get up to 50% off on hundreds of products",
+  "promo.sale.cta": "Shop Discounts",
+
+  // Home Section - Collections
+  "collections.badge": "Collections",
+  "collections.title": "Our Collections",
+  "collections.viewCollection": "View Collection",
+
+  // Home Section - Brand Story
+  "brandStory.badge": "Our Story",
+  "brandStory.heading1": "More than a store,",
+  "brandStory.heading2": "a style experience",
+  "brandStory.p1": "VESTA was founded with the goal of providing the best fashion and clothing products from reputable global brands. We believe that everyone deserves to have their own unique style.",
+  "brandStory.p2": "From careful product selection to luxury packaging and fast delivery, your entire shopping experience is designed with care and passion.",
+  "brandStory.stat1.num": "50+",
+  "brandStory.stat1.label": "Trusted Brands",
+  "brandStory.stat2.num": "10K+",
+  "brandStory.stat2.label": "Happy Customers",
+  "brandStory.stat3.num": "24 Hrs",
+  "brandStory.stat3.label": "Fast Delivery",
+  "brandStory.rating": "4.9",
+  "brandStory.ratingLabel": "Rating out of 5",
+
+  // Home Section - Why Choose Us
+  "whyChooseUs.badge": "Why VESTA?",
+  "whyChooseUs.title": "Why Choose Us?",
+  "whyChooseUs.reason1.title": "Authentic Products",
+  "whyChooseUs.reason1.desc": "All our products are from reputable brands with authenticity guarantee.",
+  "whyChooseUs.reason2.title": "Easy Returns",
+  "whyChooseUs.reason2.desc": "Up to 7 days after purchase, unconditional product return.",
+  "whyChooseUs.reason3.title": "Fast Shipping",
+  "whyChooseUs.reason3.desc": "Delivery within 24 hours in Tehran and 48 hours across the country.",
+  "whyChooseUs.reason4.title": "24/7 Support",
+  "whyChooseUs.reason4.desc": "Our support team is ready to help you around the clock.",
+  "whyChooseUs.reason5.title": "Secure Payment",
+  "whyChooseUs.reason5.desc": "Payment through secure banking gateways with full encryption.",
+  "whyChooseUs.reason6.title": "Special Discounts",
+  "whyChooseUs.reason6.desc": "Periodic discounts and special offers for our customer club members.",
+
+  // Home Section - Testimonials
+  "testimonials.badge": "Customer Reviews",
+  "testimonials.title": "What Our Customers Say",
+  "testimonials.0.name": "Sara Ahmadi",
+  "testimonials.0.role": "Fashion Designer",
+  "testimonials.0.text": "VESTA product quality is amazing. Every time I order, I'm amazed by the packaging and quality of the clothes. The best online store for clothing shopping.",
+  "testimonials.1.name": "Mohammad Rezaei",
+  "testimonials.1.role": "Developer",
+  "testimonials.1.text": "Fast delivery and stylish packaging. The prices are great for the quality. I'll definitely be shopping here again.",
+  "testimonials.2.name": "Niloufar Karimi",
+  "testimonials.2.role": "Photographer",
+  "testimonials.2.text": "The style and design of the products are very modern and unique. Exactly what I was looking for. Great and responsive support.",
+  "testimonials.3.name": "Ali Mohammadi",
+  "testimonials.3.role": "Business Manager",
+  "testimonials.3.text": "I'm completely satisfied with my purchase. Products are authentic and high quality. They also have great discounts.",
+
+  // Home Section - Instagram
+  "instagram.badge": "Instagram",
+  "instagram.title": "Follow us on Instagram",
+  "instagram.handle": "@vesta_shop",
+
+  // Home Section - Newsletter
+  "newsletter.badge": "Premium Membership",
+  "newsletter.title": "Stay up to date with our latest collections and deals",
+  "newsletter.desc": "Subscribe to our newsletter and be the first to know about new products, special sales, and exclusive offers.",
+  "newsletter.placeholder": "Enter your email",
+  "newsletter.submit": "Subscribe",
+  "newsletter.success": "Successfully subscribed!",
+  "newsletter.perk1": "10% off your first purchase",
+  "newsletter.perk2": "Product restock alerts",
+  "newsletter.perk3": "No spam",
+
+  // Home Section - Hero
+  "hero.slide0.badge": "Summer Collection 2026",
+  "hero.slide0.headline": "Create Your Own Style",
+  "hero.slide0.sub": "The latest men's and women's styles with seasonal special discounts",
+  "hero.slide0.cta": "Shop Now",
+  "hero.slide0.ctaSecondary": "View Collection",
+  "hero.slide0.tagLabel": "Special Offer",
+  "hero.slide0.tagValue": "50%",
+  "hero.slide1.badge": "New Trends",
+  "hero.slide1.headline": "Autumn Collection 2026",
+  "hero.slide1.sub": "The latest hoodies, sweatshirts and trendy clothes of the season",
+  "hero.slide1.cta": "View Products",
+  "hero.slide1.ctaSecondary": "Best Sellers",
+  "hero.slide1.tagLabel": "New Product",
+  "hero.slide1.tagValue": "+200",
+  "hero.slide2.badge": "Free Shipping",
+  "hero.slide2.headline": "Unique Style, Great Price",
+  "hero.slide2.sub": "Get free shipping on orders over 2 million Toman",
+  "hero.slide2.cta": "View Offers",
+  "hero.slide2.ctaSecondary": "Rules",
+  "hero.slide2.tagLabel": "Shipping",
+  "hero.slide2.tagValue": "Free",
+  "hero.stat1.label": "Active Customers",
+  "hero.stat2.label": "Products",
+  "hero.stat3.label": "User Rating",
+
   // Product
   "product.addToCart": "Add to Cart",
   "product.buyNow": "Buy Now",
@@ -347,6 +476,15 @@ const en: Record<string, string> = {
   "product.specMaterial": "Material",
   "product.specWeight": "Weight",
   "product.descriptionExtra": "This product is made with the highest quality materials and precision. Perfect for everyday use and casual occasions.",
+
+  // ProductCard
+  "productCard.new": "New",
+  "productCard.addToWishlist": "Add to Wishlist",
+  "productCard.removeFromWishlist": "Remove from Wishlist",
+  "productCard.viewProduct": "View Product",
+  "productCard.added": "Added",
+  "productCard.outOfStock": "Out of Stock",
+  "productCard.image": "Image",
 
   // Cart
   "cart.title": "Shopping Cart",
@@ -440,6 +578,7 @@ const en: Record<string, string> = {
   "products.noResultsDesc": "No products match the selected filters.",
   "products.clearFilters": "Clear Filters",
   "products.viewAll": "View All Products",
+  "products.count": "product",
   "products.clearAll": "Clear All",
   "products.noProductsWithSearch": "No products match",
   "products.noMatchWithSearch": "",
@@ -456,6 +595,12 @@ const en: Record<string, string> = {
   "filter.onSale": "On Sale",
   "filter.newArrivals": "New Arrivals",
   "filter.all": "All",
+  "filter.from": "From",
+  "filter.to": "To",
+  "filter.minPrice": "Min Price",
+  "filter.maxPrice": "Max Price",
+  "filter.andUp": "and up",
+  "filter.features": "Features",
   "filter.apply": "Apply Filters",
   "filter.reset": "Reset",
 

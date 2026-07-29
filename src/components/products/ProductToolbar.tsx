@@ -1,3 +1,5 @@
+import { useLanguage } from "../../context/LanguageContext";
+
 type ProductToolbarProps = {
   totalProducts: number;
   sortBy: string;
@@ -9,11 +11,12 @@ export default function ProductToolbar({
   sortBy,
   onSortChange,
 }: ProductToolbarProps) {
+  const { t } = useLanguage();
   return (
     <div className="pt">
       <div className="pt-info">
         <span className="pt-count">
-          <strong>{totalProducts}</strong> محصول
+          <strong>{totalProducts}</strong> {t("products.count")}
         </span>
       </div>
       <div className="pt-sort">
@@ -22,15 +25,15 @@ export default function ProductToolbar({
           className="pt-sort-select"
           value={sortBy}
           onChange={(e) => onSortChange(e.target.value)}
-          aria-label="مرتب‌سازی"
+          aria-label={t("products.sort")}
         >
-          <option value="featured">پیشنهادی</option>
-          <option value="newest">جدیدترین</option>
-          <option value="best-selling">پرفروش‌ترین</option>
-          <option value="cheapest">ارزان‌ترین</option>
-          <option value="most-expensive">گران‌ترین</option>
-          <option value="highest-rated">بالاترین امتیاز</option>
-          <option value="most-popular">محبوب‌ترین</option>
+          <option value="featured">{t("products.sortFeatured")}</option>
+          <option value="newest">{t("products.sortNewest")}</option>
+          <option value="best-selling">{t("products.sortBestSelling")}</option>
+          <option value="cheapest">{t("products.sortCheapest")}</option>
+          <option value="most-expensive">{t("products.sortExpensive")}</option>
+          <option value="highest-rated">{t("products.sortHighestRated")}</option>
+          <option value="most-popular">{t("products.sortMostPopular")}</option>
         </select>
       </div>
     </div>

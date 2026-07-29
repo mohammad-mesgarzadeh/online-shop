@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useLanguage } from "../../context/LanguageContext";
 
 export default function PromotionalBanners() {
+  const { t } = useLanguage();
   const cards = [
     {
-      tag: "NEW COLLECTION",
-      title: "کالکشن مردانه ۲۰۲۶",
-      desc: "جدیدترین هودی‌ها، تیشرت‌ها و لباس‌های استریت استایل",
-      cta: "مشاهده محصولات",
+      tag: t("promo.collection.tag"),
+      title: t("promo.collection.title"),
+      desc: t("promo.collection.desc"),
+      cta: t("promo.collection.cta"),
       link: "/products",
       img: "https://images.unsplash.com/photo-1617137968427-85924c800a22?w=600&q=80",
       gradient: "linear-gradient(135deg, #1a0f3c 0%, #2d1b69 60%, #4c1d95 100%)",
@@ -15,10 +17,10 @@ export default function PromotionalBanners() {
       blob2: "#6d28d9",
     },
     {
-      tag: "SALE UP TO 50%",
-      title: "حراج پایان فصل",
-      desc: "روی صدها محصول تا ۵۰٪ تخفیف دریافت کنید",
-      cta: "خرید با تخفیف",
+      tag: t("promo.sale.tag"),
+      title: t("promo.sale.title"),
+      desc: t("promo.sale.desc"),
+      cta: t("promo.sale.cta"),
       link: "/offers",
       img: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?w=600&q=80",
       gradient: "linear-gradient(135deg, #0f172a 0%, #1e1b4b 60%, #312e81 100%)",
